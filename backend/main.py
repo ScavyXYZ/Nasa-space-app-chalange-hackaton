@@ -10,6 +10,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse
 from pydantic import BaseModel, ConfigDict, Field
 
+from algorithms import plan_route
+from algorithms.grid import MarsRasterGeometry
 from algorithms.metrics import analyze_route
 from algorithms.terrain import DATASETS, ROOT, TerrainError, TerrainGrid
 
@@ -22,6 +24,22 @@ class ProfileRequest(BaseModel):
     coordinates: list[tuple[float,float]] = Field(min_length=2, max_length=1000)
     sample_step_m: float | None = Field(default=None, gt=0)
     max_slope_deg: float = Field(default=15, ge=0, le=90)
+
+
+class Position(BaseModel):
+    model_config = ConfigDict(extra="forbid", allow_inf_nan=False)
+    lon: float = Field(ge=-180, le=180)
+    lat: float = Field(ge=-90, le=90)
+
+
+class RouteRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid", allow_inf_nan=False)
+    dataset: Dataset = "ctx"
+    start: Position
+    end: Position
+    max_slope_deg: float = Field(default=15, ge=0, le=90)
+    slope_weight: float = Field(default=1, ge=0, le=100)
+    mode: Literal["astar", "hierarchical"] = "astar"
 
 
 def create_app(root=ROOT):
@@ -39,7 +57,7 @@ def create_app(root=ROOT):
             loaded.clear()
 
     app = FastAPI(title="MARS EXPLORER — GIS Terrain API", version="1.0.0",
-                  description="Mars terrain sampling and analysis of supplied routes. No A* search.",
+                  description="Mars terrain sampling, route analysis and A* route planning.",
                   lifespan=lifespan)
     app.add_middleware(CORSMiddleware, allow_origins=["http://localhost:5173","http://127.0.0.1:5173"],
                        allow_methods=["GET","POST"], allow_headers=["Content-Type"])
@@ -102,6 +120,16 @@ def create_app(root=ROOT):
     def profile(payload: ProfileRequest):
         return analyze_route(grid(payload.dataset), payload.coordinates,
                              sample_step_m=payload.sample_step_m, max_slope_deg=payload.max_slope_deg)
+
+    @app.post("/api/route")
+    def route(payload: RouteRequest):
+        terrain = grid(payload.dataset)
+        geometry = MarsRasterGeometry(terrain=terrain)
+        result = plan_route(terrain.elevation, terrain.slope, terrain.valid, geometry,
+                            (payload.start.lon, payload.start.lat), (payload.end.lon, payload.end.lat),
+                            max_slope_deg=payload.max_slope_deg, slope_weight=payload.slope_weight,
+                            mode=payload.mode)
+        return {"dataset": payload.dataset, **result}
 
     @app.get("/api/points")
     def points():

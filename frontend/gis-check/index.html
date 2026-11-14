@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Mars Explorer · GIS перевірка</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <style>
+    :root{--bg:#f8fafc;--card:#fff;--text:#172d50;--muted:#475569;--border:#cbd5e1;--accent:#1e40af}
+    *{box-sizing:border-box}body{margin:0;font:15px/1.5 system-ui,sans-serif;background:var(--bg);color:var(--text)}
+    header{padding:20px 24px;background:var(--card);border-bottom:1px solid var(--border)}h1{margin:0;font-size:24px}
+    header p{margin:6px 0 0;color:var(--muted)}main{display:grid;grid-template-columns:minmax(0,1fr) 350px;gap:16px;padding:16px}
+    #map{height:66vh;min-height:400px;background:#293443;border:1px solid var(--border);border-radius:8px}
+    aside,section{padding:16px;background:var(--card);border:1px solid var(--border);border-radius:8px}
+    aside{max-height:85vh;overflow:auto}h2{font-size:18px;margin:0 0 12px}h3{font-size:16px}
+    label{display:block;margin:8px 0}input,select,button{font:inherit;padding:9px;border:1px solid #64748b;border-radius:5px}
+    input[type=number],select{width:100%}button{background:var(--accent);color:white;cursor:pointer;margin:6px 4px 6px 0}
+    button:disabled{opacity:.6;cursor:wait}button:hover:not(:disabled){background:#172d80}
+    :focus-visible{outline:3px solid #d97706;outline-offset:3px}input[type=checkbox]{margin-right:8px}
+    .warning{padding:10px;background:#fff7ed;color:#78350f;border-left:4px solid #b45309}
+    #status{white-space:pre-wrap;overflow-wrap:anywhere;color:var(--muted)}#chart{width:100%;height:190px}
+    section{margin-top:16px}.row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}th,td{text-align:left;padding:6px;border-bottom:1px solid var(--border)}
+    .table-wrap{max-height:260px;overflow:auto}#summary{white-space:pre-line}small{color:var(--muted)}a{color:var(--accent)}
+    @media(max-width:850px){main{grid-template-columns:1fr}aside{max-height:none}#map{height:55vh;min-height:320px}header{padding:16px}}
+  </style>
+</head>
+<body>
+<header><h1>MARS EXPLORER / GIS перевірка</h1>
+  <p>Реальні дані USGS · Jezero · висоти, ухили та аналіз заданої лінії</p>
+</header>
+<main>
+  <div>
+    <div id="map" aria-label="Карта Jezero з оптичними, геологічними та топографічними шарами"></div>
+    <section aria-labelledby="profile-title">
+      <h2 id="profile-title">Профіль висот заданої лінії</h2>
+      <p id="summary">Додайте дві вершини на карті або через координати.</p>
+      <svg id="chart" viewBox="0 0 800 190" role="img" aria-label="Профіль висот; числові значення в таблиці нижче"></svg>
+      <div class="table-wrap"><table>
+        <caption>Вибірка профілю (до 100 рядків; повний профіль повертає API)</caption>
+        <thead><tr><th scope="col">Відстань, м</th><th scope="col">Висота, м</th><th scope="col">Ухил, °</th></tr></thead>
+        <tbody id="samples"></tbody>
+      </table></div>
+    </section>
+  </div>
+  <aside aria-label="GIS інструменти">
+    <h2>Дані та вимірювання</h2>
+    <p class="warning">Це не A* і не оцінка безпеки. Геологія має можливе зміщення 100–200 м. HiRISE — окрема локальна сітка.</p>
+    <label for="dataset">Сітка для запитів</label>
+    <select id="dataset"><option value="ctx">CTX · 20 м</option><option value="hirise">HiRISE · 1 проєкційний метр</option></select>
+    <label><input id="add-vertices" type="checkbox" checked>Додавати вершини натисканням карти</label>
+    <form id="point-form">
+      <div class="row">
+        <label>Довгота E<input id="lon" type="number" step="any" min="-180" max="180" required></label>
+        <label>Широта N<input id="lat" type="number" step="any" min="-90" max="90" required></label>
+      </div>
+      <button type="submit">Перевірити координати</button>
+    </form>
+    <p id="status" role="status" aria-live="polite">Завантаження шарів…</p>
+    <h3>Задана лінія</h3>
+    <p id="vertex-count">Вершин: 0</p>
+    <label>Поріг ухилу моделі, °<input id="threshold" type="number" min="0" max="90" value="15" step="any"></label>
+    <button id="analyze" disabled>Побудувати профіль</button><button id="clear">Очистити</button>
+    <p><small>Профіль використовує висоту клітинки без інтерполяції. Лінія через NoData відхиляється.</small></p>
+    <details><summary>Легенди та походження</summary><div id="legends"></div>
+      <p><a href="https://doi.org/10.3133/sim3464" target="_blank" rel="noopener">USGS SIM 3464</a></p>
+    </details>
+    <p><a href="/docs">API документація</a></p>
+  </aside>
+</main>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+"use strict";
+const $ = id => document.getElementById(id);
+const fmt = n => Number(n).toFixed(2);
+let map, vertices=[], routeLayer, revision=0, busy=false;
+const markerLayer = L.layerGroup();
+const colors=["#b45309","#2563eb","#047857","#9333ea"];
+async function request(url,options) {
+  const response=await fetch(url,options);
+  const data=await response.json();
+  if(!response.ok) throw new Error(data.detail?.message || JSON.stringify(data.detail || data));
+  return data;
+}
+function updateVertices() {
+  $("vertex-count").textContent=`Вершин: ${vertices.length}`;
+  $("analyze").disabled=vertices.length<2 || busy;
+  if(routeLayer) routeLayer.remove();
+  routeLayer=L.polyline(vertices.map(([lon,lat])=>[lat,lon]),{color:"#06b6d4",weight:3}).addTo(map);
+}
+function clearRoute() {
+  revision++; vertices=[]; markerLayer.clearLayers(); updateVertices();
+  $("samples").replaceChildren(); $("chart").replaceChildren();
+  $("summary").textContent="Додайте дві вершини на карті або через координати.";
+  $("status").textContent="Лінію очищено.";
+}
+async function sample(lon,lat) {
+  const current=revision, dataset=$("dataset").value;
+  try {
+    const p=await request(`/api/elevation?dataset=${dataset}&lon=${lon}&lat=${lat}`);
+    if(current!==revision) return;
+    $("lon").value=lon; $("lat").value=lat;
+    $("status").textContent=p.valid
+      ? `${dataset.toUpperCase()} [${p.row}, ${p.col}]\nВисота: ${fmt(p.elevation_m)} м\nУхил: ${fmt(p.slope_deg)}°`
+      : "NoData: вимірювань немає. Вершину не додано.";
+    if(p.valid && $("add-vertices").checked) {
+      revision++;
+      $("samples").replaceChildren(); $("chart").replaceChildren();
+      $("summary").textContent="Лінію змінено. Перерахуйте профіль.";
+      vertices.push([lon,lat]);
+      L.circleMarker([lat,lon],{radius:4,color:"#06b6d4"}).addTo(markerLayer);
+      updateVertices();
+    }
+  } catch(error) {if(current===revision) $("status").textContent=error.message;}
+}
+function renderProfile(data) {
+  const s=data.summary;
+  $("summary").textContent=`Довжина: ${fmt(s.distance_m)} м · набір: ${fmt(s.elevation_gain_m)} м · спуск: ${fmt(s.elevation_loss_m)} м\n`+
+    `Висоти: ${fmt(s.elevation_min_m)}…${fmt(s.elevation_max_m)} м · максимальний ухил перетнутих клітинок: ${fmt(s.max_terrain_slope_deg)}°\n`+
+    `Клітинок вище порогу: ${s.cells_above_slope_threshold}. Не є рекомендацією щодо безпеки.`;
+  const range=Math.max(1,s.elevation_max_m-s.elevation_min_m);
+  const points=data.profile.map(p=>`${20+760*p.distance_m/Math.max(1,s.distance_m)},${170-150*(p.elevation_m-s.elevation_min_m)/range}`).join(" ");
+  const line=document.createElementNS("http://www.w3.org/2000/svg","polyline");
+  line.setAttribute("points",points);line.setAttribute("fill","none");line.setAttribute("stroke","#1e40af");line.setAttribute("stroke-width","2");
+  $("chart").replaceChildren(line);
+  const rows=[], step=Math.max(1,Math.ceil(data.profile.length/100));
+  data.profile.filter((_,i)=>i%step===0 || i===data.profile.length-1).forEach(p=>{
+    const tr=document.createElement("tr");
+    [p.distance_m,p.elevation_m,p.slope_deg].forEach(v=>{const td=document.createElement("td");td.textContent=fmt(v);tr.append(td);});
+    rows.push(tr);
+  });
+  $("samples").replaceChildren(...rows);
+}
+async function init() {
+  const layers=await request("/api/layers"), config=layers.imagery;
+  // Angular display only. Override CRS distance; never use Earth LatLng.distanceTo.
+  const mars=L.extend({},L.CRS.EPSG4326,{distance(a,b) {
+    const rad=Math.PI/180, dlat=(b.lat-a.lat)*rad,dlon=(b.lng-a.lng)*rad;
+    const h=Math.sin(dlat/2)**2+Math.cos(a.lat*rad)*Math.cos(b.lat*rad)*Math.sin(dlon/2)**2;
+    return 2*3396190*Math.asin(Math.sqrt(Math.min(1,h)));
+  }});
+  map=L.map("map",{crs:mars,minZoom:8,maxZoom:21,zoomAnimation:false,fadeAnimation:false});
+  const optical=L.imageOverlay("/api/assets/ctx-optical.png",config.bounds_lat_lon,{attribution:"NASA/MRO/CTX · USGS"}).addTo(map);
+  map.fitBounds(config.bounds_lat_lon);markerLayer.addTo(map);
+  const overlays={};
+  for(const dataset of ["ctx","hirise"]) {
+    $("dataset").querySelector(`option[value=${dataset}]`).disabled=!layers.terrain[dataset].available;
+    if(!layers.terrain[dataset].available) continue;
+    const c=await request(`/api/overlays/${dataset}`);
+    c.overlays.forEach(item=>{
+      overlays[`${dataset.toUpperCase()} ${item.name}`]=L.imageOverlay(item.url,item.bounds_lat_lon,{opacity:.75});
+      const p=document.createElement("p");
+      p.textContent=`${dataset.toUpperCase()} ${item.name}: ${fmt(item.legend.min)}…${fmt(item.legend.max)} ${item.legend.units} (${item.legend.colormap}); NoData прозорий.`;
+      $("legends").append(p);
+    });
+    const b=layers.terrain[dataset].metadata.bounds_lon_lat_deg;
+    overlays[`${dataset.toUpperCase()} межі`]=L.rectangle([[b[1],b[0]],[b[3],b[2]]],{color:dataset==="ctx"?"#fff":"#facc15",weight:2,fill:false});
+    if(dataset==="hirise") overlays["HIRISE межі"].addTo(map);
+  }
+  const geology=await request("/api/geology"),science=await request("/api/points");
+  const names=layers.geology.legend.map(x=>x.name);
+  const popup=f=>{const p=document.createElement("p");p.textContent=f.properties.name+" · USGS SIM 3464 · зміщення 100–200 м";return p;};
+  overlays["Геологічні одиниці"]=L.geoJSON(geology,{style:f=>({color:colors[Math.max(0,names.indexOf(f.properties.name))%colors.length],weight:2,fillOpacity:.2,bubblingMouseEvents:false}),onEachFeature:(f,l)=>l.bindPopup(popup(f))});
+  overlays["Наукові області"]=L.geoJSON(science,{style:{color:"#0891b2",weight:2,fillOpacity:.08,bubblingMouseEvents:false},onEachFeature:(f,l)=>l.bindPopup(popup(f))});
+  names.forEach((name,i)=>{const p=document.createElement("p");p.style.borderLeft=`6px solid ${colors[i%colors.length]}`;p.style.paddingLeft="8px";p.textContent=name;$("legends").append(p);});
+  L.control.layers({"CTX optical":optical},overlays,{collapsed:false}).addTo(map);
+  map.on("click",e=>sample(e.latlng.lng,e.latlng.lat));
+  $("dataset").addEventListener("change",()=>{clearRoute();$("status").textContent="Сітку змінено. Вершини очищені; автоматичного змішування CTX/HiRISE немає.";});
+  $("point-form").addEventListener("submit",e=>{e.preventDefault();sample(Number($("lon").value),Number($("lat").value));});
+  $("clear").addEventListener("click",clearRoute);
+  $("analyze").addEventListener("click",async()=>{
+    const current=revision, coordinates=vertices.map(p=>[...p]);
+    busy=true;updateVertices();$("status").textContent="Розрахунок профілю…";
+    try {
+      const data=await request("/api/route/profile",{method:"POST",headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({dataset:$("dataset").value,coordinates,max_slope_deg:Number($("threshold").value)})});
+      if(current===revision){renderProfile(data);$("status").textContent="Профіль розрахований. Лінію задав користувач, не алгоритм A*.";}
+    }catch(error){if(current===revision) $("status").textContent=error.message;}
+    finally{busy=false;updateVertices();}
+  });
+  $("status").textContent="Шари завантажено. Натисніть карту або введіть координати. Перемикачі шарів — праворуч.";
+}
+init().catch(error=>{$("status").textContent=`Не вдалося завантажити карту: ${error.message}. Перевірте API, локальні дані та доступ до Leaflet CDN.`;});
+</script>
+</body>
+</html>

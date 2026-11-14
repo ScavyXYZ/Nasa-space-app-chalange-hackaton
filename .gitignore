@@ -1,7 +1,5 @@
 .venv/
 __pycache__/
-data/raw/
-data/processed/*.tif
-data/processed/*.npy
-data/processed/hirise/*.tif
-data/processed/hirise/*.npy
+*.part
+*.part.tif
+*.part.zip

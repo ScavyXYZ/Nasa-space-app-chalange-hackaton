@@ -1,0 +1,2 @@
+# Optional QA only, not required by API or data processing.
+playwright>=1.48

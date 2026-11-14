@@ -1,0 +1,49 @@
+{
+  "dataset": "ctx",
+  "coordinate_system": "Mars planetocentric degrees; east-positive; NOT WGS84",
+  "rendering": "Geographic PNGs for EPSG4326-style angular display; never sample these as elevation.",
+  "overlays": [
+    {
+      "name": "elevation",
+      "url": "/api/assets/ctx-elevation.png",
+      "bounds_lat_lon": [
+        [
+          18.40279319132929,
+          77.40616912514038
+        ],
+        [
+          18.487146215619862,
+          77.4951012538785
+        ]
+      ],
+      "legend": {
+        "units": "m",
+        "min": -2642.48046875,
+        "max": -2442.54833984375,
+        "colormap": "terrain",
+        "note": "Display scale; slopes above 45deg saturate. NoData transparent."
+      }
+    },
+    {
+      "name": "slope",
+      "url": "/api/assets/ctx-slope.png",
+      "bounds_lat_lon": [
+        [
+          18.40279319132929,
+          77.40616912514038
+        ],
+        [
+          18.487146215619862,
+          77.4951012538785
+        ]
+      ],
+      "legend": {
+        "units": "degrees",
+        "min": 0.0,
+        "max": 45.0,
+        "colormap": "magma",
+        "note": "Display scale; slopes above 45deg saturate. NoData transparent."
+      }
+    }
+  ]
+}

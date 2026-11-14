@@ -1,0 +1,6 @@
+# Preserve official downloads byte-for-byte, including source XML whitespace.
+data/raw/** -text -whitespace
+*.tif filter=lfs diff=lfs merge=lfs -text
+*.npy filter=lfs diff=lfs merge=lfs -text
+*.zip filter=lfs diff=lfs merge=lfs -text
+data/raw/geology/extracted/** filter=lfs diff=lfs merge=lfs -text

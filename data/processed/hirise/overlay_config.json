@@ -1,0 +1,49 @@
+{
+  "dataset": "hirise",
+  "coordinate_system": "Mars planetocentric degrees; east-positive; NOT WGS84",
+  "rendering": "Geographic PNGs for EPSG4326-style angular display; never sample these as elevation.",
+  "overlays": [
+    {
+      "name": "elevation",
+      "url": "/api/assets/hirise-elevation.png",
+      "bounds_lat_lon": [
+        [
+          18.4362813419726,
+          77.44235216375607
+        ],
+        [
+          18.453151946830715,
+          77.45922276861418
+        ]
+      ],
+      "legend": {
+        "units": "m",
+        "min": -2584.539306640625,
+        "max": -2553.4345703125,
+        "colormap": "terrain",
+        "note": "Display scale; slopes above 45deg saturate. NoData transparent."
+      }
+    },
+    {
+      "name": "slope",
+      "url": "/api/assets/hirise-slope.png",
+      "bounds_lat_lon": [
+        [
+          18.4362813419726,
+          77.44235216375607
+        ],
+        [
+          18.453151946830715,
+          77.45922276861418
+        ]
+      ],
+      "legend": {
+        "units": "degrees",
+        "min": 0.0,
+        "max": 45.0,
+        "colormap": "magma",
+        "note": "Display scale; slopes above 45deg saturate. NoData transparent."
+      }
+    }
+  ]
+}

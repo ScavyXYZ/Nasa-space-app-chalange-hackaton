@@ -1,0 +1,30 @@
+{
+  "status": "passed",
+  "checks": [
+    {
+      "map_coordinate_roundtrip_and_Mars_distance": {
+        "errorDeg": 6.669921874902229e-05,
+        "errorPixels": 0.42223638880872816,
+        "marsEastDistance": 50.606752164287926,
+        "images": true
+      }
+    },
+    {
+      "ctx_interactive_point_and_profile": "passed"
+    },
+    {
+      "hirise_interactive_point_and_profile": "passed"
+    },
+    {
+      "real_geology_science_terrain_overlays": "passed"
+    },
+    {
+      "mobile_375px_no_horizontal_overflow": "passed"
+    },
+    {
+      "landscape_no_horizontal_overflow": "passed"
+    }
+  ],
+  "page_errors": [],
+  "note": "Automated display and interaction checks; not proof of metre-accurate geology registration."
+}

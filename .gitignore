@@ -3,3 +3,5 @@ __pycache__/
 data/raw/
 data/processed/*.tif
 data/processed/*.npy
+data/processed/hirise/*.tif
+data/processed/hirise/*.npy

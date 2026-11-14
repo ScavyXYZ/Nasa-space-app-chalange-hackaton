@@ -23,11 +23,12 @@ MARS_RADIUS_M = 3_396_190.0
 STANDARD_PARALLEL = 18.4663
 
 
-def derive_slope(elevation, transform):
+def derive_slope(elevation, transform, standard_parallel_deg=STANDARD_PARALLEL,
+                 radius_m=MARS_RADIUS_M):
     """Central gradients in local Mars surface metres; NaNs remain blocked."""
     dz_dy, dz_dx = np.gradient(elevation, abs(transform.e), abs(transform.a))
-    lat_rows = (transform.f + (np.arange(elevation.shape[0]) + 0.5) * transform.e) / MARS_RADIUS_M
-    east_scale = np.cos(lat_rows) / np.cos(np.deg2rad(STANDARD_PARALLEL))
+    lat_rows = (transform.f + (np.arange(elevation.shape[0]) + 0.5) * transform.e) / radius_m
+    east_scale = np.cos(lat_rows) / np.cos(np.deg2rad(standard_parallel_deg))
     slope = np.degrees(np.arctan(np.hypot(dz_dx / east_scale[:, None], dz_dy))).astype("float32")
     valid = np.isfinite(elevation) & np.isfinite(slope)
     slope[~valid] = np.nan

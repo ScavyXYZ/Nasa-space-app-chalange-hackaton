@@ -1,0 +1,47 @@
+{
+  "status": "passed",
+  "timestamp_utc": "2026-11-14T11:51:57.575207+00:00",
+  "shape": [
+    1000,
+    1000
+  ],
+  "valid_cells": 1000000,
+  "valid_fraction": 1.0,
+  "elevation_range_m": [
+    -2584.539306640625,
+    -2553.4345703125
+  ],
+  "slope_range_deg": [
+    0.0,
+    32.99469757080078
+  ],
+  "east_west_ground_spacing_m": 0.9485921492107375,
+  "north_south_ground_spacing_m": 0.9999999996285495,
+  "checks": [
+    "source_window_sha256",
+    "Mars_CRS_1m_projected_pixels",
+    "source_heights_and_nodata_preserved",
+    "shared_masks_and_affine",
+    "independent_slope_with_halo",
+    "coordinate_roundtrip",
+    "Mars_ground_distances",
+    "within_CTX_AOI"
+  ],
+  "remote_samples": [
+    {
+      "row": 0,
+      "col": 0,
+      "matches_remote": true
+    },
+    {
+      "row": 500,
+      "col": 500,
+      "matches_remote": true
+    },
+    {
+      "row": 999,
+      "col": 999,
+      "matches_remote": true
+    }
+  ]
+}

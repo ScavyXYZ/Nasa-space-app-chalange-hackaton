@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from heapq import heappop, heappush
 from math import atan2, degrees, isfinite
 from typing import Literal
+from time import monotonic
 
 import numpy as np
 
@@ -20,6 +21,7 @@ class SearchResult:
     cells: tuple[Cell, ...]
     cost: float | None
     expanded_cells: int
+    limit_reached: bool = False
 
 
 class RouteGraph:
@@ -108,7 +110,8 @@ class RouteGraph:
                     heappush(queue, (candidate, v))
         return distances
 
-    def search(self, start: Cell, goal: Cell, *, mode: Mode = "astar", block_size: int = 16) -> SearchResult:
+    def search(self, start: Cell, goal: Cell, *, mode: Mode = "astar", block_size: int = 16,
+               max_expansions: int | None = None, time_budget_s: float | None = None) -> SearchResult:
         if mode not in ("astar", "hierarchical"):
             raise ValueError(f"Unknown search mode: {mode}")
         if not isinstance(block_size, int) or block_size < 2:
@@ -119,6 +122,7 @@ class RouteGraph:
         if start == goal:
             return SearchResult((start,), 0.0, 0)
 
+        began = monotonic()
         coarse = self._coarse_lower_bounds(goal, block_size) if mode == "hierarchical" else None
 
         def heuristic(cell: Cell) -> float:
@@ -136,6 +140,9 @@ class RouteGraph:
         queue = [(start_bound, 0.0, start)]
         expanded = 0
         while queue:
+            if ((max_expansions is not None and expanded >= max_expansions)
+                    or (time_budget_s is not None and expanded % 100 == 0 and monotonic()-began > time_budget_s)):
+                return SearchResult((),None,expanded,True)
             _, negative_cost, cell = heappop(queue)
             cost = -negative_cost
             if cost != best[cell]:

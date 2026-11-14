@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "checks": [
+    "Real CTX DEM WebGL surface + actual A* route",
+    "Camera rotation + explicit visual exaggeration; route metrics retained",
+    "3D raycast selects a coordinate validated by the real elevation API",
+    "Separate real HiRISE mesh; switching 2D/3D preserves route until dataset changes",
+    "Mobile 3D layout without horizontal overflow"
+  ],
+  "page_errors": []
+}

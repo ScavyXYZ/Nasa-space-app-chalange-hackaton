@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MARS EXPLORER — презентація</title>
+<style>
+:root{--bg:#121519;--surface:#1b2026;--ink:#e7ebee;--muted:#aab3be;--accent:#f5b079;--line:#343c46}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:20px/1.55 system-ui,sans-serif}
+.slide{display:none;min-height:100vh;padding:7vh 7vw 12vh;align-content:center}
+.slide.active{display:grid;gap:20px}h1{font-size:clamp(45px,7vw,90px);font-weight:450;line-height:1.1;letter-spacing:-3px;margin:0}
+h2{font-size:clamp(30px,4vw,54px);font-weight:450;line-height:1.15;letter-spacing:-1.5px;margin:0 0 12px}
+h3{font-size:22px;font-weight:550;margin:0 0 12px}.eyebrow{font:12px ui-monospace,monospace;color:var(--accent);letter-spacing:3px}
+p{color:var(--muted);max-width:900px;margin:10px 0}.accent{color:var(--accent)}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{padding:25px;background:var(--surface);border:1px solid var(--line);border-radius:9px}.card p{font-size:17px}
+.number{font-size:46px;font-weight:450;color:var(--accent);display:block}small{font-size:13px;color:var(--muted)}
+table{border-collapse:collapse;width:100%;font-size:18px}td,th{text-align:left;padding:13px;border-bottom:1px solid var(--line)}th{color:var(--accent);font-weight:500}
+.split{display:grid;grid-template-columns:1fr 1.3fr;gap:35px;align-items:center}.screenshot{width:100%;height:400px;object-fit:cover;object-position:top;border:1px solid var(--line);border-radius:8px}
+.flow{font-size:30px;color:var(--accent)}.note{border-left:3px solid var(--accent);padding-left:16px;font-size:16px}
+nav{position:fixed;bottom:22px;left:7vw;right:7vw;display:flex;align-items:center;gap:20px;background:var(--bg)}
+button{font:14px system-ui;background:var(--surface);border:1px solid var(--line);color:var(--ink);border-radius:5px;padding:10px 18px;cursor:pointer}
+button:focus-visible,a:focus-visible{outline:3px solid var(--accent);outline-offset:3px}button:disabled{opacity:.4;cursor:default}#counter{margin-left:auto;font:12px ui-monospace,monospace;color:var(--muted)}a{color:var(--accent)}
+@media(max-width:700px){.slide{padding:35px 24px 100px}.grid,.split{grid-template-columns:1fr}body{font-size:17px}.screenshot{height:280px}.flow{font-size:21px}}
+@media print{
+@page{size:13.333in 7.5in;margin:0}
+body{font-size:18px;print-color-adjust:exact;-webkit-print-color-adjust:exact}
+.slide,.slide.active{display:grid;width:13.333in;height:7.5in;min-height:0;padding:.55in .7in;break-after:page;gap:16px}
+.slide:last-of-type{break-after:auto}h1{font-size:70px}h2{font-size:42px}.screenshot{height:380px}nav{display:none}
+}
+</style>
+</head>
+<body>
+<section class="slide active">
+  <div class="eyebrow">NASA SPACE APPS CHALLENGE 2026 / JEZERO, MARS</div>
+  <h1>MARS<br><span class="accent">EXPLORER</span></h1>
+  <p>Від орбітальних спостережень — до зрозумілого модельного маршруту.</p>
+  <p class="note">Interplanetary Survival Guide: Martian Map<br>Науковий прототип. Не система гарантовано безпечної навігації.</p>
+</section>
+<section class="slide">
+  <div class="eyebrow">01 / ПРОБЛЕМА → РІШЕННЯ</div>
+  <h2>Один маршрут.<br>Три наукові контексти.</h2>
+  <p>Оптика показує поверхню. DEM описує рельєф. Геологія пояснює дослідницький інтерес. Ми поєднали їх на спільній карті Jezero.</p>
+  <div class="grid">
+    <div class="card"><h3>Побачити</h3><p>Реальне CTX-ортофото й перемикання шарів без глобального завантаження Марса.</p></div>
+    <div class="card"><h3>Порівняти</h3><p>Висоти, ухили й задані користувачем параметри моделі.</p></div>
+    <div class="card"><h3>Дослідити</h3><p>Підтверджені геологічні області вздовж знайденого шляху.</p></div>
+  </div>
+</section>
+<section class="slide">
+  <div class="eyebrow">02 / ПЕРЕВІРЕНІ ДАНІ</div>
+  <h2>Справжні дані.<br><span class="accent">Явне походження.</span></h2>
+  <table><thead><tr><th>Джерело</th><th>Використання</th><th>Масштаб</th></tr></thead><tbody>
+    <tr><td>USGS / MRO CTX</td><td>Орторектифікована оптика</td><td>6 м/піксель</td></tr>
+    <tr><td>USGS CTX DEM</td><td>Регіональна сітка A*</td><td>20 м · 1513 × 1515</td></tr>
+    <tr><td>USGS HiRISE DTM</td><td>Окремий детальний фрагмент</td><td>1 проєкційний метр</td></tr>
+    <tr><td>Sun & Stack, SIM 3464</td><td>Геологія / 4 наукові області</td><td>Карта 1:75 000</td></tr>
+  </tbody></table>
+  <small>SHA-256 та метадані збережені. Геологія може мати зміщення 100–200 м. Крок сітки не дорівнює абсолютній точності.</small>
+</section>
+<section class="slide">
+  <div class="eyebrow">03 / МЕТОД</div>
+  <h2>Рельєф впливає на шлях.<br>Невідоме — не прохідне.</h2>
+  <div class="grid">
+    <div class="card"><h3>Mars geometry</h3><p>Сфера радіуса 3 396 190 м, марсіанські CRS та фізичні відстані.</p></div>
+    <div class="card"><h3>CPU A*</h3><p>Відстань + штраф за схил. NoData та перевищення порогу блокують рух. Діагоналі не зрізають непрохідні кути.</p></div>
+    <div class="card"><h3>Пояснюваний результат</h3><p>Профіль висот, набір/спуск, ухили та області науки з першоджерелами.</p></div>
+  </div>
+  <p class="note">Поріг ухилу задає користувач. Це параметр математичної моделі, а не офіційний стандарт безпеки NASA.</p>
+</section>
+<section class="slide">
+  <div class="eyebrow">04 / ДЕМОНСТРАЦІЯ</div>
+  <div class="split">
+    <div><h2>Від двох точок<br>до наукового контексту.</h2>
+      <p class="flow">Карта → A / B → A*<br>→ профіль → наука</p>
+      <p>React · Leaflet · Plotly<br>FastAPI · NumPy · Python 3.14</p>
+      <small>На знімку — реальний локальний production build. Відео записано автоматизованим Chromium.</small>
+    </div>
+    <img class="screenshot" src="../artifacts/mvp/regional-routing-scale.png" alt="Реальний інтерфейс MARS EXPLORER з регіональним маршрутом і марсіанською шкалою">
+  </div>
+</section>
+<section class="slide">
+  <div class="eyebrow">05 / РЕЗУЛЬТАТ ТА ВІДПОВІДАЛЬНІСТЬ</div>
+  <h2>Працюючий локальний MVP.<br><span class="accent">Без вигаданих гарантій.</span></h2>
+  <div class="grid">
+    <div class="card"><span class="number">44</span><h3>тести пройшли</h3><p>GIS, A*, API, глобус Марса, регіональний DEM, 3D mesh та невідомі клітинки.</p></div>
+    <div class="card"><h3>Наскрізний браузерний тест</h3><p>Реальний CTX/HiRISE, графік, експорт, помилки та mobile layout.</p></div>
+    <div class="card"><h3>Що ще підтвердити</h3><p>Публічний deploy, реальний demo URL та остаточне подання команди.</p></div>
+  </div>
+  <p class="note">Не виявляємо всі дрібні перешкоди. Не сертифікуємо безпечне пересування.<br>Джерела: <a href="https://doi.org/10.3133/sim3464">USGS SIM 3464</a> · USGS Astrogeology CTX/HiRISE.</p>
+</section>
+<nav aria-label="Керування презентацією"><button id="prev">← Назад</button><button id="next">Далі →</button><button onclick="window.print()">Друк / PDF</button><span id="counter" aria-live="polite"></span></nav>
+<script>
+const slides=[...document.querySelectorAll('.slide')];let current=0;
+function show(n){current=Math.max(0,Math.min(slides.length-1,n));slides.forEach((s,i)=>{s.classList.toggle('active',i===current);s.setAttribute('aria-hidden',String(i!==current))});document.querySelector('#counter').textContent=`${current+1} / ${slides.length}`;document.querySelector('#prev').disabled=current===0;document.querySelector('#next').disabled=current===slides.length-1}
+document.querySelector('#prev').onclick=()=>show(current-1);document.querySelector('#next').onclick=()=>show(current+1);
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')show(current+1);if(e.key==='ArrowLeft')show(current-1)});
+show(0);
+</script>
+</body>
+</html>

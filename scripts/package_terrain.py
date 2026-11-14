@@ -10,7 +10,8 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def main():
     files = []
-    for directory in [ROOT/"data/processed",ROOT/"data/processed/hirise",ROOT/"data/processed/gis"]:
+    for directory in [ROOT/"data/processed",ROOT/"data/processed/hirise",ROOT/"data/processed/gis",
+                      ROOT/"data/processed/regional",ROOT/"data/processed/globe"]:
         files.extend(p for p in directory.glob("*") if p.is_file())
     files.extend(ROOT/p for p in ["data/sources.json","data/download_manifest.json",
                                   "data/hirise_download_manifest.json","science/points_of_interest.geojson"])

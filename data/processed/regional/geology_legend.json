@@ -1,0 +1,98 @@
+[
+  {
+    "name": "Crater rim unit",
+    "symbols": [
+      "cr"
+    ],
+    "source": "https://doi.org/10.3133/sim3464",
+    "color_note": "Use application display colors; original map symbols retained."
+  },
+  {
+    "name": "Nili Planum 1 unit",
+    "symbols": [
+      "Nnp1"
+    ],
+    "source": "https://doi.org/10.3133/sim3464",
+    "color_note": "Use application display colors; original map symbols retained."
+  },
+  {
+    "name": "Eolian bedform unit",
+    "symbols": [
+      "Aeb"
+    ],
+    "source": "https://doi.org/10.3133/sim3464",
+    "color_note": "Use application display colors; original map symbols retained."
+  },
+  {
+    "name": "Upper etched unit",
+    "symbols": [
+      "Nue"
+    ],
+    "source": "https://doi.org/10.3133/sim3464",
+    "color_note": "Use application display colors; original map symbols retained."
+  },
+  {
+    "name": "Nili Planum 2 unit",
+    "symbols": [
+      "Nnp2"
+    ],
+    "source": "https://doi.org/10.3133/sim3464",
+    "color_note": "Use application display colors; original map symbols retained."
+  },
+  {
+    "name": "Jezero floor unit",
+    "symbols": [
+      "Njf"
+    ],
+    "source": "https://doi.org/10.3133/sim3464",
+    "color_note": "Use application display colors; original map symbols retained."
+  },
+  {
+    "name": "Smooth unit, undivided",
+    "symbols": [
+      "su"
+    ],
+    "source": "https://doi.org/10.3133/sim3464",
+    "color_note": "Use application display colors; original map symbols retained."
+  },
+  {
+    "name": "Lower etched unit",
+    "symbols": [
+      "Nle"
+    ],
+    "source": "https://doi.org/10.3133/sim3464",
+    "color_note": "Use application display colors; original map symbols retained."
+  },
+  {
+    "name": "Jezero fan 2 unit",
+    "symbols": [
+      "NHjf2"
+    ],
+    "source": "https://doi.org/10.3133/sim3464",
+    "color_note": "Use application display colors; original map symbols retained."
+  },
+  {
+    "name": "Rugged bright unit",
+    "symbols": [
+      "Nrb"
+    ],
+    "source": "https://doi.org/10.3133/sim3464",
+    "color_note": "Use application display colors; original map symbols retained."
+  },
+  {
+    "name": "Crater riim unit",
+    "symbols": [
+      "cr"
+    ],
+    "source": "https://doi.org/10.3133/sim3464",
+    "color_note": "Use application display colors; original map symbols retained."
+  },
+  {
+    "name": "Jezero fan 1 unit",
+    "symbols": [
+      "NHjf1"
+    ],
+    "source": "https://doi.org/10.3133/sim3464",
+    "color_note": "Use application display colors; original map symbols retained."
+  }
+]

@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "checks": [
+    "Default whole-Mars globe with real locally hosted USGS Viking colorized texture",
+    "Both hemispheres via rotation; zoom; actual spherical coordinate picking",
+    "Fullscreen and transition to real Jezero A*; route retained when returning to globe",
+    "Mobile globe layout"
+  ],
+  "page_errors": [],
+  "limitation": "Global visual browsing, no global DEM routing; colorized not true-color"
+}

@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: mars-explorer
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/health
+    autoDeployTrigger: "off"
+    envVars:
+      - key: PORT
+        value: "8000"

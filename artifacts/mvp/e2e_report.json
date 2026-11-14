@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "checks": [
+    "Full-width map, native fullscreen, regional overview and planner restoration",
+    "Regional real CTX context fills zoomed-out view; DEM fills default view; reset works",
+    "Real map clicks select validated A and B coordinates",
+    "Real CTX A* -> map -> metrics -> Plotly -> sourced nearby science",
+    "GeoJSON export of real route with Mars coordinate disclaimer",
+    "Stale results cleared; real outside-grid error rendered",
+    "Real blocked-endpoint error at zero slope threshold",
+    "no_route UI branch (mocked; graph disconnection tested in routing unit tests)",
+    "Real HiRISE A* with explicit separate grid",
+    "375px mobile and landscape; reduced motion"
+  ],
+  "page_errors": [],
+  "scope": "Local production build with real API. Public deployment not verified."
+}

@@ -1,0 +1,100 @@
+{
+  "status": "passed",
+  "shape": [
+    1513,
+    1515
+  ],
+  "valid_cells": 2292195,
+  "valid_fraction": 1.0,
+  "checks": [
+    "source_pixel_equality",
+    "Mars_CRS",
+    "native_20m_resolution",
+    "optical_footprint_covered",
+    "slope_independent_recalculation_with_halo",
+    "common_masks",
+    "original_5km_products_unchanged"
+  ],
+  "files": [
+    {
+      "path": "data/processed/regional/elevation_overlay.png",
+      "bytes": 352579,
+      "sha256": "bdd62b952ba9c28c1fdd5595145bd2fa2b6a8bc7585fd847c35728398d6a43a3"
+    },
+    {
+      "path": "data/processed/regional/geology.geojson",
+      "bytes": 27340036,
+      "sha256": "58bc1092c9eb03ed2515aa0a6fa67149be3073a1e61a3a31f99ca6fc09d584d4"
+    },
+    {
+      "path": "data/processed/regional/geology_display.geojson",
+      "bytes": 788950,
+      "sha256": "672801e3e6ca63f939c045f0bb128b3cf5a88bb32ea14a6b81a1e9da53a6569a"
+    },
+    {
+      "path": "data/processed/regional/geology_legend.json",
+      "bytes": 2629,
+      "sha256": "089adb8e513c2d0301b47129c63377d5b37aec34b38bb87836792608be7d1cb1"
+    },
+    {
+      "path": "data/processed/regional/jezero_dem_crop.tif",
+      "bytes": 6826616,
+      "sha256": "a0009f617c4c301b73c7a96c57d5b8fd83fefdd48bfc1f2c586d737093b57053"
+    },
+    {
+      "path": "data/processed/regional/jezero_elevation.npy",
+      "bytes": 9168908,
+      "sha256": "65c6f1ab8509aa034c289e284d1a1811e75f1a3aba05023f70fb3a455501d5ca"
+    },
+    {
+      "path": "data/processed/regional/jezero_slope.npy",
+      "bytes": 9168908,
+      "sha256": "74ae59ce5b6f38cdbe8dab4aa13978235ab1d6fafd42368ad72fb5635cd4aff6"
+    },
+    {
+      "path": "data/processed/regional/jezero_slope.tif",
+      "bytes": 8196520,
+      "sha256": "a5b1ed003bcfb9b8f812d6017f94bd7143a70231a5f690aa62e62699c96b8273"
+    },
+    {
+      "path": "data/processed/regional/jezero_source_valid_mask.npy",
+      "bytes": 2292323,
+      "sha256": "b3b0900477df89d50f9cfbf84ebd2d11fbc2fa5585a66592de9c76858edbaddb"
+    },
+    {
+      "path": "data/processed/regional/jezero_valid_mask.npy",
+      "bytes": 2292323,
+      "sha256": "c4be014771789eb814f9d41eea63b5ee1e5aaef2e47cc7bd9f3a98d1bb2663ff"
+    },
+    {
+      "path": "data/processed/regional/nodata_overlay.png",
+      "bytes": 8979,
+      "sha256": "0a657053a14a5d594541fd5eea7d4c759eb882bbf9413437b1e1ac347cf43106"
+    },
+    {
+      "path": "data/processed/regional/overlay_config.json",
+      "bytes": 1265,
+      "sha256": "c798adac0ec48c01755fa59a965bde0be05ea50e278d5a759fe605be50472ad6"
+    },
+    {
+      "path": "data/processed/regional/points_of_interest.geojson",
+      "bytes": 28877807,
+      "sha256": "dda3da3edc9bf75790251dbaf374d3f27b20d88f4cc570faf3cc3a5ba72a8ca1"
+    },
+    {
+      "path": "data/processed/regional/points_of_interest_display.geojson",
+      "bytes": 599801,
+      "sha256": "3745f24a1ac1d2c9b1b18a1b5bca87cc73a90346ba9bc2edba21780a7ce5ec62"
+    },
+    {
+      "path": "data/processed/regional/slope_overlay.png",
+      "bytes": 1660868,
+      "sha256": "b761316a324f65cb24e4568db9330670800f86b2d352e411e09f9451e801756c"
+    },
+    {
+      "path": "data/processed/regional/terrain_metadata.json",
+      "bytes": 3273,
+      "sha256": "cd67366d5eb71d4b4d105ac422006ef936c8900ec688b2854d8e91e4b56c4972"
+    }
+  ]
+}

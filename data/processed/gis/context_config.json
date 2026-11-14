@@ -1,0 +1,27 @@
+{
+  "title": "USGS regional CTX optical context",
+  "url": "/api/assets/ctx-context.png",
+  "bounds_lat_lon": [
+    [
+      18.211027390963398,
+      77.16046545922367
+    ],
+    [
+      18.721194481872804,
+      77.69917761355299
+    ]
+  ],
+  "source_native_resolution_m": 6,
+  "render_dimensions": [
+    2083,
+    2200
+  ],
+  "regional_projected_size_m": [
+    31932.0,
+    30240.0
+  ],
+  "source_url": "https://planetarymaps.usgs.gov/mosaic/mars2020_trn/CTX/JEZ_ctx_B_soc_008_orthoMosaic_6m_Eqc_latTs0_lon0.tif",
+  "coordinate_system": "Mars sphere 3396190m, planetocentric, east-positive. Not WGS84.",
+  "coverage_note": "Optical context only; routing/elevation remain limited to the CTX or HiRISE DEM footprint.",
+  "nodata": "Original zero-valued NoData is transparent; no missing surface generated."
+}

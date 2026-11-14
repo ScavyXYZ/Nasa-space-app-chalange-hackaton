@@ -11,7 +11,8 @@ __all__ = ["plan_route", "load_jezero_grid"]
 
 def plan_route(elevation, slope, valid, geometry: GridGeometry, start: LonLat, end: LonLat,
                *, max_slope_deg: float = 15.0, slope_weight: float = 1.0,
-               mode: Mode = "astar", block_size: int = 16) -> dict:
+               mode: Mode = "astar", block_size: int = 16,
+               max_expansions: int | None = None, time_budget_s: float | None = None) -> dict:
     """Produce a JSON-ready route result. Input coordinates are (lon, lat)."""
     graph = RouteGraph(elevation, slope, valid, geometry,
                        max_slope_deg=max_slope_deg, slope_weight=slope_weight)
@@ -29,7 +30,10 @@ def plan_route(elevation, slope, valid, geometry: GridGeometry, start: LonLat, e
             return {"status": "blocked_endpoint", "endpoint": name}
         cells.append(cell)
 
-    result = graph.search(*cells, mode=mode, block_size=block_size)
+    result = graph.search(*cells, mode=mode, block_size=block_size,
+                          max_expansions=max_expansions,time_budget_s=time_budget_s)
+    if result.limit_reached:
+        return {"status":"search_limit","mode":mode,"expanded_cells":result.expanded_cells}
     if not result.cells:
         return {"status": "no_route", "mode": mode, "expanded_cells": result.expanded_cells}
 

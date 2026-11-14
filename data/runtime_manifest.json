@@ -1,0 +1,16 @@
+{
+  "repository": "ScavyXYZ/Nasa-space-app-chalange-hackaton",
+  "initial_local_datasets_ref": "968aee99245505ff40c59f9d540e8a809cb20c86",
+  "regional_provenance": "data/processed/regional/validation_report.json",
+  "files": [
+    {"path":"data/processed/jezero_elevation.npy","bytes":250128,"sha256":"1acf63c885215c6adbfcb42e93388524fdd2b8c300e3f6d15adb2f639cbb3700"},
+    {"path":"data/processed/jezero_slope.npy","bytes":250128,"sha256":"cf2433e5a2e0629fbfbbf16d2c539d7bcdb4c54353b78acd5ca42df4549ea3eb"},
+    {"path":"data/processed/jezero_valid_mask.npy","bytes":62628,"sha256":"ba6579441506fae4587ecd01792365497a496359210b133a248fc12861649460"},
+    {"path":"data/processed/hirise/jezero_hirise_elevation.npy","bytes":4000128,"sha256":"a320899ab5813bb8bf393ce5c8454a2a9c90d8d67405f70c5447f3ab78dd29b9"},
+    {"path":"data/processed/hirise/jezero_hirise_slope.npy","bytes":4000128,"sha256":"9523453599b473bb97e77f708b9e74dc1ceec0fb80d97f61a3929db4030bf7f5"},
+    {"path":"data/processed/hirise/jezero_hirise_valid_mask.npy","bytes":1000128,"sha256":"b1416c6a8cc6bc4489c6f1075f570d05f775e7a282915ab678e7c103cd446b1a"},
+    {"path":"data/processed/regional/jezero_elevation.npy","bytes":9168908,"sha256":"65c6f1ab8509aa034c289e284d1a1811e75f1a3aba05023f70fb3a455501d5ca"},
+    {"path":"data/processed/regional/jezero_slope.npy","bytes":9168908,"sha256":"74ae59ce5b6f38cdbe8dab4aa13978235ab1d6fafd42368ad72fb5635cd4aff6"},
+    {"path":"data/processed/regional/jezero_valid_mask.npy","bytes":2292323,"sha256":"c4be014771789eb814f9d41eea63b5ee1e5aaef2e47cc7bd9f3a98d1bb2663ff"}
+  ]
+}

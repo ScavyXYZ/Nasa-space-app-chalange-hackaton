@@ -1,0 +1,39 @@
+{
+  "title": "Mars Viking Colorized Global Mosaic (MDIM 2.1)",
+  "provider": "USGS Astrogeology / NASA Ames / Viking Orbiter",
+  "source_page": "https://astrogeology.usgs.gov/search/map/mars_viking_colorized_global_mosaic_232m",
+  "download_url": "https://astrogeology.usgs.gov/ckan/dataset/7131d503-cdc9-45a5-8f83-5126c0fd397e/resource/5ea881c6-01b3-41fa-a7af-42d2131b54f1/download/mars_viking_mdim21_clrmosaic_1km.jpg",
+  "georeferencing_url": "https://astrogeology.usgs.gov/ckan/dataset/7131d503-cdc9-45a5-8f83-5126c0fd397e/resource/69f3953f-9791-4d92-bffe-ebe24945eb95/download/mars_viking_mdim21_clrmosaic_1km.jpg.aux.xml",
+  "source_geotransform": [
+    -10670000.0,
+    1000.0,
+    0.0,
+    5335000.0,
+    0.0,
+    -1000.0
+  ],
+  "raw_path": "data/raw/globe/mars_viking_mdim21_colorized_1km.jpg",
+  "raw_size_bytes": 36708552,
+  "raw_sha256": "fdfcd335559c3dc67052b7e8a9565d850e336ac0d1f3ea7f5eb7826ffb44ecb2",
+  "source_browse_dimensions": [
+    21339,
+    10670
+  ],
+  "display_dimensions": [
+    4096,
+    2048
+  ],
+  "url": "/api/assets/mars-global.jpg",
+  "bounds_lon_lat_deg": [
+    -180,
+    -90,
+    180,
+    90
+  ],
+  "coordinate_system": "Planetocentric latitude, east-positive longitude; equirectangular",
+  "color_note": "Official artistically colorized Viking/MDIM mosaic; NOT true-color photography.",
+  "geometry_note": "Spherical overview with no global height displacement. Not a global DEM.",
+  "routing_note": "Global browsing only. Detailed DEM analysis and A* remain restricted to Jezero.",
+  "source_product_native_m_per_pixel": 231.5417872,
+  "resolution_note": "Texture uses the official 1km browse resampled to 4096x2048; NOT 232m display resolution."
+}

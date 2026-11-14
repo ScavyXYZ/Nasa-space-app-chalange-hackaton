@@ -11,6 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DATASETS = {
     "ctx": ("data/processed", "jezero"),
     "hirise": ("data/processed/hirise", "jezero_hirise"),
+    "regional": ("data/processed/regional", "jezero"),
 }
 
 
@@ -63,7 +64,7 @@ class TerrainGrid:
     @classmethod
     def load(cls, dataset="ctx", root=ROOT):
         if dataset not in DATASETS:
-            raise TerrainError("unknown_dataset", "Choose 'ctx' or 'hirise'")
+            raise TerrainError("unknown_dataset", "Choose 'ctx', 'hirise' or 'regional'")
         directory, prefix = DATASETS[dataset]
         return cls(Path(root) / directory, prefix, dataset)
 

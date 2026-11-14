@@ -1,0 +1,49 @@
+{
+  "dataset": "regional",
+  "coordinate_system": "Mars planetocentric degrees; east-positive; NOT WGS84",
+  "rendering": "Geographic PNGs for EPSG4326-style angular display; never sample these as elevation.",
+  "overlays": [
+    {
+      "name": "elevation",
+      "url": "/api/assets/regional-elevation.png",
+      "bounds_lat_lon": [
+        [
+          18.21080570804394,
+          77.16036072130825
+        ],
+        [
+          18.721310211050504,
+          77.69928942146122
+        ]
+      ],
+      "legend": {
+        "units": "m",
+        "min": -2710.703125,
+        "max": -1515.539306640625,
+        "colormap": "terrain",
+        "note": "Display scale; slopes above 45deg saturate. NoData transparent."
+      }
+    },
+    {
+      "name": "slope",
+      "url": "/api/assets/regional-slope.png",
+      "bounds_lat_lon": [
+        [
+          18.21080570804394,
+          77.16036072130825
+        ],
+        [
+          18.721310211050504,
+          77.69928942146122
+        ]
+      ],
+      "legend": {
+        "units": "degrees",
+        "min": 0.0,
+        "max": 45.0,
+        "colormap": "magma",
+        "note": "Display scale; slopes above 45deg saturate. NoData transparent."
+      }
+    }
+  ]
+}

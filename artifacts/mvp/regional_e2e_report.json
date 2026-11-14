@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "checks": [
+    {
+      "Mars_scale_independent_check": {
+        "text": "3 km",
+        "width": 110,
+        "metres": 3000,
+        "expected": 3001.499500389224,
+        "relativeError": 0.0004998334630746891
+      }
+    },
+    "Real ~10km A* route with both endpoints outside former 5km AOI",
+    "Scale responds to zoom",
+    "Regional click sampling and mobile scale visibility"
+  ],
+  "page_errors": [],
+  "limitation": "Regional DEM coverage, not global routing; slopes can legitimately block routes."
+}

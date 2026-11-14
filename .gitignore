@@ -1,5 +1,12 @@
 .venv/
 __pycache__/
+node_modules/
+frontend/dist/
+frontend/test-results/
+frontend/playwright-report/
+*.tsbuildinfo
+artifacts/mvp/video/
+artifacts/mvp/*-debug.png
 *.part
 *.part.tif
 *.part.zip

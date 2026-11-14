@@ -1,0 +1,78 @@
+{
+  "source": "USGS Mars 2020 Science Investigation CTX DEM Mosaic",
+  "source_url": "https://planetarymaps.usgs.gov/mosaic/mars2020_trn/CTX/ScienceInvestigationMaps_JPL/M20_JezeroCrater_CTXDEM_20m.tif",
+  "dataset": "regional",
+  "shape_rows_cols": [
+    1513,
+    1515
+  ],
+  "pixel_size_m": [
+    20,
+    20
+  ],
+  "transform": [
+    20.0,
+    0.0,
+    4338159.999999998,
+    0.0,
+    -20.0,
+    1109700.0000000028,
+    0.0,
+    0.0,
+    1.0
+  ],
+  "crs_wkt": "PROJCRS[\"Jezero_Crater_Projection\",BASEGEOGCRS[\"GCS_Mars_2000_Sphere\",DATUM[\"Mars_2000_(Sphere)\",ELLIPSOID[\"Mars_2000_Sphere\",3396190,0,LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]],PRIMEM[\"Reference_Meridian\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]],CONVERSION[\"unnamed\",METHOD[\"Equidistant Cylindrical (Spherical)\",ID[\"EPSG\",1029]],PARAMETER[\"Latitude of 1st standard parallel\",18.4663,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8823]],PARAMETER[\"Longitude of natural origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"False easting\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"easting\",east,ORDER[1],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]],AXIS[\"northing\",north,ORDER[2],LENGTHUNIT[\"metre\",1,ID[\"EPSG\",9001]]]]",
+  "geographic_crs_wkt": "GEOGCRS[\"GCS_Mars_2000_Sphere\",DATUM[\"Mars_2000_(Sphere)\",ELLIPSOID[\"Mars_2000_Sphere\",3396190,0,LENGTHUNIT[\"metre\",1]],ID[\"ESRI\",106971]],PRIMEM[\"Reference_Meridian\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]],CS[ellipsoidal,2],AXIS[\"longitude\",east,ORDER[1],ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]],AXIS[\"latitude\",north,ORDER[2],ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]]",
+  "mars_radius_m": 3396190,
+  "standard_parallel_deg": 18.4663,
+  "bounds_projected_m": [
+    4338159.999999998,
+    1079440.0000000028,
+    4368459.999999998,
+    1109700.0000000028
+  ],
+  "bounds_lon_lat_deg": [
+    77.16036072130825,
+    18.21080570804394,
+    77.69928942146122,
+    18.721310211050504
+  ],
+  "optical_bounds_lon_lat_deg": [
+    77.16046545922367,
+    18.211027390963398,
+    77.69917761355299,
+    18.721194481872804
+  ],
+  "nodata": -3.4028234663852886e+38,
+  "slope_nodata": -9999,
+  "elevation_units": "m",
+  "slope_units": "degrees",
+  "slope_method": "Central differences with native 1px source halo and Mars cos(latitude)/cos(18.4663) ground scale",
+  "valid_pixels": 2292195,
+  "total_pixels": 2292195,
+  "valid_fraction": 1.0,
+  "elevation_range_m": [
+    -2710.703125,
+    -1515.539306640625
+  ],
+  "slope_range_deg": [
+    0.0021272040903568268,
+    40.03419876098633
+  ],
+  "east_west_ground_cell_size_range_m": [
+    19.97009601784405,
+    20.029563995437446
+  ],
+  "extent_projected_km": [
+    30.3,
+    30.26
+  ],
+  "source_window_col_row_width_height": [
+    458,
+    1686,
+    1515,
+    1513
+  ],
+  "vertical_reference": "Original USGS MOLA-localized elevations retained; no vertical datum conversion",
+  "caveat": "Coverage is not traversability. Slope, neighbour grade and NoData may prevent particular routes."
+}

@@ -27,10 +27,12 @@ def collection(features):
             "source": DOI, "registration_warning": DISCLAIMER}
 
 
-def main():
+def main(out=OUT,science_path=None):
+    out=Path(out)
+    science_path=Path(science_path) if science_path else ROOT/"science/points_of_interest.geojson"
     gdb = next((ROOT / "data/raw/geology/extracted").rglob("*.gdb"))
     meta, fids, wkbs, attrs = read(gdb, layer="GeoUnits_v1", return_fids=True)
-    with rasterio.open(OUT / "jezero_dem_crop.tif") as dem:
+    with rasterio.open(out / "jezero_dem_crop.tif") as dem:
         dem_crs = CRS(dem.crs)
         to_dem = Transformer.from_crs(meta["crs"], dem_crs, always_xy=True)
         to_geo = Transformer.from_crs(dem_crs, dem_crs.geodetic_crs, always_xy=True)
@@ -54,7 +56,7 @@ def main():
         features.append({"type": "Feature", "geometry": mapping(transform(to_geo.transform, clipped)),
                          "properties": properties})
         by_name.setdefault(properties["name"], []).append((clipped, properties))
-    (OUT / "geology.geojson").write_text(json.dumps(collection(features), indent=2), encoding="utf-8")
+    (out / "geology.geojson").write_text(json.dumps(collection(features), indent=2), encoding="utf-8")
     # These are real mapped geological regions with original published names.
     # No centroids or arbitrary point coordinates are presented as named targets.
     interests = {
@@ -85,12 +87,12 @@ def main():
                                     "source_layer": "GeoUnits_v1",
                                     "source_fids": [p["source_fid"] for _, p in regions],
                                     "photo_url": None, "registration_warning": DISCLAIMER}})
-    (ROOT / "science/points_of_interest.geojson").write_text(
+    science_path.write_text(
         json.dumps(collection(pois), indent=2), encoding="utf-8")
     legend = [{"name": name, "symbols": sorted({p["symbol"] for _, p in rows}),
                "source": DOI, "color_note": "Use application display colors; original map symbols retained."}
               for name, rows in by_name.items()]
-    (OUT / "geology_legend.json").write_text(json.dumps(legend, indent=2), encoding="utf-8")
+    (out / "geology_legend.json").write_text(json.dumps(legend, indent=2), encoding="utf-8")
     print(f"Exported {len(features)} polygons and {len(pois)} sourced scientific regions: {list(by_name)}")
     if len(pois) < 3:
         raise ValueError("AOI contains fewer than 3 mapped scientific regions; revise AOI.")

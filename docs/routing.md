@@ -41,3 +41,23 @@ The graph allows eight directions. Invalid cells and cells above `max_slope_deg`
 In `astar` mode, the heuristic is the direct distance to the goal. In `hierarchical` mode, the planner also computes a lower bound on a graph of blocks. Within each block, movement is treated as free. Each crossing uses the cheapest real edge joining the two blocks. The minimum cost on the block graph therefore cannot exceed the actual route cost. Fine-grid A* uses the larger of the two bounds and can still search the whole grid. This preserves optimality for the same cost model and keeps narrow passages available.
 
 Ordinary A* is the default. On four tested pairs on the 250 × 250 CTX grid, both modes returned equal costs, and building the block graph added time. Compare `expanded_cells` and wall time before selecting the hierarchical mode for a different terrain or resolution.
+
+## MVP integration
+
+The React planner now calls `/api/route` directly and draws the result, profile,
+review segments and sourced science regions. The API adds `nearby_science`
+(within `nearby_radius_m`, default 200 projected metres), `parameters` and `warnings`.
+These distances do not remove the geological map's 100–200 m registration uncertainty.
+
+The HTTP API bounds fine search to 200,000 expansions and a periodically checked
+8-second search budget. `status: search_limit` means the search was interrupted;
+it must NOT be shown as `no_route`. The core Python API defaults to unlimited
+search unless optional budgets are explicitly passed. Graph setup and request
+processing also consume time, so this is not a strict HTTP deadline.
+
+The additional `dataset: "regional"` uses a native 20m CTX grid covering the
+whole regional optical map (~30.3 × 30.26km). It keeps the same cost model,
+NoData, slope and neighbour-grade restrictions, with a 500,000-expansion /
+20-second search budget. `ctx` still means the original 5km grid and `hirise`
+the separate detailed window. Full coverage does not guarantee that every
+pair of cells is connected at a chosen slope threshold.

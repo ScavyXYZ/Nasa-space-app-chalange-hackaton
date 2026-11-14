@@ -45,6 +45,28 @@
     "manifest": "data/hirise_download_manifest.json",
     "status": "Acquired and processed as a separate high-resolution terrain grid; not merged into CTX."
   },
+  "global_context": {
+    "title": "Mars Viking Colorized Global Mosaic (MDIM 2.1)",
+    "provider": "NASA Ames / USGS Astrogeology",
+    "source_page": "https://astrogeology.usgs.gov/search/map/mars_viking_colorized_global_mosaic_232m",
+    "metadata": "data/processed/globe/metadata.json",
+    "raw_path": "data/raw/globe/mars_viking_mdim21_colorized_1km.jpg",
+    "purpose": "Whole-planet visual browsing only, not global routing or DEM.",
+    "color_note": "Official artistically colorized mosaic, not true-color photography."
+  },
+  "regional_terrain": {
+    "source": "Same original USGS Science Investigation CTX DEM; native values retained",
+    "directory": "data/processed/regional",
+    "shape": [1513, 1515],
+    "pixel_size_m": 20,
+    "extent_projected_km": [30.3, 30.26],
+    "valid_cells": 2292195,
+    "valid_fraction": 1.0,
+    "geology_features": 315,
+    "science_region_names": 12,
+    "note": "Covers the complete regional optical footprint. NoData and slope/grade limits remain enforced; no global Mars routing.",
+    "validation": "data/processed/regional/validation_report.json"
+  },
   "hirise_feasibility": "data/processed/hirise_feasibility.json",
   "validation_report": "data/processed/validation_report.json"
 }

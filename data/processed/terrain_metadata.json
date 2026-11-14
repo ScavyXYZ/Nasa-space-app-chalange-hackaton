@@ -1,0 +1,59 @@
+{
+  "source": "USGS Astrogeology Mars 2020 Science Investigation CTX DEM Mosaic",
+  "source_url": "https://planetarymaps.usgs.gov/mosaic/mars2020_trn/CTX/ScienceInvestigationMaps_JPL/M20_JezeroCrater_CTXDEM_20m.tif",
+  "shape_rows_cols": [
+    250,
+    250
+  ],
+  "pixel_size_m": [
+    20.0,
+    20.0
+  ],
+  "crs_wkt": "PROJCS[\"Jezero_Crater_Projection\",GEOGCS[\"GCS_Mars_2000_Sphere\",DATUM[\"Mars_2000_(Sphere)\",SPHEROID[\"Mars_2000_Sphere\",3396190,0]],PRIMEM[\"Reference_Meridian\",0],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]]],PROJECTION[\"Equirectangular\"],PARAMETER[\"standard_parallel_1\",18.4663],PARAMETER[\"central_meridian\",0],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]",
+  "transform": [
+    20.0,
+    0.0,
+    4351979.999999998,
+    0.0,
+    -20.0,
+    1095820.0000000028,
+    0.0,
+    0.0,
+    1.0
+  ],
+  "nodata": -3.4028234663852886e+38,
+  "elevation_units": "m",
+  "aoi_center_source": "Design-selected coordinate near landing area, not a surveyed scientific target",
+  "aoi_center_lat_lon_planetocentric_deg": [
+    18.4447,
+    77.4508
+  ],
+  "aoi_size_km": 5.0,
+  "valid_pixels": 62500,
+  "total_pixels": 62500,
+  "elevation_min_m": -2642.48046875,
+  "elevation_max_m": -2442.54833984375,
+  "slope_units": "degrees",
+  "slope_method": "Central differences with one-sided outer edges; east-west distances corrected by cos(latitude)/cos(18.4663deg)",
+  "mars_radius_m": 3396190.0,
+  "standard_parallel_deg": 18.4663,
+  "east_west_ground_cell_size_range_m": [
+    19.99758837106367,
+    20.00737094536664
+  ],
+  "vertical_reference": "USGS product description: DEM additions localized vertically to MOLA; original values retained, no vertical datum conversion",
+  "caveat": "Modelled slope; not a safety assessment. DEM coverage/voids remain masked.",
+  "bounds_projected_m": [
+    4351979.999999998,
+    1090820.0000000028,
+    4356979.999999998,
+    1095820.0000000028
+  ],
+  "bounds_lon_lat_deg": [
+    77.40616912514038,
+    18.40279319132929,
+    77.4951012538785,
+    18.487146215619862
+  ],
+  "geographic_crs_wkt": "GEOGCRS[\"GCS_Mars_2000_Sphere\",DATUM[\"Mars_2000_(Sphere)\",ELLIPSOID[\"Mars_2000_Sphere\",3396190,0,LENGTHUNIT[\"metre\",1]],ID[\"ESRI\",106971]],PRIMEM[\"Reference_Meridian\",0,ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]],CS[ellipsoidal,2],AXIS[\"longitude\",east,ORDER[1],ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]],AXIS[\"latitude\",north,ORDER[2],ANGLEUNIT[\"degree\",0.0174532925199433,ID[\"EPSG\",9122]]]]"
+}

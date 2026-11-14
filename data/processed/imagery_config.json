@@ -1,0 +1,24 @@
+{
+  "title": "USGS Mars 2020 TRN CTX orthomosaic",
+  "type": "imageOverlay",
+  "url": "/data/processed/jezero_ctx_overlay.png",
+  "bounds_lat_lon": [
+    [
+      18.40279319132929,
+      77.40616912514038
+    ],
+    [
+      18.487146215619862,
+      77.4951012538785
+    ]
+  ],
+  "display_crs": "Leaflet L.CRS.EPSG4326 angular display with custom Mars distance",
+  "coordinate_semantics": "Mars planetocentric degrees, east-positive; NOT terrestrial WGS84",
+  "mars_radius_m": 3396190,
+  "source_native_resolution_m": 6,
+  "projected_render_grid_m": 5,
+  "native_resolution_warning": "5m render grid is resampling, not 5m measured imagery.",
+  "attribution": "NASA/MRO/CTX; USGS Astrogeology",
+  "source": "https://astrogeology.usgs.gov/search/map/mars_2020_terrain_relative_navigation_context_camera_orthorectified_image_mosaic",
+  "valid_fraction": 1.0
+}

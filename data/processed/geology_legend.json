@@ -1,0 +1,34 @@
+[
+  {
+    "name": "Jezero fan 2 unit",
+    "symbols": [
+      "NHjf2"
+    ],
+    "source": "https://doi.org/10.3133/sim3464",
+    "color_note": "Use application display colors; original map symbols retained."
+  },
+  {
+    "name": "Lower etched unit",
+    "symbols": [
+      "Nle"
+    ],
+    "source": "https://doi.org/10.3133/sim3464",
+    "color_note": "Use application display colors; original map symbols retained."
+  },
+  {
+    "name": "Eolian bedform unit",
+    "symbols": [
+      "Aeb"
+    ],
+    "source": "https://doi.org/10.3133/sim3464",
+    "color_note": "Use application display colors; original map symbols retained."
+  },
+  {
+    "name": "Jezero floor unit",
+    "symbols": [
+      "Njf"
+    ],
+    "source": "https://doi.org/10.3133/sim3464",
+    "color_note": "Use application display colors; original map symbols retained."
+  }
+]

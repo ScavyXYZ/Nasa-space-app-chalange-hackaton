@@ -1,0 +1,57 @@
+{
+  "status": "passed",
+  "timestamp_utc": "2026-11-14T11:18:54.189549+00:00",
+  "shape": [
+    250,
+    250
+  ],
+  "valid_cells": 62500,
+  "elevation_range_m": [
+    -2642.48046875,
+    -2442.54833984375
+  ],
+  "slope_range_deg": [
+    0.010890859179198742,
+    34.37982177734375
+  ],
+  "geology_features": 8,
+  "science_regions": 4,
+  "imagery_valid_fraction": 1.0,
+  "checks": [
+    "source_sha256",
+    "Mars_CRS",
+    "20m_pixels",
+    "source_height_preservation",
+    "common_masks",
+    "slope_independent_recalculation",
+    "coordinate_roundtrip",
+    "Mars_distance",
+    "out_of_bounds_rejection",
+    "routing_grid_connectivity",
+    "geology_validity_and_bounds",
+    "science_region_provenance",
+    "optical_coverage"
+  ],
+  "online_sources": [
+    {
+      "url": "https://astrogeology.usgs.gov/search/map/mars_2020_science_investigation_ctx_dem_mosaic",
+      "http_status": 200
+    },
+    {
+      "url": "https://astrogeology.usgs.gov/search/map/mars_2020_terrain_relative_navigation_context_camera_orthorectified_image_mosaic",
+      "http_status": 200
+    },
+    {
+      "url": "https://pubs.usgs.gov/publication/sim3464",
+      "http_status": 200
+    },
+    {
+      "url": "https://pubs.usgs.gov/sim/3464/sim3464_readme.txt",
+      "http_status": 200
+    },
+    {
+      "url": "https://trek.nasa.gov/tiles/apidoc/trekAPI.html?body=mars",
+      "http_status": 200
+    }
+  ]
+}

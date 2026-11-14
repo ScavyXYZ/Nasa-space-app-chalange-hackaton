@@ -150,7 +150,7 @@
 
 ### Backend
 
-- Python 3.11
+- Python 3.14
 - FastAPI
 - Pydantic
 

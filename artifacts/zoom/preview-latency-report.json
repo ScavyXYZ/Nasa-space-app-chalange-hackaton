@@ -1,6 +1,6 @@
 {
   "status": "passed",
-  "preview_seconds_with_native_blocked": 0.168,
+  "preview_seconds_with_native_blocked": 0.175,
   "cached_next_lod_tiles_visible_before_network": 9,
   "scope": "Controlled zero native bandwidth; validates scheduling/cache, not an internet speed guarantee."
 }

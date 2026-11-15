@@ -1,12 +1,15 @@
 # MARS EXPLORER — Global Mission Control
 
-**Демореліз 15.11:** єдиний 2D/3D-атлас, MOLA 16 ppd (~3,7 км),
-глобальна геологія USGS, NASA-тайли, зупинки, політ, звіт і QR.
+**Поточний інтерфейс:** англомовний планувальник, звичайний глобус та 2D-атлас,
+автоматичні CTX/HiRISE-знімки, числова MOLA 128 ppd (~463 м), маршрути та експорт.
+3D-рельєф, демонстраційні підказки, рекламні картки та довгі попередження прибрані.
+Актуальна перевірка: `python tests/smoke_english_workspace.py --url http://127.0.0.1:8003`.
 [Актуальний обсяг та обмеження](docs/release_status.md) ·
 [Сценарій для журі та запуск із телефону](docs/jury_demo.md).
 [Глобальний CTX, двобічний пошук і модель плавних підйомів](docs/planetary_routing_v2.md).
 [Реальний каталог кратерів та перепланування за MOLA 463 м](docs/crater_aware_routing.md).
 [Поточна модель: MOLA 463 м уздовж усього маршруту, схили бортів і рух усередині кратерів](docs/native_mola_routing.md).
+[Історична реалізація 3D та підготовка локальних рівнів знімків](docs/planet_3d.md).
 
 Швидкий запуск підготовленої версії:
 `powershell -ExecutionPolicy Bypass -File scripts/start_demo.ps1`
@@ -36,23 +39,27 @@ npm --prefix frontend run build
 python scripts/prepare_runtime_data.py
 python scripts/build_context_imagery.py
 python scripts/prepare_mars_globe.py
+python scripts/prepare_planet_imagery.py
 python scripts/prepare_global_terrain.py --ppd 16
 python -m uvicorn backend.main:app --host 127.0.0.1 --port 8001
 ```
 
 Відкрити **http://127.0.0.1:8001/**. OpenAPI — `/docs`, GIS QA — `/gis-check`.
 За замовчуванням відкривається **Mission Control / «Планета»**:
-глобус із Viking-мозаїкою, реальні глобальні висоти MOLA, топографічний
-режим і візуальне підсилення рельєфу ×1/×10.
-Позначте **A/B будь-де на глобусі** або завантажте **«Експедиція через Tharsis»**,
-натисніть **«Побудувати маршрут»** чи **«Порівняти дві стратегії»**.
-Є профіль висот, пошук місць, збереження/відновлення плану та експорт GeoJSON.
-**Глобальний маршрут приблизний:** MOLA 0,0625° ≈3,7 км, а не локальна
-оцінка прохідності. Інтерпольовані біни й зміщення прив’язки точок показані явно.
+звичайний глобус із локальною Viking-мозаїкою 16 384 × 8 192
+(≈1,3 км/пікс. на екваторі). 3D-рельєф і підсилення висот прибрані.
+Здалеку використовується локальний Viking; при наближенні поверхня автоматично
+замінюється реальними знімками CTX / HiRISE, де є покриття.
+**Auto HD** увімкнено за замовчуванням.
+Планування: координати A/B → **Build route** / **Compare strategies**.
+Є профіль висот, збереження/відновлення плану, звіт/PDF, QR та експорт GeoJSON.
+**Глобальний маршрут приблизний:** MOLA 1/128° ≈463 м, а не оцінка
+прохідності ровера. Нерозрізнені каталожні борти захищені окремо.
+Інтерпольовані біни й зміщення прив’язки точок показані явно.
+Поза ±88° у 3D залишається грубий полярний огляд, не покриття маршрутизації.
 Маркери A/B не мають фізичного масштабу.
 
-Для детального режиму натисніть **«Jezero · детально»** / **«Перейти до Jezero»**, виберіть A/B або
-**«Завантажити демонстраційні точки» → Build Route**.
+Для детального режиму натисніть **Jezero map**, задайте A/B → **Build route**.
 Маршрут, профіль і наукові області розраховуються за реальними даними.
 За замовчуванням у 2D вибрано **«CTX регіон / 20 м · уся карта»**:
 робочий DEM приблизно **30 × 30 км** покриває всю регіональну оптику.
@@ -61,10 +68,7 @@ python -m uvicorn backend.main:app --host 127.0.0.1 --port 8001
 Кнопка «До ділянки» повертає оптимальний масштаб.
 «Карта на всю ширину» ховає панель без втрати точок, «На весь екран» відкриває
 повноекранний огляд (вихід — Esc). Є окремі кнопки огляду регіону та маршруту.
-«3D рельєф» відкриває справжню DEM-поверхню з CTX-текстурою та маршрутом.
-Перетягування обертає камеру, колесо змінює масштаб, права кнопка панорамує.
-Підсилення висот ×3/×8 — лише візуальний ефект; базовий масштаб ×1.
-Геологічні полігони доступні в 2D. Для 3D потрібен WebGL; 2D залишається альтернативою.
+Геологічні полігони доступні як шари 2D-карти.
 
 Для frontend-розробки в іншому терміналі: `npm --prefix frontend run dev`.
 Vite відкривається на http://127.0.0.1:5173 та проксіює `/api` на порт 8001.
@@ -76,13 +80,10 @@ Vite відкривається на http://127.0.0.1:5173 та проксіює
 python -m unittest discover -s tests -v
 python -m pip install -r requirements-browser.txt
 python -m playwright install chromium
-python tests/smoke_mvp_browser.py
-python tests/smoke_3d_browser.py
-python tests/smoke_globe_browser.py
-python tests/smoke_regional_browser.py
-python tests/smoke_planner_browser.py
-python tests/smoke_mission_browser.py
-python tests/smoke_atlas_browser.py --url http://127.0.0.1:8001
+python tests/smoke_english_workspace.py --url http://127.0.0.1:8001
+python tests/smoke_photo_globe_browser.py --url http://127.0.0.1:8001
+python tests/smoke_point_viewport.py --url http://127.0.0.1:8001
+python tests/smoke_route_viewport.py --url http://127.0.0.1:8001
 python scripts/benchmark_global.py --repeats 3
 python scripts/benchmark_routing.py --repeats 5 --output artifacts/mvp/routing_benchmark.json
 ```

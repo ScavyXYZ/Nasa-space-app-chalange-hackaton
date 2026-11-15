@@ -39,14 +39,21 @@ COPY; завантажувати MOLA з мережі при запуску ко
 кешованими оглядовими тайлами. Вони також входять у Docker COPY.
 `prepare_runtime_data.py` додатково перевіряє SHA-256 MOLA та наявність глобальних текстур.
 
+Для нового суцільного 3D потрібні матеріалізовані LFS-файли
+`data/processed/mola128_global/*.img` (~3,1 ГБ) та локальна мозаїка
+`data/processed/globe/imagery/` (~51 МБ). Її можна відтворити через
+`python scripts/prepare_planet_imagery.py` з уже завантаженого Viking browse.
+Якщо числові дані відсутні, залишається оглядова сфера з явним повідомленням;
+нативна деталізація й маршрути не вигадуються. Докладніше: [planet_3d.md](planet_3d.md).
+
 ### Важливо про Git LFS
 
 Деякі хостинги клонують тільки LFS pointers. Перед build потрібно виконати
 **авторизований `git lfs pull`**, або передати матеріалізовані NumPy-файли у build context.
-Для тільки runtime достатньо:
+Для повного поточного runtime, включно з планетарною MOLA 463 м:
 
 ```sh
-git lfs pull --include="data/processed/*.npy,data/processed/hirise/*.npy,data/processed/regional/*.npy,data/processed/regional/*.geojson" --exclude=""
+git lfs pull --include="data/processed/*.npy,data/processed/hirise/*.npy,data/processed/regional/*.npy,data/processed/regional/*.geojson,data/processed/**/*.npz,data/processed/mola128_global/*.img,data/processed/atlas/geology_query.json.gz" --exclude=""
 ```
 
 `scripts/prepare_runtime_data.py` перевіряє дев’ять обов’язкових runtime-масивів (~30 МБ)

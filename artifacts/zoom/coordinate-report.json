@@ -723,11 +723,6 @@
       "body": "Transient tile error"
     },
     {
-      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/12/1629/5859?v=validated-3",
-      "status": 503,
-      "body": "Transient tile error"
-    },
-    {
       "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/113/511?v=validated-3",
       "status": 503,
       "body": "Transient tile error"

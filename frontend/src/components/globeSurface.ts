@@ -7,14 +7,25 @@ const direction=(lon:number,lat:number)=>{
 
 /** Project onto the actual rendered triangles, not a separately sampled radius. */
 export function globeSurface(mesh:THREE.Mesh<THREE.SphereGeometry>){
-  const geometry=mesh.geometry,width=geometry.parameters.widthSegments,height=geometry.parameters.heightSegments
   const ray=new THREE.Ray(),caster=new THREE.Raycaster()
   const a=new THREE.Vector3(),b=new THREE.Vector3(),c=new THREE.Vector3(),d=new THREE.Vector3()
   function point(lon:number,lat:number){
+    const geometry=mesh.geometry,width=geometry.parameters.widthSegments,height=geometry.parameters.heightSegments
     const normal=direction(lon,lat),target=new THREE.Vector3()
     ray.set(new THREE.Vector3(),normal)
-    const x=Math.min(width-1,Math.floor((((lon+180)%360+360)%360)/360*width))
-    const y=Math.max(0,Math.min(height-1,Math.floor((90-lat)/180*height)))
+    const axes=geometry.userData.surface as {longitudes:number[];latitudes:number[]}|undefined
+    function interval(values:number[],value:number,descending=false){
+      let lo=0,hi=values.length-1
+      while(hi-lo>1){
+        const mid=(lo+hi)>>1
+        if(descending?values[mid]>=value:values[mid]<=value)lo=mid;else hi=mid
+      }
+      return Math.min(values.length-2,lo)
+    }
+    const x=axes?interval(axes.longitudes,((lon+180)%360+360)%360-180)
+      :Math.min(width-1,Math.floor((((lon+180)%360+360)%360)/360*width))
+    const y=axes?interval(axes.latitudes,lat,true)
+      :Math.max(0,Math.min(height-1,Math.floor((90-lat)/180*height)))
     const positions=geometry.getAttribute('position')
     function cell(row:number,col:number){
       if(row<0||row>=height)return false

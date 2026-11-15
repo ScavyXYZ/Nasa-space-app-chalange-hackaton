@@ -5,7 +5,7 @@
     "Mobile globe placement preserves view",
     "2D A/B/stops preserve zoom 13 and map centre",
     "Selection still inspects the newly picked coordinates",
-    "Place search still navigates explicitly"
+    "Whole-planet control navigates explicitly"
   ],
   "page_errors": []
 }

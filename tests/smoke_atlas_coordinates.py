@@ -30,7 +30,7 @@ async def run(url,real=False):
     failures=[]
     async with async_playwright() as p:
         browser=await p.chromium.launch()
-        page=await browser.new_page(viewport={"width":800,"height":600})
+        page=await browser.new_page(viewport={"width":800,"height":600},reduced_motion="reduce")
         page.on("pageerror",lambda e:errors.append(str(e)))
         async def record_failure(response):
             if "/api/atlas/tiles/" in response.url and response.status>=400:

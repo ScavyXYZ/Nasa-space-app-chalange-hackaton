@@ -25359,6 +25359,11 @@ void main() {
     const ids = zoom >= 13 ? ["hirise-jezero", "ctx-jezero", "ctx-global", "viking-hd"] : zoom >= 9 ? ["ctx-jezero", "ctx-global", "viking-hd"] : zoom >= 4 ? ["ctx-global", "viking-hd"] : ["viking-hd"];
     return ids.map((id) => sources.find((s) => s.id === id)).find((s) => s && insideSource(s, lon, lat)) ?? null;
   }
+  function globeOpticalSource(sources, zoom, lon, lat, local, autoHD = true) {
+    if (!autoHD) return local;
+    if (local && zoom <= (local.max_useful_zoom ?? local.matrices.length - 1)) return local;
+    return opticalSource(sources, zoom, lon, lat) ?? local;
+  }
   function tileSpacing(zoom, latitude = 0) {
     return MARS_CIRCUMFERENCE * Math.cos(latitude * Math.PI / 180) / (512 * 2 ** zoom);
   }
@@ -25385,37 +25390,109 @@ void main() {
     };
   }
 
+  // frontend/src/components/planetView.ts
+  function planetView(camera2) {
+    const radius = Number(camera2.userData.surfaceRadius) || 1;
+    const ray = new Raycaster(), sphere = new Sphere(new Vector3(), radius);
+    camera2.updateMatrixWorld();
+    ray.setFromCamera(new Vector2(0, 0), camera2);
+    const centre = ray.ray.intersectSphere(sphere, new Vector3());
+    if (!centre) return null;
+    centre.normalize();
+    const lon = Math.atan2(-centre.z, centre.x) * 180 / Math.PI, lat = Math.asin(centre.y) * 180 / Math.PI;
+    const points = [];
+    for (let y = -1; y <= 1.01; y += 0.25) for (let x = -1; x <= 1.01; x += 0.25) {
+      ray.setFromCamera(new Vector2(x, y), camera2);
+      const hit = ray.ray.intersectSphere(sphere, new Vector3());
+      if (hit) {
+        hit.normalize();
+        points.push({
+          lon: longitudeNear(Math.atan2(-hit.z, hit.x) * 180 / Math.PI, lon),
+          lat: Math.asin(MathUtils.clamp(hit.y, -1, 1)) * 180 / Math.PI
+        });
+      }
+    }
+    if (!points.length) return null;
+    const west = Math.min(...points.map((p) => p.lon)), east = Math.max(...points.map((p) => p.lon));
+    const south = Math.min(...points.map((p) => p.lat)), north = Math.max(...points.map((p) => p.lat));
+    const mx = Math.max(1e-6, (east - west) * 0.03), my = Math.max(1e-6, (north - south) * 0.03);
+    return { lon, lat, west: west - mx, east: east + mx, south: Math.max(-90, south - my), north: Math.min(90, north + my) };
+  }
+
   // frontend/src/components/globeImagery.ts
   function globeImagery(material2, camera2, renderer2, getState, render2, status2) {
     const uniforms = {
       detailMap: { value: null },
       detailBounds: { value: new Vector4() },
-      detailEnabled: { value: 0 }
+      detailEnabled: { value: 0 },
+      previousMap: { value: null },
+      previousBounds: { value: new Vector4() },
+      previousEnabled: { value: 0 },
+      detailBlend: { value: 1 }
     };
     material2.onBeforeCompile = (shader) => {
       Object.assign(shader.uniforms, uniforms);
       shader.fragmentShader = `uniform sampler2D detailMap;
-uniform vec4 detailBounds;
-uniform float detailEnabled;
-` + shader.fragmentShader;
+      uniform vec4 detailBounds;
+      uniform float detailEnabled;
+      uniform sampler2D previousMap;
+      uniform vec4 previousBounds;
+      uniform float previousEnabled;
+      uniform float detailBlend;
+      vec4 marsImage(sampler2D image, vec4 bounds, vec2 uv) {
+        float dx = mod(uv.x - bounds.x + 1.0, 1.0);
+        vec2 localUv = vec2(dx / bounds.z, (uv.y - bounds.y) / bounds.w);
+        if (localUv.x < 0.0 || localUv.x > 1.0 || localUv.y < 0.0 || localUv.y > 1.0)
+          return vec4(0.0);
+        vec4 color = texture2D(image, localUv);
+        vec2 edge = min(localUv, 1.0 - localUv);
+        color.a *= smoothstep(0.0, 0.008, min(edge.x, edge.y));
+        return color;
+      }
+    ` + shader.fragmentShader;
       shader.fragmentShader = shader.fragmentShader.replace("#include <map_fragment>", `#include <map_fragment>
       #ifdef USE_MAP
       if (detailEnabled > 0.5) {
-        float dx = mod(vMapUv.x - detailBounds.x + 1.0, 1.0);
-        vec2 detailUv = vec2(dx / detailBounds.z, (vMapUv.y - detailBounds.y) / detailBounds.w);
-        if (detailUv.x >= 0.0 && detailUv.x <= 1.0 && detailUv.y >= 0.0 && detailUv.y <= 1.0) {
-          vec4 detail = texture2D(detailMap, detailUv);
-          vec2 edge = min(detailUv, 1.0 - detailUv);
-          float fade = smoothstep(0.0, 0.008, min(edge.x, edge.y));
-          diffuseColor.rgb = mix(diffuseColor.rgb, detail.rgb, detail.a * fade);
+        if (previousEnabled > 0.5) {
+          vec4 previous = marsImage(previousMap, previousBounds, vMapUv);
+          diffuseColor.rgb = mix(diffuseColor.rgb, previous.rgb, previous.a);
         }
+        vec4 detail = marsImage(detailMap, detailBounds, vMapUv);
+        diffuseColor.rgb = mix(diffuseColor.rgb, detail.rgb, detail.a * detailBlend);
       }
       #endif`);
     };
-    material2.customProgramCacheKey = () => "mars-original-tile-atlas-v3";
+    material2.customProgramCacheKey = () => "mars-auto-photo-atlas-v4";
     material2.needsUpdate = true;
     let disposed = false, generation = 0, key = "", frame = 0, current = null;
     let timer = 0;
+    let transitionFrame = 0, previous = null;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    function finishTransition() {
+      cancelAnimationFrame(transitionFrame);
+      transitionFrame = 0;
+      uniforms.detailBlend.value = 1;
+      uniforms.previousEnabled.value = 0;
+      uniforms.previousMap.value = null;
+      previous?.dispose();
+      previous = null;
+    }
+    function transition() {
+      if (reducedMotion.matches) {
+        finishTransition();
+        return;
+      }
+      const start = performance.now();
+      function step(now) {
+        if (disposed) return;
+        const t = Math.min(1, (now - start) / 280);
+        uniforms.detailBlend.value = t * t * (3 - 2 * t);
+        if (t < 1) transitionFrame = requestAnimationFrame(step);
+        else finishTransition();
+        render2();
+      }
+      transitionFrame = requestAnimationFrame(step);
+    }
     let active = null;
     const abort = new AbortController();
     const images = /* @__PURE__ */ new Map();
@@ -25439,7 +25516,8 @@ uniform float detailEnabled;
       const timeout = window.setTimeout(() => controller.abort(), 15e3);
       controllers.set(cacheKey, controller);
       const request = (async () => {
-        const response = await fetch(assetUrl("/api/atlas/tiles/" + cacheKey + "?v=validated-3"), { signal: controller.signal });
+        const path = cacheKey.startsWith("viking-local/") ? "/api/globe/imagery/" + cacheKey.slice("viking-local/".length) : "/api/atlas/tiles/" + cacheKey + "?v=validated-3";
+        const response = await fetch(assetUrl(path), { signal: controller.signal });
         if (!response.ok) throw Error("Tile unavailable");
         const image = await createImageBitmap(await response.blob());
         if (disposed) {
@@ -25463,39 +25541,40 @@ uniform float detailEnabled;
         controllers.delete(cacheKey);
       }
     }
-    const ray = new Raycaster(), sphere = new Sphere(new Vector3(), 1);
-    function visibleRegion() {
-      camera2.updateMatrixWorld();
-      ray.setFromCamera(new Vector2(0, 0), camera2);
-      const centre = ray.ray.intersectSphere(sphere, new Vector3());
-      if (!centre) return null;
-      const lon = Math.atan2(-centre.z, centre.x) * 180 / Math.PI, lat = Math.asin(centre.y) * 180 / Math.PI;
-      const points = [];
-      for (let y = -1; y <= 1.01; y += 0.25) for (let x = -1; x <= 1.01; x += 0.25) {
-        ray.setFromCamera(new Vector2(x, y), camera2);
-        const hit = ray.ray.intersectSphere(sphere, new Vector3());
-        if (hit) points.push({ lon: longitudeNear(Math.atan2(-hit.z, hit.x) * 180 / Math.PI, lon), lat: Math.asin(MathUtils.clamp(hit.y, -1, 1)) * 180 / Math.PI });
-      }
-      if (!points.length) return null;
-      const west = Math.min(...points.map((p) => p.lon)), east = Math.max(...points.map((p) => p.lon));
-      const south = Math.min(...points.map((p) => p.lat)), north = Math.max(...points.map((p) => p.lat));
-      const mx = Math.max(1e-6, (east - west) * 0.03), my = Math.max(1e-6, (north - south) * 0.03);
-      return { lon, lat, west: west - mx, east: east + mx, south: Math.max(-90, south - my), north: Math.min(90, north + my) };
-    }
     async function update() {
       if (disposed) return;
-      const state = getState(), region = visibleRegion();
-      if (!state.catalog || !region) {
+      const state = getState(), region = planetView(camera2);
+      if (!region || state.topography || !state.catalog && state.localMaxLevel === void 0) {
         generation++;
         key = "";
+        active = null;
+        finishTransition();
         uniforms.detailEnabled.value = 0;
         status2(null);
         render2();
         return;
       }
       const wanted = Math.max(0, Math.ceil(Math.log2(renderer2.domElement.width * 360 / (Math.max(1e-6, region.east - region.west) * 512))));
-      const source = state.topography ? state.catalog.tiles.find((s) => s.id === "hrsc") : opticalSource(state.catalog.tiles, wanted, region.lon, region.lat);
-      if (!source) return;
+      const local = state.localMaxLevel === void 0 ? null : {
+        id: "viking-local",
+        title: "Viking \xB7 \u043B\u043E\u043A\u0430\u043B\u044C\u043D\u0430 \u0441\u0443\u0446\u0456\u043B\u044C\u043D\u0430 \u043C\u043E\u0437\u0430\u0457\u043A\u0430",
+        matrices: Array.from({ length: (state.localMaxLevel ?? 5) + 1 }, (_, i) => String(i)),
+        max_useful_zoom: state.localMaxLevel ?? 5,
+        note: "Official colorized browse, not true-color",
+        source: "NASA Ames / USGS"
+      };
+      const autoHD = state.remoteDetail !== false;
+      const source = globeOpticalSource(state.catalog?.tiles ?? [], wanted, region.lon, region.lat, local, autoHD);
+      if (!source) {
+        generation++;
+        key = "";
+        active = null;
+        finishTransition();
+        uniforms.detailEnabled.value = 0;
+        status2(null);
+        render2();
+        return;
+      }
       const sourceMax = source.max_useful_zoom ?? source.matrices.length - 1;
       let zoom = Math.min(wanted, sourceMax);
       let grid = detailGrid(region.lon, region.south, region.north, region.west, region.east, zoom);
@@ -25534,12 +25613,13 @@ uniform float detailEnabled;
       canvas.height = grid.height * 256;
       const ctx2 = canvas.getContext("2d");
       let inherited = false;
-      const sourceOrder = state.topography ? ["hrsc"] : ["viking-hd", "ctx-global", "ctx-jezero", "hirise-jezero"];
+      const sourceOrder = source.id === "viking-local" ? ["viking-local"] : ["viking-local", "viking-hd", "ctx-global", "ctx-jezero", "hirise-jezero"];
       const cached = [...images.entries()].map(([key2, image]) => {
         const [source2, z, y, x] = key2.split("/");
-        return { source: source2, zoom: Number(z), y: Number(y), x: Number(x), image };
+        return { cacheKey: key2, source: source2, zoom: Number(z), y: Number(y), x: Number(x), image };
       }).filter((t) => sourceOrder.includes(t.source)).sort((a, b) => a.zoom - b.zoom || sourceOrder.indexOf(a.source) - sourceOrder.indexOf(b.source));
-      for (const tile of cached) {
+      function drawCached(tile) {
+        if (images.get(tile.cacheKey) !== tile.image) return;
         const span = 180 / 2 ** tile.zoom;
         const west = longitudeNear(-180 + (tile.x + 0.5) * span, grid.west + grid.longitudeSpan / 2) - span / 2;
         for (const shift of [-360, 0, 360]) {
@@ -25553,25 +25633,45 @@ uniform float detailEnabled;
           }
         }
       }
+      cached.forEach(drawCached);
+      const nativePaints = [];
+      function paintNative(image, cacheKey, dx, dy) {
+        const paint = () => {
+          if (images.get(cacheKey) === image) ctx2.drawImage(image, dx * 256, dy * 256, 256, 256);
+        };
+        nativePaints.push(paint);
+        paint();
+      }
       const texture = new CanvasTexture(canvas);
       texture.colorSpace = SRGBColorSpace;
       texture.anisotropy = Math.min(16, renderer2.capabilities.getMaxAnisotropy());
       let completed = 0, ready = 0, fallback = 0, published = false, preview = false;
-      const baseStatus = { source: source.title, zoom, total: grid.tiles.length, spacing: tileSpacing(zoom, region.lat), limited: wanted > sourceMax };
-      status2({ ...baseStatus, ready: 0, fallback: 0, preview: false, offline: false });
+      let previewRemaining = previewGrid?.tiles.length ?? 0, previewReady = 0;
+      const photographic = /^(ctx|hirise)-/.test(source.id);
+      const changingToPhotos = photographic && !/^(ctx|hirise)-/.test(active?.source ?? "");
+      const baseStatus = { source: source.title, sourceId: source.id, zoom, total: grid.tiles.length, spacing: tileSpacing(zoom, region.lat), limited: wanted > sourceMax };
+      status2({ ...baseStatus, displayedSource: active?.source ?? "viking", ready: 0, fallback: 0, preview: false, offline: false });
       const publish = () => {
         if (disposed || id !== generation) return;
         if (!published && (ready || inherited)) {
-          current?.dispose();
+          const photoOverview = !!previewGrid && previewRemaining === 0 && previewReady === previewGrid.tiles.length;
+          if (changingToPhotos && !photoOverview && ready < Math.ceil(grid.tiles.length * 0.85) && completed < grid.tiles.length) return;
+          finishTransition();
+          previous = current;
+          uniforms.previousMap.value = previous;
+          uniforms.previousBounds.value.copy(uniforms.detailBounds.value);
+          uniforms.previousEnabled.value = previous ? 1 : 0;
           current = texture;
           published = true;
           active = { grid, source: source.id, zoom, topography: state.topography };
           uniforms.detailMap.value = texture;
           uniforms.detailBounds.value.set(((grid.west + 180) / 360 % 1 + 1) % 1, (grid.south + 90) / 180, grid.longitudeSpan / 360, grid.latitudeSpan / 180);
           uniforms.detailEnabled.value = 1;
+          uniforms.detailBlend.value = reducedMotion.matches ? 1 : 0;
+          transition();
         }
         if (published) texture.needsUpdate = true;
-        status2({ ...baseStatus, ready, fallback, preview, offline: completed === grid.tiles.length && ready < completed });
+        status2({ ...baseStatus, displayedSource: active?.source ?? "viking", ready, fallback, preview, offline: completed === grid.tiles.length && ready < completed });
         render2();
       };
       const work = [...grid.tiles].sort((a, b) => {
@@ -25580,9 +25680,10 @@ uniform float detailEnabled;
         return Math.hypot(a.dx + 0.5 - cx, a.dy + 0.5 - cy) - Math.hypot(b.dx + 0.5 - cx, b.dy + 0.5 - cy);
       });
       const missing = work.filter((tile) => {
-        const image = images.get(`${source.id}/${zoom}/${tile.y}/${tile.x}`);
+        const cacheKey = `${source.id}/${zoom}/${tile.y}/${tile.x}`;
+        const image = images.get(cacheKey);
         if (!image) return true;
-        ctx2.drawImage(image, tile.dx * 256, tile.dy * 256, 256, 256);
+        paintNative(image, cacheKey, tile.dx, tile.dy);
         completed++;
         ready++;
         return false;
@@ -25600,13 +25701,16 @@ uniform float detailEnabled;
             const west = longitudeNear(-180 + (tile.x + 0.5) * span, grid.west + grid.longitudeSpan / 2) - span / 2;
             const x = (west - grid.west) / grid.longitudeSpan * canvas.width;
             const y = (grid.south + grid.latitudeSpan - (90 - tile.y * span)) / grid.latitudeSpan * canvas.height;
-            ctx2.globalCompositeOperation = "destination-over";
             ctx2.drawImage(image, x, y, span / grid.longitudeSpan * canvas.width, span / grid.latitudeSpan * canvas.height);
-            ctx2.globalCompositeOperation = "source-over";
+            cached.filter((tile2) => /^(ctx|hirise)-/.test(tile2.source) && tile2.zoom > previewZoom).forEach(drawCached);
+            nativePaints.forEach((paint) => paint());
             inherited = true;
             preview = true;
-            publish();
+            previewReady++;
           } catch {
+          } finally {
+            previewRemaining--;
+            publish();
           }
         }
       }
@@ -25626,27 +25730,32 @@ uniform float detailEnabled;
             }
             if (id !== generation) break;
             if (!image) throw Error("Tile unavailable");
-            ctx2.drawImage(image, tile.dx * 256, tile.dy * 256, 256, 256);
+            paintNative(image, cacheKey, tile.dx, tile.dy);
             ready++;
           } catch (e) {
             if (signal.aborted || disposed || id !== generation) break;
             for (let level = zoom - 1; level >= Math.max(0, zoom - 3); level--) {
               const scale = 2 ** (zoom - level);
               try {
-                const image = await loadImage(`${source.id}/${level}/${Math.floor(tile.y / scale)}/${Math.floor(tile.x / scale)}`, id);
+                const parentKey = `${source.id}/${level}/${Math.floor(tile.y / scale)}/${Math.floor(tile.x / scale)}`;
+                const image = await loadImage(parentKey, id);
                 if (id !== generation || disposed) break;
                 const width = image.width / scale, height = image.height / scale;
-                ctx2.drawImage(
-                  image,
-                  tile.x % scale * width,
-                  tile.y % scale * height,
-                  width,
-                  height,
-                  tile.dx * 256,
-                  tile.dy * 256,
-                  256,
-                  256
-                );
+                const paint = () => {
+                  if (images.get(parentKey) === image) ctx2.drawImage(
+                    image,
+                    tile.x % scale * width,
+                    tile.y % scale * height,
+                    width,
+                    height,
+                    tile.dx * 256,
+                    tile.dy * 256,
+                    256,
+                    256
+                  );
+                };
+                nativePaints.push(paint);
+                paint();
                 inherited = true;
                 fallback++;
                 break;
@@ -25663,7 +25772,7 @@ uniform float detailEnabled;
       if (!published) texture.dispose();
       if (id === generation && !disposed) {
         const nextZoom = zoom + 1;
-        const nextSource = state.topography ? source : opticalSource(state.catalog.tiles, nextZoom, region.lon, region.lat);
+        const nextSource = globeOpticalSource(state.catalog?.tiles ?? [], nextZoom, region.lon, region.lat, local, autoHD);
         if (nextSource && nextZoom < nextSource.matrices.length && nextZoom <= (nextSource.max_useful_zoom ?? Infinity)) {
           const span = 180 / 2 ** nextZoom;
           const nextGrid = detailGrid(
@@ -25703,6 +25812,7 @@ uniform float detailEnabled;
         cancelAnimationFrame(frame);
         clearTimeout(timer);
         abort?.abort();
+        finishTransition();
         controllers.forEach((controller) => controller.abort());
         active = null;
         current?.dispose();

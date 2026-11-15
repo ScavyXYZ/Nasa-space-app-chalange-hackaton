@@ -53,7 +53,9 @@
   .app .planner { padding:20px 16px; }
 }
 @media(max-width:760px) {
-  .app .app-header { height:76px; }
+  .app .app-header { height:auto; min-height:76px; padding:14px 4%; flex-wrap:wrap; gap:12px; }
+  .app .app-header nav { display:flex; width:100%; order:3; align-items:center; justify-content:center; gap:24px; }
+  .app .app-header nav button,.app .app-header nav a { min-height:44px; display:inline-flex; align-items:center; }
   .app .brand { font-size:14px; }
   .app .brand small { font-size:6px; }
   .app .workspace { display:flex; gap:16px; }

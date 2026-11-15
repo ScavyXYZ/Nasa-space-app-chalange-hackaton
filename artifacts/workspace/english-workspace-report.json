@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "language": "en",
+  "removed_promos_and_hints": true,
+  "removed_disclaimer_copy_in_ui_and_report": true,
+  "relief_requests": 0,
+  "automatic_ctx_imagery_retained": true,
+  "real_global_and_local_routes": true,
+  "geojson_geometry_and_metrics_unchanged": true,
+  "report_and_pdf": true,
+  "camera_retained_on_results_comparison_and_failures": true,
+  "responsive_widths": [
+    375,
+    768,
+    812,
+    1440,
+    1920
+  ],
+  "page_errors": []
+}

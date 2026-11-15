@@ -1,0 +1,18 @@
+{
+  "id": "viking-local",
+  "title": "Viking \u00b7 \u043b\u043e\u043a\u0430\u043b\u044c\u043d\u0430 \u0441\u0443\u0446\u0456\u043b\u044c\u043d\u0430 \u043c\u043e\u0437\u0430\u0457\u043a\u0430",
+  "max_level": 5,
+  "tile_size": 256,
+  "tiles": 2730,
+  "display_dimensions": [
+    16384,
+    8192
+  ],
+  "source_dimensions": [
+    21339,
+    10670
+  ],
+  "source_sha256": "fdfcd335559c3dc67052b7e8a9565d850e336ac0d1f3ea7f5eb7826ffb44ecb2",
+  "equatorial_m_per_pixel": 1302.3496889149094,
+  "note": "Official colorized 1km Viking browse, downsampled; no generated detail. Internal local chunks are composed into one surface texture."
+}

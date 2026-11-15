@@ -90,3 +90,20 @@ Preview evidence:
 - `artifacts/design/mission-locations.png`
 - `artifacts/design/jezero-desktop.png`
 - `artifacts/design/design-report.json`
+
+## Continuous planetary 3D extension
+
+The same observation-deck tokens now frame a connected adaptive MOLA surface.
+`Ракурс 3D` and `Автознімки HD` are native pressed-state buttons; mint borders
+make their state visible without changing layout. Controls and scientific
+notes sit below the canvas instead of obscuring the terrain on narrow screens.
+An oblique camera preserves the navigation camera and actual geographic centre.
+The distant overview is local; close zoom automatically displays CTX/HiRISE
+photos on the same terrain. Auto imagery is enabled by default, with a
+local-only opt-out. The first optical overview crossfades over 280ms, or swaps
+immediately for reduced motion; cached fine images survive later refinements.
+
+The status distinguishes geometry LOD, source resolution, texture resolution
+and an unavailable refinement. It never labels an optical image as new terrain.
+Polar display fallback and ×10 visual exaggeration remain explicitly stated.
+See `docs/planet_3d.md` and `artifacts/planet/planet-report.json`.

@@ -20,6 +20,8 @@ def run(url):
         page.on("console",lambda m:errors.append(m.text) if m.type=="error" and "THREE.WebGLProgram" in m.text else None)
         page.goto(url)
         page.wait_for_selector('[data-testid="mars-globe"][data-ready="true"]',timeout=60000)
+        # Close-up optical imagery is automatic, without a manual HD toggle.
+        expect(page.get_by_role("button",name="Автознімки HD",exact=True)).to_have_attribute("aria-pressed","true")
         # Detail starts in the initial view, not only after the first zoom.
         page.wait_for_function(DETAIL_DISPLAYED,timeout=120000)
         for _ in range(6):

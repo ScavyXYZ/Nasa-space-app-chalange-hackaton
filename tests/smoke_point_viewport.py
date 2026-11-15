@@ -21,7 +21,7 @@ def pick_without_moving(page,host,globe,field,x=.47,y=.46):
         host.click(position={"x":box["width"]*x,"y":box["height"]*y})
     inspection.value.json()
     coords=parse_qs(urlsplit(inspection.value.url).query)
-    for label,key in [("довгота","lon"),("широта","lat")]:
+    for label,key in [("longitude","lon"),("latitude","lat")]:
         element=page.get_by_label(field+": "+label,exact=True)
         expect(element).not_to_have_value("")
         assert abs(float(element.input_value())-float(coords[key][0]))<1e-6
@@ -41,41 +41,40 @@ def run(url):
         globe=page.get_by_test_id("mars-globe")
         page.wait_for_selector('[data-testid="mars-globe"][data-ready="true"]',timeout=60000)
         for _ in range(22):
-            page.get_by_role("button",name="Наблизити планету",exact=True).click()
+            page.get_by_role("button",name="Zoom in on Mars",exact=True).click()
         assert state(globe,True)[2]>10
-        pick_without_moving(page,globe,True,"Початок")
-        pick_without_moving(page,globe,True,"Кінець",.57,.52)
-        page.get_by_role("button",name="Додати зупинку",exact=True).click()
-        pick_without_moving(page,globe,True,"Зупинка 1",.4,.54)
+        pick_without_moving(page,globe,True,"Start")
+        pick_without_moving(page,globe,True,"End",.57,.52)
+        page.get_by_role("button",name="Add stop",exact=True).click()
+        pick_without_moving(page,globe,True,"Stop 1",.4,.54)
 
         page.set_viewport_size({"width":375,"height":812})
         page.wait_for_timeout(200)
-        pick_without_moving(page,globe,True,"Кінець",.54,.4)
+        pick_without_moving(page,globe,True,"End",.54,.4)
         page.set_viewport_size({"width":1440,"height":1100})
-        page.get_by_role("button",name="2D атлас",exact=True).click()
-        page.get_by_role("button",name="Наблизити Jezero",exact=True).click()
+        page.get_by_role("button",name="2D atlas",exact=True).click()
+        page.get_by_role("button",name="Jezero",exact=True).click()
         atlas=page.get_by_test_id("atlas-map")
         for z in range(11,14):
             page.get_by_role("button",name="Zoom in",exact=True).click()
             expect(atlas).to_have_attribute("data-zoom",str(z))
         page.locator(".mc-endpoint > button").nth(0).click()
-        pick_without_moving(page,atlas,False,"Початок")
-        pick_without_moving(page,atlas,False,"Кінець",.58,.52)
-        page.get_by_role("button",name="Додати зупинку",exact=True).click()
-        pick_without_moving(page,atlas,False,"Зупинка 2",.4,.54)
+        pick_without_moving(page,atlas,False,"Start")
+        pick_without_moving(page,atlas,False,"End",.58,.52)
+        page.get_by_role("button",name="Add stop",exact=True).click()
+        pick_without_moving(page,atlas,False,"Stop 2",.4,.54)
 
         # Explicit navigation must still work; only ordinary placement is inert.
-        page.get_by_label("Пошук місць на Марсі").fill("Gale")
-        page.locator(".mc-place").click()
+        page.get_by_role("button",name="Whole planet",exact=True).click()
         page.wait_for_function("""()=>{
           const d=document.querySelector('[data-testid="atlas-map"]').dataset;
-          return Math.abs(Number(d.viewLon)-137.4)<1e-6&&Math.abs(Number(d.viewLat)+4.6)<1e-6
+           return Math.abs(Number(d.viewLon))<1e-6&&Math.abs(Number(d.viewLat))<1e-6
         }""")
         assert state(atlas,False)[2]<13
         assert not errors,errors
         report={"status":"passed","checks":["Globe A/B/stops preserve zoom and camera direction",
                 "Mobile globe placement preserves view","2D A/B/stops preserve zoom 13 and map centre",
-                "Selection still inspects the newly picked coordinates","Place search still navigates explicitly"],
+                 "Selection still inspects the newly picked coordinates","Whole-planet control navigates explicitly"],
                 "page_errors":errors}
         OUT.mkdir(parents=True,exist_ok=True)
         (OUT/"point-viewport-report.json").write_text(json.dumps(report,indent=2),encoding="utf-8")

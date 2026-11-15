@@ -6,7 +6,19 @@ export async function api<T>(path: string, options?: RequestInit): Promise<T> {
   const response = await fetch(assetUrl(path), options)
   if (!response.ok) {
     const data = await response.json().catch(() => null)
-    throw new Error(data?.detail?.message || (response.status===422?'Перевірте координати, зупинки та параметри моделі.':`API недоступний (${response.status}). Перевірте сервер і дані.`))
+    const messages:Record<string,string>={
+      invalid_coordinate:'Invalid coordinates.',invalid_parameters:'Invalid parameters.',
+      outside_coverage:'Outside DEM coverage.',server_busy:'Server busy.',
+      terrain_data_unavailable:'Terrain data unavailable.',terrain_data_invalid:'Invalid terrain data.',
+      craters_unavailable:'Crater data unavailable.',dataset_unavailable:'Dataset unavailable.',
+      global_unavailable:'MOLA data unavailable.',geology_unavailable:'Geology data unavailable.',
+      route_nodata:'The route crosses missing data.',profile_too_large:'Profile limit reached.',
+      imagery_unavailable:'Imagery unavailable.',tile_unavailable:'Imagery unavailable.',
+    }
+    const message=data?.detail?.message
+    throw new Error(messages[data?.detail?.code]||
+      (typeof message==='string'&&message.length<180&&!/\p{Script=Cyrillic}/u.test(message)?message:
+        response.status===422?'Invalid coordinates or parameters.':`Request failed (${response.status}).`))
   }
   return response.json()
 }

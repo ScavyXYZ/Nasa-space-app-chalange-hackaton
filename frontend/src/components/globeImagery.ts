@@ -1,13 +1,14 @@
 import * as THREE from 'three'
 import { assetUrl } from '../api'
-import { detailGrid, longitudeNear, opticalSource, tileSpacing } from './imageryLod'
+import { detailGrid, longitudeNear, globeOpticalSource, tileSpacing } from './imageryLod'
 import type { AtlasCatalog } from '../types'
+import { planetView } from './planetView'
 
-type DetailState={catalog:AtlasCatalog|null|undefined;topography:boolean}
-export type DetailStatus={source:string;zoom:number;ready:number;total:number;fallback:number;preview:boolean;spacing:number;limited:boolean;offline:boolean}
+type DetailState={catalog:AtlasCatalog|null|undefined;topography:boolean;remoteDetail?:boolean;localMaxLevel?:number}
+export type DetailStatus={source:string;sourceId:string;displayedSource:string;zoom:number;ready:number;total:number;fallback:number;preview:boolean;spacing:number;limited:boolean;offline:boolean}
 
-/** One bounded regional texture atlas, projected into the base sphere's UVs.
- * Geometry, elevation values and route calculations are intentionally unchanged.
+/** One bounded composed texture projected into the connected planet's UVs.
+ * Local overview automatically gives way to CTX/HiRISE on close zoom.
  */
 export function globeImagery(material:THREE.MeshStandardMaterial,camera:THREE.PerspectiveCamera,
   renderer:THREE.WebGLRenderer,getState:()=>DetailState,render:()=>void,
@@ -15,28 +16,65 @@ export function globeImagery(material:THREE.MeshStandardMaterial,camera:THREE.Pe
   const uniforms={
     detailMap:{value:null as THREE.Texture|null},detailBounds:{value:new THREE.Vector4()},
     detailEnabled:{value:0},
+    previousMap:{value:null as THREE.Texture|null},previousBounds:{value:new THREE.Vector4()},
+    previousEnabled:{value:0},detailBlend:{value:1},
   }
   material.onBeforeCompile=shader=>{
     Object.assign(shader.uniforms,uniforms)
-    shader.fragmentShader=`uniform sampler2D detailMap;\nuniform vec4 detailBounds;\nuniform float detailEnabled;\n`+shader.fragmentShader
+    shader.fragmentShader=`uniform sampler2D detailMap;
+      uniform vec4 detailBounds;
+      uniform float detailEnabled;
+      uniform sampler2D previousMap;
+      uniform vec4 previousBounds;
+      uniform float previousEnabled;
+      uniform float detailBlend;
+      vec4 marsImage(sampler2D image, vec4 bounds, vec2 uv) {
+        float dx = mod(uv.x - bounds.x + 1.0, 1.0);
+        vec2 localUv = vec2(dx / bounds.z, (uv.y - bounds.y) / bounds.w);
+        if (localUv.x < 0.0 || localUv.x > 1.0 || localUv.y < 0.0 || localUv.y > 1.0)
+          return vec4(0.0);
+        vec4 color = texture2D(image, localUv);
+        vec2 edge = min(localUv, 1.0 - localUv);
+        color.a *= smoothstep(0.0, 0.008, min(edge.x, edge.y));
+        return color;
+      }
+    `+shader.fragmentShader
     shader.fragmentShader=shader.fragmentShader.replace('#include <map_fragment>',`#include <map_fragment>
       #ifdef USE_MAP
       if (detailEnabled > 0.5) {
-        float dx = mod(vMapUv.x - detailBounds.x + 1.0, 1.0);
-        vec2 detailUv = vec2(dx / detailBounds.z, (vMapUv.y - detailBounds.y) / detailBounds.w);
-        if (detailUv.x >= 0.0 && detailUv.x <= 1.0 && detailUv.y >= 0.0 && detailUv.y <= 1.0) {
-          vec4 detail = texture2D(detailMap, detailUv);
-          vec2 edge = min(detailUv, 1.0 - detailUv);
-          float fade = smoothstep(0.0, 0.008, min(edge.x, edge.y));
-          diffuseColor.rgb = mix(diffuseColor.rgb, detail.rgb, detail.a * fade);
+        if (previousEnabled > 0.5) {
+          vec4 previous = marsImage(previousMap, previousBounds, vMapUv);
+          diffuseColor.rgb = mix(diffuseColor.rgb, previous.rgb, previous.a);
         }
+        vec4 detail = marsImage(detailMap, detailBounds, vMapUv);
+        diffuseColor.rgb = mix(diffuseColor.rgb, detail.rgb, detail.a * detailBlend);
       }
       #endif`)
   }
-  material.customProgramCacheKey=()=>'mars-original-tile-atlas-v3'
+  material.customProgramCacheKey=()=>'mars-auto-photo-atlas-v4'
   material.needsUpdate=true
   let disposed=false,generation=0,key='',frame=0,current:THREE.CanvasTexture|null=null
   let timer=0
+  let transitionFrame=0,previous:THREE.CanvasTexture|null=null
+  const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)')
+  function finishTransition(){
+    cancelAnimationFrame(transitionFrame);transitionFrame=0
+    uniforms.detailBlend.value=1;uniforms.previousEnabled.value=0
+    uniforms.previousMap.value=null;previous?.dispose();previous=null
+  }
+  function transition(){
+    if(reducedMotion.matches){finishTransition();return}
+    const start=performance.now()
+    function step(now:number){
+      if(disposed)return
+      const t=Math.min(1,(now-start)/280)
+      uniforms.detailBlend.value=t*t*(3-2*t)
+      if(t<1)transitionFrame=requestAnimationFrame(step)
+      else finishTransition()
+      render()
+    }
+    transitionFrame=requestAnimationFrame(step)
+  }
   type Grid=NonNullable<ReturnType<typeof detailGrid>>
   let active:{grid:Grid;source:string;zoom:number;topography:boolean}|null=null
   // A camera move cancels composition, not useful downloads shared by views.
@@ -58,7 +96,10 @@ export function globeImagery(material:THREE.MeshStandardMaterial,camera:THREE.Pe
     const timeout=window.setTimeout(()=>controller.abort(),15000)
     controllers.set(cacheKey,controller)
     const request=(async()=>{
-      const response=await fetch(assetUrl('/api/atlas/tiles/'+cacheKey+'?v=validated-3'),{signal:controller.signal})
+      const path=cacheKey.startsWith('viking-local/')
+        ?'/api/globe/imagery/'+cacheKey.slice('viking-local/'.length)
+        :'/api/atlas/tiles/'+cacheKey+'?v=validated-3'
+      const response=await fetch(assetUrl(path),{signal:controller.signal})
       if(!response.ok)throw Error('Tile unavailable')
       const image=await createImageBitmap(await response.blob())
       if(disposed){image.close();throw Error('Viewer disposed')}
@@ -69,36 +110,20 @@ export function globeImagery(material:THREE.MeshStandardMaterial,camera:THREE.Pe
     pending.set(cacheKey,request)
     try{return await request}finally{clearTimeout(timeout);pending.delete(cacheKey);controllers.delete(cacheKey)}
   }
-  const ray=new THREE.Raycaster(),sphere=new THREE.Sphere(new THREE.Vector3(),1)
-  function visibleRegion(){
-    camera.updateMatrixWorld()
-    ray.setFromCamera(new THREE.Vector2(0,0),camera)
-    const centre=ray.ray.intersectSphere(sphere,new THREE.Vector3())
-    if(!centre)return null
-    const lon=Math.atan2(-centre.z,centre.x)*180/Math.PI,lat=Math.asin(centre.y)*180/Math.PI
-    const points:{lon:number;lat:number}[]=[]
-    for(let y=-1;y<=1.01;y+=.25)for(let x=-1;x<=1.01;x+=.25){
-      ray.setFromCamera(new THREE.Vector2(x,y),camera)
-      const hit=ray.ray.intersectSphere(sphere,new THREE.Vector3())
-      if(hit)points.push({lon:longitudeNear(Math.atan2(-hit.z,hit.x)*180/Math.PI,lon),lat:Math.asin(THREE.MathUtils.clamp(hit.y,-1,1))*180/Math.PI})
-    }
-    if(!points.length)return null
-    const west=Math.min(...points.map(p=>p.lon)),east=Math.max(...points.map(p=>p.lon))
-    const south=Math.min(...points.map(p=>p.lat)),north=Math.max(...points.map(p=>p.lat))
-    const mx=Math.max(.000001,(east-west)*.03),my=Math.max(.000001,(north-south)*.03)
-    return {lon,lat,west:west-mx,east:east+mx,south:Math.max(-90,south-my),north:Math.min(90,north+my)}
-  }
   async function update(){
     if(disposed)return
-    const state=getState(),region=visibleRegion()
-    if(!state.catalog||!region){
-      generation++;key='';uniforms.detailEnabled.value=0;status(null);render();return
+    const state=getState(),region=planetView(camera)
+    if(!region||state.topography||(!state.catalog&&state.localMaxLevel===undefined)){
+      generation++;key='';active=null;finishTransition()
+      uniforms.detailEnabled.value=0;status(null);render();return
     }
     const wanted=Math.max(0,Math.ceil(Math.log2(renderer.domElement.width*360/(Math.max(.000001,region.east-region.west)*512))))
-    const source=state.topography
-      ?state.catalog.tiles.find(s=>s.id==='hrsc')
-      :opticalSource(state.catalog.tiles,wanted,region.lon,region.lat)
-    if(!source)return
+    const local=state.localMaxLevel===undefined?null:{id:'viking-local',title:'Viking · local mosaic',
+      matrices:Array.from({length:(state.localMaxLevel??5)+1},(_,i)=>String(i)),
+      max_useful_zoom:state.localMaxLevel??5,note:'Official colorized browse, not true-color',source:'NASA Ames / USGS'}
+    const autoHD=state.remoteDetail!==false
+    const source=globeOpticalSource(state.catalog?.tiles??[],wanted,region.lon,region.lat,local,autoHD)
+    if(!source){generation++;key='';active=null;finishTransition();uniforms.detailEnabled.value=0;status(null);render();return}
     const sourceMax=source.max_useful_zoom??source.matrices.length-1
     let zoom=Math.min(wanted,sourceMax)
     let grid=detailGrid(region.lon,region.south,region.north,region.west,region.east,zoom)
@@ -133,43 +158,64 @@ export function globeImagery(material:THREE.MeshStandardMaterial,camera:THREE.Pe
     let inherited=false
     // Rebuild ONLY from original georeferenced images, never from a resampled
     // composite. Repeated pan/zoom must not propagate stale or distorted pixels.
-    const sourceOrder=state.topography?['hrsc']:['viking-hd','ctx-global','ctx-jezero','hirise-jezero']
+    const sourceOrder=source.id==='viking-local'?['viking-local']:['viking-local','viking-hd','ctx-global','ctx-jezero','hirise-jezero']
     const cached=[...images.entries()].map(([key,image])=>{
       const [source,z,y,x]=key.split('/')
-      return {source,zoom:Number(z),y:Number(y),x:Number(x),image}
+      return {cacheKey:key,source,zoom:Number(z),y:Number(y),x:Number(x),image}
     }).filter(t=>sourceOrder.includes(t.source))
       .sort((a,b)=>a.zoom-b.zoom||sourceOrder.indexOf(a.source)-sourceOrder.indexOf(b.source))
-    for(const tile of cached){
+    function drawCached(tile:typeof cached[number]){
+      if(images.get(tile.cacheKey)!==tile.image)return
       const span=180/2**tile.zoom
-      const west=longitudeNear(-180+(tile.x+.5)*span,grid.west+grid.longitudeSpan/2)-span/2
+      const west=longitudeNear(-180+(tile.x+.5)*span,grid!.west+grid!.longitudeSpan/2)-span/2
       for(const shift of [-360,0,360]){
-        const x=(west+shift-grid.west)/grid.longitudeSpan*canvas.width
-        const y=(grid.south+grid.latitudeSpan-(90-tile.y*span))/grid.latitudeSpan*canvas.height
-        const width=span/grid.longitudeSpan*canvas.width
-        const height=span/grid.latitudeSpan*canvas.height
+        const x=(west+shift-grid!.west)/grid!.longitudeSpan*canvas.width
+        const y=(grid!.south+grid!.latitudeSpan-(90-tile.y*span))/grid!.latitudeSpan*canvas.height
+        const width=span/grid!.longitudeSpan*canvas.width
+        const height=span/grid!.latitudeSpan*canvas.height
         if(x<canvas.width&&x+width>0&&y<canvas.height&&y+height>0){
           ctx.drawImage(tile.image,x,y,width,height)
           inherited=true
         }
       }
     }
+    cached.forEach(drawCached)
+    const nativePaints:(()=>void)[]=[]
+    function paintNative(image:ImageBitmap,cacheKey:string,dx:number,dy:number){
+      const paint=()=>{if(images.get(cacheKey)===image)ctx.drawImage(image,dx*256,dy*256,256,256)}
+      nativePaints.push(paint);paint()
+    }
     const texture=new THREE.CanvasTexture(canvas);texture.colorSpace=THREE.SRGBColorSpace
     texture.anisotropy=Math.min(16,renderer.capabilities.getMaxAnisotropy())
     let completed=0,ready=0,fallback=0,published=false,preview=false
-    const baseStatus={source:source.title,zoom,total:grid.tiles.length,spacing:tileSpacing(zoom,region.lat),limited:wanted>sourceMax}
-    status({...baseStatus,ready:0,fallback:0,preview:false,offline:false})
+    let previewRemaining=previewGrid?.tiles.length??0,previewReady=0
+    const photographic=/^(ctx|hirise)-/.test(source.id)
+    const changingToPhotos=photographic&&!/^(ctx|hirise)-/.test(active?.source??'')
+    const baseStatus={source:source.title,sourceId:source.id,zoom,total:grid.tiles.length,spacing:tileSpacing(zoom,region.lat),limited:wanted>sourceMax}
+    status({...baseStatus,displayedSource:active?.source??'viking',ready:0,fallback:0,preview:false,offline:false})
     const publish=()=>{
       if(disposed||id!==generation)return
       if(!published&&(ready||inherited)){
-        current?.dispose()
+        // The first brown→photo transition waits for a coherent overview,
+        // instead of showing a growing checkerboard of isolated grey squares.
+        const photoOverview=!!previewGrid&&previewRemaining===0&&previewReady===previewGrid.tiles.length
+        if(changingToPhotos&&!photoOverview&&ready<Math.ceil(grid!.tiles.length*.85)
+          &&completed<grid!.tiles.length)return
+        finishTransition()
+        previous=current
+        uniforms.previousMap.value=previous
+        uniforms.previousBounds.value.copy(uniforms.detailBounds.value)
+        uniforms.previousEnabled.value=previous?1:0
         current=texture;published=true
         active={grid,source:source.id,zoom,topography:state.topography}
         uniforms.detailMap.value=texture
         uniforms.detailBounds.value.set(((grid.west+180)/360%1+1)%1,(grid.south+90)/180,grid.longitudeSpan/360,grid.latitudeSpan/180)
         uniforms.detailEnabled.value=1
+        uniforms.detailBlend.value=reducedMotion.matches?1:0
+        transition()
       }
       if(published)texture.needsUpdate=true
-      status({...baseStatus,ready,fallback,preview,offline:completed===grid.tiles.length&&ready<completed})
+      status({...baseStatus,displayedSource:active?.source??'viking',ready,fallback,preview,offline:completed===grid.tiles.length&&ready<completed})
       render()
     }
     const work=[...grid.tiles].sort((a,b)=>{
@@ -179,9 +225,10 @@ export function globeImagery(material:THREE.MeshStandardMaterial,camera:THREE.Pe
     })
     // Cached visible tiles must not wait behind six slow uncached requests.
     const missing=work.filter(tile=>{
-      const image=images.get(`${source.id}/${zoom}/${tile.y}/${tile.x}`)
+      const cacheKey=`${source.id}/${zoom}/${tile.y}/${tile.x}`
+      const image=images.get(cacheKey)
       if(!image)return true
-      ctx.drawImage(image,tile.dx*256,tile.dy*256,256,256);completed++;ready++
+      paintNative(image,cacheKey,tile.dx,tile.dy);completed++;ready++
       return false
     })
     work.splice(0,work.length,...missing)
@@ -199,11 +246,15 @@ export function globeImagery(material:THREE.MeshStandardMaterial,camera:THREE.Pe
           const west=longitudeNear(-180+(tile.x+.5)*span,grid!.west+grid!.longitudeSpan/2)-span/2
           const x=(west-grid!.west)/grid!.longitudeSpan*canvas.width
           const y=(grid!.south+grid!.latitudeSpan-(90-tile.y*span))/grid!.latitudeSpan*canvas.height
-          ctx.globalCompositeOperation='destination-over'
+          // A CTX overview belongs ABOVE the coloured Viking fallback, not
+          // behind its opaque pixels. Restore only finer original photos and
+          // native pixels afterwards, so previews cannot blur loaded detail.
           ctx.drawImage(image,x,y,span/grid!.longitudeSpan*canvas.width,span/grid!.latitudeSpan*canvas.height)
-          ctx.globalCompositeOperation='source-over'
-          inherited=true;preview=true;publish()
+          cached.filter(tile=>/^(ctx|hirise)-/.test(tile.source)&&tile.zoom>previewZoom).forEach(drawCached)
+          nativePaints.forEach(paint=>paint())
+          inherited=true;preview=true;previewReady++
         }catch{/* The complete local Viking overview is always underneath. */}
+        finally{previewRemaining--;publish()}
       }
     }
     async function worker(){
@@ -222,7 +273,7 @@ export function globeImagery(material:THREE.MeshStandardMaterial,camera:THREE.Pe
           }
           if(id!==generation)break
           if(!image)throw Error('Tile unavailable')
-          ctx.drawImage(image,tile.dx*256,tile.dy*256,256,256);ready++
+          paintNative(image,cacheKey,tile.dx,tile.dy);ready++
         }catch(e){
           if(signal.aborted||disposed||id!==generation)break
           // A genuinely broken upstream tile must not become a blank rectangle
@@ -230,11 +281,15 @@ export function globeImagery(material:THREE.MeshStandardMaterial,camera:THREE.Pe
           for(let level=zoom-1;level>=Math.max(0,zoom-3);level--){
             const scale=2**(zoom-level)
             try{
-              const image=await loadImage(`${source!.id}/${level}/${Math.floor(tile.y/scale)}/${Math.floor(tile.x/scale)}`,id)
+              const parentKey=`${source!.id}/${level}/${Math.floor(tile.y/scale)}/${Math.floor(tile.x/scale)}`
+              const image=await loadImage(parentKey,id)
               if(id!==generation||disposed)break
               const width=image.width/scale,height=image.height/scale
-              ctx.drawImage(image,(tile.x%scale)*width,(tile.y%scale)*height,width,height,
-                tile.dx*256,tile.dy*256,256,256)
+              const paint=()=>{
+                if(images.get(parentKey)===image)ctx.drawImage(image,(tile.x%scale)*width,(tile.y%scale)*height,width,height,
+                  tile.dx*256,tile.dy*256,256,256)
+              }
+              nativePaints.push(paint);paint()
               inherited=true;fallback++;break
             }catch{/* Try the next genuine ancestor, never a neighbouring tile. */}
           }
@@ -250,7 +305,7 @@ export function globeImagery(material:THREE.MeshStandardMaterial,camera:THREE.Pe
     if(!published)texture.dispose()
     if(id===generation&&!disposed){
       const nextZoom=zoom+1
-      const nextSource=state.topography?source:opticalSource(state.catalog!.tiles,nextZoom,region.lon,region.lat)
+      const nextSource=globeOpticalSource(state.catalog?.tiles??[],nextZoom,region.lon,region.lat,local,autoHD)
       if(nextSource&&nextZoom<nextSource.matrices.length&&nextZoom<=(nextSource.max_useful_zoom??Infinity)){
         const span=180/2**nextZoom
         const nextGrid=detailGrid(region.lon,Math.max(-90,region.lat-span),Math.min(90,region.lat+span),
@@ -276,6 +331,7 @@ export function globeImagery(material:THREE.MeshStandardMaterial,camera:THREE.Pe
     },
     dispose:()=>{
       disposed=true;generation++;cancelAnimationFrame(frame);clearTimeout(timer);abort?.abort()
+      finishTransition()
       controllers.forEach(controller=>controller.abort());active=null
       current?.dispose();images.forEach(image=>image.close());images.clear()
       uniforms.detailEnabled.value=0

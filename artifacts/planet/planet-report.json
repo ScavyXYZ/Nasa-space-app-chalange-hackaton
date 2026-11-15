@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "initial_vertices": 16471,
+  "native_detail_vertices": 94962,
+  "max_mesh_vertices": 220000,
+  "surface_requests": 13,
+  "far_overview_remote_imagery_requests": 0,
+  "connected_native_lod": true,
+  "oblique_keeps_navigation_camera": true,
+  "picking_preserves_zoom": true,
+  "numeric_failure_retains_mesh": true,
+  "automatic_close_up_photography": true,
+  "mobile_tablet_landscape_no_overflow": true,
+  "page_errors": []
+}

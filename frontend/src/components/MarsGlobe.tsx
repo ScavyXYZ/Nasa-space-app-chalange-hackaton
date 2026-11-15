@@ -3,7 +3,7 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import { ArrowLeft, ArrowRight, ArrowsOut, Crosshair } from '@phosphor-icons/react'
 import { api, assetUrl } from '../api'
-import type { Position, GlobalTerrainData, GlobalRoute, AtlasCatalog } from '../types'
+import type { Position, GlobalRoute, AtlasCatalog } from '../types'
 import { globeImagery } from './globeImagery'
 import type { DetailStatus } from './globeImagery'
 import { strategicRoute } from './routeAssessment'
@@ -11,7 +11,7 @@ import { craterRing } from './hazardGeometry'
 import { globeSurface,surfaceLineMaterial } from './globeSurface'
 import { routeAnchors } from './routeAnchors'
 
-type Metadata={url:string;title:string;source_page:string;color_note:string}
+type Metadata={url:string;title:string;source_page:string;color_note:string;local_imagery?:{max_level:number;equatorial_m_per_pixel:number}}
 const jezero={lon:77.4508,lat:18.4447}
 function vector(lon:number,lat:number,r=1){
   const a=lon*Math.PI/180,b=lat*Math.PI/180
@@ -19,15 +19,17 @@ function vector(lon:number,lat:number,r=1){
 }
 type Viewer={camera:THREE.PerspectiveCamera;controls:OrbitControls;render:()=>void;framingDistance:number;updateSurface:()=>void;fly:(progress:number)=>void;zoomBy:(scale:number)=>void;detail:()=>void}
 
-export default function MarsGlobe({onJezero,onFallback,coverageBounds,start,end,onPick,terrain,topography=false,exaggeration=1,route,focus,mission=false,geology=false,flightProgress=null,catalog}:{onJezero:()=>void;onFallback:()=>void;coverageBounds?:[number,number,number,number];start:Position|null;end:Position|null;onPick:(point:Position)=>void;terrain?:GlobalTerrainData|null;topography?:boolean;exaggeration?:number;route?:GlobalRoute|null;focus?:Position|null;mission?:boolean;geology?:boolean;flightProgress?:number|null;catalog?:AtlasCatalog|null}){
+export default function MarsGlobe({onFallback,start,end,onPick,route,focus,geology=false,flightProgress=null,catalog}:{onFallback:()=>void;start:Position|null;end:Position|null;onPick:(point:Position)=>void;route?:GlobalRoute|null;focus?:Position|null;geology?:boolean;flightProgress?:number|null;catalog?:AtlasCatalog|null}){
   const host=useRef<HTMLDivElement>(null),shell=useRef<HTMLDivElement>(null),viewer=useRef<Viewer|null>(null)
   const callback=useRef(onPick);callback.current=onPick
   const endpoints=useRef([start,end]);endpoints.current=[start,end]
-  const surface=useRef({terrain,topography,exaggeration,route,geology});surface.current={terrain,topography,exaggeration,route,geology}
-  const imageryState=useRef({catalog,topography});imageryState.current={catalog,topography}
+  const surface=useRef({route,geology});surface.current={route,geology}
+  const [remoteDetail,setRemoteDetail]=useState(true)
+  const imageryState=useRef({catalog,topography:false,remoteDetail,localMaxLevel:undefined as number|undefined})
   const [detail,setDetail]=useState<DetailStatus|null>(null)
   const [metadata,setMetadata]=useState<Metadata|null>(null),[error,setError]=useState(''),[loaded,setLoaded]=useState(false)
-  const [coordinates,setCoordinates]=useState('Натисніть на Марс, щоб розмістити A або B')
+  imageryState.current={catalog,topography:false,remoteDetail,localMaxLevel:metadata?.local_imagery?.max_level}
+  const [coordinates,setCoordinates]=useState('')
   const [fullscreen,setFullscreen]=useState(false)
   useEffect(()=>{
     const abort=new AbortController()
@@ -44,12 +46,14 @@ export default function MarsGlobe({onJezero,onFallback,coverageBounds,start,end,
     const container=host.current
     let renderer:THREE.WebGLRenderer
     try{renderer=new THREE.WebGLRenderer({antialias:true})}
-    catch{setError('WebGL недоступний. Можна відкрити 2D-карту Jezero.');return}
-    let disposed=false,texture:THREE.Texture|null=null,topoTexture:THREE.Texture|null=null,topoLoading=false
+    catch{setError('WebGL unavailable.');return}
+    let disposed=false,texture:THREE.Texture|null=null
     let geologicalTexture:THREE.Texture|null=null,geologicalLoading=false
     let imagery:ReturnType<typeof globeImagery>|null=null
+    function scheduleDetail(){imagery?.schedule()}
     renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.outputColorSpace=THREE.SRGBColorSpace
-    renderer.domElement.setAttribute('aria-label','Глобус Марса: обертайте мишею або кнопками')
+    renderer.toneMapping=THREE.ACESFilmicToneMapping
+    renderer.domElement.setAttribute('aria-label','Mars globe')
     renderer.domElement.tabIndex=0;container.appendChild(renderer.domElement)
     const scene=new THREE.Scene();scene.background=new THREE.Color('#080c12')
     const camera=new THREE.PerspectiveCamera(38,1,.01,50)
@@ -62,8 +66,8 @@ export default function MarsGlobe({onJezero,onFallback,coverageBounds,start,end,
     const drape=globeSurface(globe)
     const geologyMaterial=new THREE.MeshBasicMaterial({transparent:true,opacity:.57,depthWrite:false})
     const geologyMesh=new THREE.Mesh(geometry,geologyMaterial);geologyMesh.scale.setScalar(1.0006);geologyMesh.visible=false;scene.add(geologyMesh)
-    scene.add(new THREE.AmbientLight('#ffffff',1.4))
-    const sun=new THREE.DirectionalLight('#fff0de',2.1);scene.add(sun)
+    scene.add(new THREE.AmbientLight('#ffffff',.9))
+    const sun=new THREE.DirectionalLight('#ffffff',1.7);scene.add(sun)
     // Static, deterministic star field. Rendering remains demand-driven.
     const starPositions:number[]=[]
     for(let i=0;i<700;i++){
@@ -84,41 +88,15 @@ export default function MarsGlobe({onJezero,onFallback,coverageBounds,start,end,
     const hazardGeometry=new THREE.BufferGeometry()
     const hazardMaterial=surfaceLineMaterial(new THREE.LineBasicMaterial({color:'#ff7676',transparent:true,opacity:.8}))
     const hazardLines=new THREE.LineSegments(hazardGeometry,hazardMaterial);scene.add(hazardLines)
-    function elevationAt(lon:number,lat:number){
-      const data=surface.current.terrain;if(!data)return 0
-      const row=Math.max(0,Math.min(data.shape[0]-1,Math.round((data.latitudes[0]-lat)/(180/data.shape[0]))))
-      const col=((Math.round((((lon%360)+360)%360-data.longitudes[0])/(360/data.shape[1]))%data.shape[1])+data.shape[1])%data.shape[1]
-      return data.elevations_m[row*data.shape[1]+col]
-    }
-    function radiusAt(lon:number,lat:number){
-      return 1+elevationAt(lon,lat)*(surface.current.exaggeration)/(surface.current.terrain?.radius_m||3396000)
-    }
     function updateSurface(){
-      const positions=geometry.getAttribute('position')
-      const direction=new THREE.Vector3()
-      for(let i=0;i<positions.count;i++){
-        direction.fromBufferAttribute(positions,i).normalize()
-        const lat=Math.asin(THREE.MathUtils.clamp(direction.y,-1,1))*180/Math.PI
-        const lon=Math.atan2(-direction.z,direction.x)*180/Math.PI
-        direction.multiplyScalar(radiusAt(lon,lat));positions.setXYZ(i,direction.x,direction.y,direction.z)
-      }
-      positions.needsUpdate=true;geometry.computeVertexNormals();geometry.computeBoundingSphere()
-      const data=surface.current.terrain
-      if(data && !topoTexture && !topoLoading){
-        topoLoading=true
-        new THREE.TextureLoader().load(assetUrl(data.texture_url),t=>{
-          if(disposed){t.dispose();return}
-          topoTexture=t;t.colorSpace=THREE.SRGBColorSpace;updateSurface()
-        },undefined,()=>{if(!disposed){topoLoading=false;setError('Не вдалося завантажити топографічну текстуру.')}})
-      }
-      material.map=surface.current.topography && topoTexture?topoTexture:texture;material.needsUpdate=true
+      material.map=texture;material.needsUpdate=true
       if(surface.current.geology&&!geologicalTexture&&!geologicalLoading){
         geologicalLoading=true
         new THREE.TextureLoader().load(assetUrl('/api/assets/global-geology.png'),t=>{
           if(disposed){t.dispose();return}
           geologicalTexture=t;t.colorSpace=THREE.SRGBColorSpace
           geologyMaterial.map=t;geologyMaterial.needsUpdate=true;updateSurface()
-        },undefined,()=>{if(!disposed){geologicalLoading=false;setError('Геологічний шар недоступний.')}})
+        },undefined,()=>{if(!disposed){geologicalLoading=false;setError('Geology layer unavailable.')}})
       }
       geologyMesh.visible=surface.current.geology&&!!geologicalTexture
       const g=surface.current.route?.route?.geometry
@@ -153,9 +131,6 @@ export default function MarsGlobe({onJezero,onFallback,coverageBounds,start,end,
       if(hazardPoints.length)hazardGeometry.computeBoundingSphere()
       hazardLines.visible=hazardPoints.length>0;render()
     }
-    const markerGeometry=new THREE.SphereGeometry(.013,14,10)
-    const markerMaterial=new THREE.MeshBasicMaterial({color:'#8aefd1'})
-    const marker=new THREE.Mesh(markerGeometry,markerMaterial);marker.position.copy(vector(jezero.lon,jezero.lat,1.012));scene.add(marker)
     const pins=['A','B'].map((label,i)=>{
       const canvas=document.createElement('canvas');canvas.width=96;canvas.height=96
       const ctx=canvas.getContext('2d')!
@@ -167,14 +142,6 @@ export default function MarsGlobe({onJezero,onFallback,coverageBounds,start,end,
       pin.renderOrder=10
       pin.scale.set(.036,.036,1);scene.add(pin);return pin
     })
-    const borderPoints:THREE.Vector3[]=[]
-    // Actual CTX prepared AOI bounds, visible only at close globe zoom.
-    const bounds=coverageBounds || [77.40616912514038,18.40279319132929,77.4951012538785,18.487146215619862]
-    for(const [lon,lat] of [[bounds[0],bounds[1]],[bounds[2],bounds[1]],[bounds[2],bounds[3]],[bounds[0],bounds[3]],[bounds[0],bounds[1]]])
-      borderPoints.push(vector(lon,lat,1.002))
-    const borderGeometry=new THREE.BufferGeometry().setFromPoints(borderPoints)
-    const borderMaterial=new THREE.LineBasicMaterial({color:'#8aefd1'})
-    scene.add(new THREE.Line(borderGeometry,borderMaterial))
     const graticulePositions:number[]=[]
     function line(a:THREE.Vector3,b:THREE.Vector3){graticulePositions.push(...a.toArray(),...b.toArray())}
     for(let lat=-60;lat<=60;lat+=30)for(let lon=-180;lon<180;lon+=3)line(vector(lon,lat,1.001),vector(lon+3,lat,1.001))
@@ -190,6 +157,8 @@ export default function MarsGlobe({onJezero,onFallback,coverageBounds,start,end,
       controls.rotateSpeed=Math.min(1,Math.max(.0000001,
         (camera.position.length()-1)*Math.tan(camera.fov*Math.PI/360)/(Math.PI*camera.zoom)))
       const direction=camera.position.clone().normalize()
+      camera.updateMatrixWorld()
+      container.dataset.surfaceMode='imagery'
       container.dataset.viewLon=String(Math.atan2(-direction.z,direction.x)*180/Math.PI)
       container.dataset.viewLat=String(Math.asin(direction.y)*180/Math.PI)
       container.dataset.cameraZoom=String(camera.zoom)
@@ -230,19 +199,19 @@ export default function MarsGlobe({onJezero,onFallback,coverageBounds,start,end,
         camera.zoom=Math.max(1,Math.min(8192,camera.zoom/(camera.zoom>1?scale:remaining)))
         camera.updateProjectionMatrix()
       }else camera.position.setLength(Math.min(controls.maxDistance,camera.position.length()*scale))
-      controls.update();render();imagery?.schedule()
+      controls.update();render();scheduleDetail()
     }
     imagery=globeImagery(material,camera,renderer,()=>imageryState.current,render,setDetail)
-    imagery.schedule()
-    const changed=()=>{render();imagery?.schedule()}
+    scheduleDetail()
+    const changed=()=>{render();scheduleDetail()}
     controls.addEventListener('change',changed)
     const wheel=(e:WheelEvent)=>{e.preventDefault();zoomBy(Math.exp(Math.max(-150,Math.min(150,e.deltaY))*.002))}
     renderer.domElement.addEventListener('wheel',wheel,{passive:false})
     new THREE.TextureLoader().load(assetUrl(metadata.url),t=>{
       if(disposed){t.dispose();return}
       texture=t;t.colorSpace=THREE.SRGBColorSpace;t.anisotropy=Math.min(4,renderer.capabilities.getMaxAnisotropy())
-      material.map=t;material.needsUpdate=true;container.dataset.ready='true';setLoaded(true);updateSurface();imagery?.schedule()
-    },undefined,()=>{if(!disposed)setError('Глобальну мозаїку не завантажено. Перевірте підготовку даних.')})
+      material.map=t;material.needsUpdate=true;container.dataset.ready='true';setLoaded(true);updateSurface();scheduleDetail()
+    },undefined,()=>{if(!disposed)setError('Global mosaic unavailable.')})
     let previousFraming:number|null=null
     const resize=()=>{
       if(disposed)return
@@ -256,7 +225,7 @@ export default function MarsGlobe({onJezero,onFallback,coverageBounds,start,end,
       camera.position.setLength(previousFraming?camera.position.length()*framing/previousFraming:framing)
       previousFraming=framing
       if(viewer.current)viewer.current.framingDistance=framing
-      camera.updateProjectionMatrix();controls.update();render();imagery?.schedule()
+      camera.updateProjectionMatrix();controls.update();render();scheduleDetail()
     }
     const observer=new ResizeObserver(resize);observer.observe(container)
     const ray=new THREE.Raycaster(),mouse=new THREE.Vector2()
@@ -273,7 +242,7 @@ export default function MarsGlobe({onJezero,onFallback,coverageBounds,start,end,
         // Tiny rotations can be below OrbitControls' fixed change-event epsilon.
         // Draw after its pointer handler, without a permanent animation loop.
         if(!dragFrame)dragFrame=requestAnimationFrame(()=>{
-          dragFrame=0;render();imagery?.schedule()
+          dragFrame=0;render();scheduleDetail()
         })
       }
       if(pointers.size===2){
@@ -302,9 +271,9 @@ export default function MarsGlobe({onJezero,onFallback,coverageBounds,start,end,
     }
     renderer.domElement.addEventListener('pointerdown',start);renderer.domElement.addEventListener('pointerup',pick)
     renderer.domElement.addEventListener('pointermove',move);renderer.domElement.addEventListener('pointercancel',cancel)
-    const contextLost=(e:Event)=>{e.preventDefault();setError('WebGL-контекст втрачено. Поверніться до 2D.')}
+    const contextLost=(e:Event)=>{e.preventDefault();setError('WebGL context lost.')}
     renderer.domElement.addEventListener('webglcontextlost',contextLost)
-    viewer.current={camera,controls,render,framingDistance:3.1,updateSurface,fly,zoomBy,detail:()=>imagery?.schedule()};resize();updateSurface()
+    viewer.current={camera,controls,render,framingDistance:3.1,updateSurface,fly,zoomBy,detail:scheduleDetail};resize();updateSurface()
     return ()=>{
       disposed=true;viewer.current=null;delete container.dataset.ready
       observer.disconnect();controls.removeEventListener('change',changed);controls.dispose();imagery?.dispose()
@@ -313,19 +282,19 @@ export default function MarsGlobe({onJezero,onFallback,coverageBounds,start,end,
       renderer.domElement.removeEventListener('pointerdown',start);renderer.domElement.removeEventListener('pointerup',pick)
       renderer.domElement.removeEventListener('pointermove',move);renderer.domElement.removeEventListener('pointercancel',cancel)
       renderer.domElement.removeEventListener('webglcontextlost',contextLost)
-      geometry.dispose();material.dispose();texture?.dispose();markerGeometry.dispose();markerMaterial.dispose()
+      geometry.dispose();material.dispose();texture?.dispose()
       pins.forEach(pin=>{pin.material.map?.dispose();pin.material.dispose()})
-      borderGeometry.dispose();borderMaterial.dispose();gridGeometry.dispose();gridMaterial.dispose()
-      routeGeometry.dispose();routeMaterial.dispose();strategicMaterial.dispose();starsGeometry.dispose();starsMaterial.dispose();topoTexture?.dispose()
+      gridGeometry.dispose();gridMaterial.dispose()
+      routeGeometry.dispose();routeMaterial.dispose();strategicMaterial.dispose();starsGeometry.dispose();starsMaterial.dispose()
       hazardGeometry.dispose();hazardMaterial.dispose()
       snapGeometry.dispose();snapMaterial.dispose()
       geologyMaterial.dispose();geologicalTexture?.dispose()
       renderer.dispose();renderer.forceContextLoss();renderer.domElement.remove()
     }
-  },[metadata,coverageBounds])
+  },[metadata])
   useEffect(()=>{viewer.current?.render()},[start,end])
-  useEffect(()=>{viewer.current?.updateSurface()},[terrain,topography,exaggeration,route,geology])
-  useEffect(()=>{viewer.current?.detail()},[catalog,topography])
+  useEffect(()=>{viewer.current?.updateSurface();viewer.current?.detail()},[route,geology])
+  useEffect(()=>{viewer.current?.detail()},[catalog,remoteDetail])
   useEffect(()=>{if(flightProgress!==null)viewer.current?.fly(flightProgress)},[flightProgress,loaded])
   useEffect(()=>{
     const v=viewer.current;if(!v||!focus)return
@@ -347,33 +316,23 @@ export default function MarsGlobe({onJezero,onFallback,coverageBounds,start,end,
   }
   async function toggleFullscreen(){
     try{if(document.fullscreenElement===shell.current)await document.exitFullscreen();else await shell.current?.requestFullscreen()}
-    catch{setError('Повноекранний режим не дозволений браузером.')}
+    catch{setError('Fullscreen unavailable.')}
   }
   return <div className="globe-shell" ref={shell}>
-    <div ref={host} className="globe-canvas" data-testid="mars-globe" data-detail-source={detail?.source} data-detail-zoom={detail?.zoom} data-detail-ready={detail?.ready} data-detail-total={detail?.total} data-detail-fallback={detail?.fallback}/>
-    {detail&&<div className="globe-detail-status" role="status"><strong>{detail.source}</strong><span>LOD {detail.zoom} · {detail.ready}/{detail.total} тайлів · ≈{detail.spacing.toFixed(1)} м/пікс. по довготі{detail.preview&&detail.ready<detail.total?' · огляд уже завантажений, деталізація уточнюється':''}{detail.fallback?` · ${detail.fallback} тайлів нижчого LOD`:''}{detail.limited?' · межа джерела':''}{detail.offline?' · частина даних недоступна, збережено підкладку':''}</span></div>}
-    <div className="globe-title"><span className="live-dot" /> MARS / ВСЯ ПЛАНЕТА <small>{topography?'MOLA · TOPOGRAPHY':'VIKING · MDIM 2.1'}</small></div>
+    <div ref={host} className="globe-canvas" data-testid="mars-globe" data-detail-source={detail?.source} data-detail-source-id={detail?.sourceId} data-texture-source={detail?.displayedSource} data-detail-zoom={detail?.zoom} data-detail-ready={detail?.ready} data-detail-total={detail?.total} data-detail-fallback={detail?.fallback}/>
+    {detail&&<div className="globe-detail-status" role="status"><strong>{detail.source}</strong><span>LOD {detail.zoom} · {detail.spacing.toFixed(0)} m/px{detail.ready<detail.total?' · loading':''}</span></div>}
+    <div className="globe-title"><span className="live-dot" /> MARS / ATLAS <small>{detail?.displayedSource?.startsWith('hirise')?'HiRISE':detail?.displayedSource?.startsWith('ctx')?'CTX':'VIKING · MDIM 2.1'}</small></div>
     <div className="globe-controls">
-      <button onClick={()=>rotate(-Math.PI/6)} aria-label="Обернути Марс ліворуч"><ArrowLeft size={16}/></button>
-      <button onClick={()=>rotate(Math.PI/6)} aria-label="Обернути Марс праворуч"><ArrowRight size={16}/></button>
-      <button onClick={()=>zoom(.8)} aria-label="Наблизити планету">+</button>
-      <button onClick={()=>zoom(1.25)} aria-label="Віддалити планету">−</button>
-      <button onClick={showJezero}><Crosshair size={15} aria-hidden/>Показати Jezero</button>
-      <button onClick={toggleFullscreen} aria-pressed={fullscreen}><ArrowsOut size={15} aria-hidden/>{fullscreen?'Вийти з глобуса':'Весь екран'}</button>
+      <button onClick={()=>rotate(-Math.PI/6)} aria-label="Rotate left"><ArrowLeft size={16}/></button>
+      <button onClick={()=>rotate(Math.PI/6)} aria-label="Rotate right"><ArrowRight size={16}/></button>
+      <button onClick={()=>zoom(.8)} aria-label="Zoom in on Mars">+</button>
+      <button onClick={()=>zoom(1.25)} aria-label="Zoom out from Mars">−</button>
+      <button onClick={showJezero}><Crosshair size={15} aria-hidden/>Jezero</button>
+      <button onClick={()=>setRemoteDetail(value=>!value)} aria-pressed={remoteDetail}>Auto HD</button>
+      <button onClick={toggleFullscreen} aria-pressed={fullscreen}><ArrowsOut size={15} aria-hidden/>{fullscreen?'Exit fullscreen':'Fullscreen'}</button>
     </div>
-    {!mission && <div className="globe-destination">
-      <span className="eyebrow">ПІДГОТОВЛЕНИЙ РАЙОН ЕКСПЕДИЦІЇ</span><h3>Jezero Crater</h3>
-      <p>18.4447° N / 77.4508° E<br/>{coverageBounds?'CTX DEM ≈ 30 × 30 км':'CTX DEM'} · локальний HiRISE · геологія</p>
-      <button className="primary" onClick={onJezero}>Перейти до Jezero →</button>
-      <small>Зелений маркер перебільшено для видимості; це не розмір кратера.</small>
-    </div>}
-    {!loaded && !error && <div className="terrain3d-message" role="status">Завантаження глобальної мозаїки Марса…</div>}
-    {error && <div className="terrain3d-message" role="alert">{error}<button onClick={onFallback}>До 2D карти</button></div>}
-    <div className="globe-note"><strong>{coordinates}</strong><br/>
-      {route?.metrics?.snap_offsets_m.some(d=>d>.5)&&<>Світло-сіре — прив’язка до клітинок DEM, не перевірений проїзд.<br/></>}
-      {detail?'NASA Trek: тайли підвантажуються за масштабом; CTX/HiRISE — чорно-білі знімки, не нові вимірювання висот.':'Реальна Viking-мозаїка, офіційно колоризована NASA Ames/USGS — не true-color фото.'}
-      {terrain?` Рельєф MOLA · ${terrain.resolution_deg}° · підсилення висот ×${exaggeration}. Глобальні маршрути приблизні.`:' Сферичний огляд. Детальні маршрути — Jezero.'}
-      {metadata && <a href={metadata.source_page} target="_blank" rel="noreferrer"> Першоджерело ↗</a>}
-    </div>
+    {!loaded && !error && <div className="terrain3d-message" role="status">Loading Mars imagery…</div>}
+    {error && <div className="terrain3d-message" role="alert">{error}<button onClick={onFallback}>2D atlas</button></div>}
+    {coordinates&&<div className="globe-note"><strong>{coordinates}</strong></div>}
   </div>
 }

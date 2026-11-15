@@ -19,7 +19,7 @@ export function MarsMap({ bundle, dataset, start, end, route, visible, focus, on
   const shell = useRef<HTMLDivElement>(null)
   const [fullscreen,setFullscreen] = useState(false)
   const [viewError,setViewError] = useState('')
-  const [cursor, setCursor] = useState('Планетоцентричні координати · східна довгота')
+  const [cursor, setCursor] = useState('')
   function showArea() {
     const b = bundle.layers.terrain[dataset].metadata?.bounds_lon_lat_deg
     if(b) mapRef.current?.fitBounds([[b[1],b[0]],[b[3],b[2]]],{padding:[24,24]})
@@ -45,8 +45,8 @@ export function MarsMap({ bundle, dataset, start, end, route, visible, focus, on
     try {
       if(document.fullscreenElement===shell.current) await document.exitFullscreen()
       else if(shell.current?.requestFullscreen) await shell.current.requestFullscreen()
-      else setViewError('Цей браузер не підтримує повноекранний режим. Використайте розгортання карти на всю ширину.')
-    }catch{setViewError('Браузер не дозволив повноекранний режим. Можна розгорнути карту на всю ширину.')}
+      else setViewError('Fullscreen unavailable.')
+    }catch{setViewError('Fullscreen unavailable.')}
   }
   useEffect(()=>{
     const change=()=>setFullscreen(document.fullscreenElement===shell.current)
@@ -139,19 +139,18 @@ export function MarsMap({ bundle, dataset, start, end, route, visible, focus, on
     }
   }, [start,end,route,focus,bundle])
   return <div className="map-shell" ref={shell}>
-    <div ref={host} className="mars-map" data-testid="mars-map" aria-label="Інтерактивна карта Jezero" />
-    <div className="map-label"><span className="live-dot" /> JEZERO CRATER <span className="map-label-divider">/</span> {dataset.toUpperCase()} · МЕЖІ DEM</div>
-    <div className="map-view-controls" aria-label="Огляд карти">
-      <button type="button" onClick={showArea}><CornersOut size={15} aria-hidden />До ділянки</button>
-      <button type="button" onClick={showRegion}><MapTrifold size={15} aria-hidden />Огляд регіону</button>
-      <button type="button" onClick={showRoute} disabled={!route}><Path size={15} aria-hidden />До маршруту</button>
+    <div ref={host} className="mars-map" data-testid="mars-map" aria-label="Jezero map" />
+    <div className="map-label"><span className="live-dot" /> JEZERO CRATER <span className="map-label-divider">/</span> {dataset.toUpperCase()}</div>
+    <div className="map-view-controls" aria-label="Map view">
+      <button type="button" onClick={showArea}><CornersOut size={15} aria-hidden />DEM extent</button>
+      <button type="button" onClick={showRegion}><MapTrifold size={15} aria-hidden />Region</button>
+      <button type="button" onClick={showRoute} disabled={!route}><Path size={15} aria-hidden />Fit route</button>
       <button type="button" onClick={toggleFullscreen} aria-pressed={fullscreen}>
         {fullscreen?<ArrowsIn size={15} aria-hidden />:<ArrowsOut size={15} aria-hidden />}
-        {fullscreen?'Вийти з екрана':'На весь екран'}
+        {fullscreen?'Exit fullscreen':'Fullscreen'}
       </button>
     </div>
     {viewError && <div className="map-view-error" role="alert">{viewError}</div>}
-    <div className="map-coordinates" aria-live="off">{cursor}</div>
-    <div className="map-hint">{dataset==='regional'?'Маршрути по всій регіональній карті · поріг ухилу визначає прохідність.':'Локальна сітка · для всієї карти виберіть «CTX регіон».'}</div>
+    {cursor&&<div className="map-coordinates" aria-live="off">{cursor}</div>}
   </div>
 }

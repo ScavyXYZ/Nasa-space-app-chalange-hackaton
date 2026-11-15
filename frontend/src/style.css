@@ -97,7 +97,7 @@
 .globe-shell:fullscreen{width:100vw;height:100dvh;border:0;border-radius:0}
 .globe-shell:fullscreen .globe-canvas{height:100dvh}
 .leaflet-control-scale{margin-bottom:68px!important;margin-left:15px!important;padding:6px 9px;background:#131c25ee;border:1px solid #536473;border-radius:5px;color:#eff6ff}
-.leaflet-control-scale:before{content:"Відстань на Марсі";display:block;font:9px system-ui,sans-serif;color:#c4d1dd;margin-bottom:4px}
+.leaflet-control-scale:before{content:"Mars distance";display:block;font:9px system-ui,sans-serif;color:#c4d1dd;margin-bottom:4px}
 .leaflet-control-scale-line{background:transparent!important;color:#fff!important;border-color:#e6d0b5!important;text-shadow:none!important;font:11px ui-monospace,monospace!important}
 @media(max-width:760px){
   .globe-canvas{height:clamp(420px,64svh,600px);max-height:none}

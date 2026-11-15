@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "automatic_ctx_on_globe": true,
+  "gale_grayscale_photo_fraction": 0.995,
+  "automatic_controlled_hirise_on_jezero": true,
+  "imagery_roundtrip_preserves_camera": true,
+  "zoom_out_restores_viking": true,
+  "explicit_offline_option": true,
+  "page_errors": []
+}

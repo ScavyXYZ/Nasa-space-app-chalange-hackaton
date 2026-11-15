@@ -10,6 +10,13 @@ export function opticalSource(sources:ImagerySource[],zoom:number,lon:number,lat
     :zoom>=9?['ctx-jezero','ctx-global','viking-hd']:zoom>=4?['ctx-global','viking-hd']:['viking-hd']
   return ids.map(id=>sources.find(s=>s.id===id)).find(s=>s&&insideSource(s,lon,lat))??null
 }
+/** Planet overview stays local; closer views automatically use real photos. */
+export function globeOpticalSource(sources:ImagerySource[],zoom:number,lon:number,lat:number,
+  local:ImagerySource|null,autoHD=true){
+  if(!autoHD)return local
+  if(local&&zoom<=(local.max_useful_zoom??local.matrices.length-1))return local
+  return opticalSource(sources,zoom,lon,lat)??local
+}
 export function tileSpacing(zoom:number,latitude=0){
   return MARS_CIRCUMFERENCE*Math.cos(latitude*Math.PI/180)/(512*2**zoom)
 }

@@ -35,6 +35,7 @@ from algorithms.fine_mola import FineMolaPatch
 from algorithms.mola128 import Mola128Store,NativeMolaPlanner,terrain_slopes
 from algorithms.rim_guard import CatalogueRimGuard
 from algorithms.atlas import Geology, expedition
+from algorithms.planet_surface import planet_surface
 
 Dataset = Literal["ctx", "hirise", "regional"]
 
@@ -86,6 +87,7 @@ def create_app(root=ROOT):
     global_slots = BoundedSemaphore(2)
     local_slots = BoundedSemaphore(2)
     tile_slots = BoundedSemaphore(8)
+    surface_slots = BoundedSemaphore(2)
     tile_cache_lock=Lock()
     cache_base=(Path(os.environ["LOCALAPPDATA"])/"Temp/opencode" if os.environ.get("LOCALAPPDATA")
                 else Path(tempfile.gettempdir()))
@@ -301,7 +303,43 @@ def create_app(root=ROOT):
 
     @app.get("/api/globe")
     def globe():
-        return read_json("data/processed/globe/metadata.json")
+        metadata=read_json("data/processed/globe/metadata.json")
+        manifest=root/"data/processed/globe/imagery/manifest.json"
+        if manifest.is_file():
+            metadata={**metadata,"local_imagery":json.loads(manifest.read_text(encoding="utf-8"))}
+        return metadata
+
+    @app.get("/api/globe/imagery/{z}/{y}/{x}")
+    def planet_imagery(z:int,y:int,x:int):
+        if not (0<=z<=5 and 0<=y<2**z and 0<=x<2**(z+1)):
+            raise TerrainError("tile_not_found","Невідомий рівень локальної мозаїки.",404)
+        path=root/f"data/processed/globe/imagery/{z}/{y}/{x}.jpg"
+        if not path.is_file():
+            raise TerrainError("imagery_unavailable","Локальну мозаїку не підготовлено.",503)
+        return FileResponse(path,media_type="image/jpeg",headers={"Cache-Control":"public, max-age=86400"})
+
+    @lru_cache(maxsize=8)
+    def surface_bytes(lon,lat,level):
+        if not surface_slots.acquire(timeout=2):
+            raise TerrainError("surface_busy","3D-дані зайняті; попередню поверхню збережено.",503)
+        try:
+            data=planet_surface(native_mola(),global_grid(),lon,lat,level)
+            return json.dumps(data,separators=(",",":"),allow_nan=False).encode()
+        finally:
+            surface_slots.release()
+
+    @app.get("/api/global/surface")
+    def global_surface(
+        lon:Annotated[float,Query(ge=-180,le=180,allow_inf_nan=False)]=0,
+        lat:Annotated[float,Query(ge=-90,le=90,allow_inf_nan=False)]=0,
+        level:Annotated[int,Query(ge=0,le=8)]=0,
+    ):
+        # Quantise before cache lookup; arbitrary tiny drags cannot fill it.
+        quantum=(64/2**level)/4
+        lon=round(lon/quantum)*quantum
+        lat=max(-90,min(90,round(lat/quantum)*quantum))
+        return Response(surface_bytes(lon,lat,level),media_type="application/json",
+                        headers={"Cache-Control":"public, max-age=86400"})
 
     @app.get("/api/global")
     def global_metadata():

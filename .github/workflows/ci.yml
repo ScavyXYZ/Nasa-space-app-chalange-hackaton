@@ -14,7 +14,7 @@ jobs:
           cache: npm
           cache-dependency-path: frontend/package-lock.json
       - run: python -m pip install -r requirements.txt -r requirements-browser.txt
-      - run: git lfs pull --include="data/processed/*.npy,data/processed/hirise/*.npy,data/processed/regional/*.npy,data/processed/regional/*.geojson" --exclude=""
+      - run: git lfs pull --include="data/processed/*.npy,data/processed/hirise/*.npy,data/processed/regional/*.npy,data/processed/regional/*.geojson,data/processed/**/*.npz,data/processed/mola128_global/*.img,data/processed/atlas/geology_query.json.gz" --exclude=""
       - run: python scripts/prepare_runtime_data.py
       - run: npm ci && npm run build
         working-directory: frontend
@@ -36,13 +36,14 @@ jobs:
           else:
               raise SystemExit("Backend did not become ready")
           PY
-          python tests/smoke_mvp_browser.py
-          python tests/smoke_regional_browser.py
-          python tests/smoke_globe_browser.py
-          python tests/smoke_3d_browser.py
-          python tests/smoke_planner_browser.py
-          python tests/smoke_mission_browser.py
-          python tests/smoke_atlas_browser.py --url http://127.0.0.1:8001
+          python tests/smoke_english_workspace.py --url http://127.0.0.1:8001
+          python tests/smoke_photo_globe_browser.py --url http://127.0.0.1:8001
+          python tests/smoke_point_viewport.py --url http://127.0.0.1:8001
+          python tests/smoke_route_viewport.py --url http://127.0.0.1:8001
+          python tests/smoke_globe_line.py --url http://127.0.0.1:8001
+          python tests/smoke_atlas_coordinates.py --url http://127.0.0.1:8001
+          python tests/smoke_preview_latency.py --url http://127.0.0.1:8001
+          python tests/smoke_tile_retention.py --url http://127.0.0.1:8001
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -51,3 +52,6 @@ jobs:
             artifacts/mvp
             artifacts/global
             artifacts/release
+            artifacts/workspace
+            artifacts/planet
+            artifacts/zoom

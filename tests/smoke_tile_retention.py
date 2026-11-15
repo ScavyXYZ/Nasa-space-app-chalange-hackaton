@@ -44,7 +44,7 @@ async def run(url):
         await page.goto(url)
         await page.wait_for_selector('[data-testid="mars-globe"][data-ready="true"]')
         for _ in range(19):
-            await page.get_by_role("button", name="Наблизити планету", exact=True).click()
+            await page.get_by_role("button", name="Zoom in on Mars", exact=True).click()
         await page.wait_for_timeout(250)
         target_zoom = int(await page.get_by_test_id("mars-globe").get_attribute("data-detail-zoom"))
         # Only the tested native LOD is magenta. A lower-resolution fallback
@@ -52,12 +52,11 @@ async def run(url):
         await page.reload()
         await page.wait_for_selector('[data-testid="mars-globe"][data-ready="true"]')
         for _ in range(19):
-            await page.get_by_role("button", name="Наблизити планету", exact=True).click()
+            await page.get_by_role("button", name="Zoom in on Mars", exact=True).click()
         await page.wait_for_timeout(250)
         await page.wait_for_function(r"""()=>{
           const g=document.querySelector('[data-testid="mars-globe"]');
-          const s=document.querySelector('.globe-detail-status span')?.textContent;
-          return Number(g.dataset.detailReady)>0&&s&&/(\d+)\/\1 тайлів/.test(s)
+           return Number(g.dataset.detailReady)>0&&g.dataset.detailReady===g.dataset.detailTotal
         }""")
         globe = page.get_by_test_id("mars-globe")
         box = await globe.bounding_box()

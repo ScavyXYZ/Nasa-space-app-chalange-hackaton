@@ -23,7 +23,7 @@ async def run(url):
     hold=asyncio.Event()
     async with async_playwright() as p:
         browser=await p.chromium.launch()
-        page=await browser.new_page(viewport={"width":800,"height":600})
+        page=await browser.new_page(viewport={"width":800,"height":600},reduced_motion="reduce")
         await page.route("**/atlas-fixture",lambda r:r.fulfill(body="<html><body></body></html>",content_type="text/html"))
         async def tile(route):
             z,y,x=map(int,urlsplit(route.request.url).path.split("/")[-3:])

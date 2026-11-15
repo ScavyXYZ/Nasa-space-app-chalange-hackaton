@@ -13,7 +13,7 @@ type Props={catalog:AtlasCatalog|null;layer:string;geology:boolean;start:Positio
 export default function AtlasMap(props:Props){
   const host=useRef<HTMLDivElement>(null),map=useRef<L.Map|null>(null),callback=useRef(props.onPick)
   callback.current=props.onPick
-  const [zoom,setZoom]=useState(1),[warning,setWarning]=useState('')
+  const [zoom,setZoom]=useState(1)
   const [centre,setCentre]=useState({lon:-100,lat:15})
   const [context,setContext]=useState<[[number,number],[number,number]]|null>(null)
   const [geologicalFeatures,setGeologicalFeatures]=useState<FeatureCollection|null>(null)
@@ -40,7 +40,7 @@ export default function AtlasMap(props:Props){
     }}
     const m=L.map(host.current,{crs,center:[15,-100],zoom:1,minZoom:0,maxZoom:18,preferCanvas:true,worldCopyJump:false,maxBounds:[[-90,-180],[90,180]],maxBoundsViscosity:1,attributionControl:true,trackResize:false})
     map.current=m
-    L.imageOverlay(assetUrl('/api/assets/mars-global.jpg'),[[-90,-180],[90,180]],{pane:'tilePane',zIndex:0,attribution:'NASA Ames / USGS Viking · Mars, not Earth'}).addTo(m)
+    L.imageOverlay(assetUrl('/api/assets/mars-global.jpg'),[[-90,-180],[90,180]],{pane:'tilePane',zIndex:0,attribution:'NASA Ames / USGS Viking'}).addTo(m)
     layers.current=L.layerGroup().addTo(m);geologyLayers.current=L.layerGroup().addTo(m)
     terrainLayers.current=L.layerGroup().addTo(m);drawing.current=L.layerGroup().addTo(m)
     m.on('click',(e:L.LeafletMouseEvent)=>callback.current({lon:Math.max(-180,Math.min(180,e.latlng.lng)),lat:Math.max(-90,Math.min(90,e.latlng.lat))}))
@@ -65,7 +65,7 @@ export default function AtlasMap(props:Props){
   useEffect(()=>{
     const m=map.current,group=layers.current
     if(!m||!group)return
-    group.clearLayers();setWarning('')
+    group.clearLayers()
     if(context&&local)group.addLayer(L.imageOverlay(assetUrl('/api/assets/ctx-context.png'),context,{
       pane:'tilePane',zIndex:3,attribution:'USGS CTX regional optical fallback'}))
     const configs=props.layer==='auto'
@@ -80,8 +80,7 @@ export default function AtlasMap(props:Props){
         maxNativeZoom:config.max_useful_zoom??config.matrices.length-1,maxZoom:18,tileSize:256,noWrap:true,
         bounds:config.bounds?[[config.bounds[1],config.bounds[0]],[config.bounds[3],config.bounds[2]]]:[[-90,-180],[90,180]],
         zIndex:i===0?2:3+i,keepBuffer:3,updateWhenIdle:false,updateInterval:100,
-        attribution:'NASA JPL Mars Trek · imagery, not numerical DEM'})
-      tiles.on('tileerror',()=>setWarning('Деякі тайли NASA недоступні. Локальна Viking-мозаїка залишається основою.'))
+         attribution:config.id==='ctx-global'?'NASA/JPL/MSSS · Caltech / Esri':'NASA/JPL Mars Trek'})
       group.addLayer(tiles)
     })
   },[props.catalog,props.layer,sourceId,context,local,previewEnabled])
@@ -107,7 +106,7 @@ export default function AtlasMap(props:Props){
     const params=new URLSearchParams({west:String(west),south:String(south),east:String(east),north:String(north),
       max_grade_deg:String(validation.max_grade_deg)})
     group.addLayer(L.imageOverlay(assetUrl(`/api/hazards/native-slopes?v=rim-guard-1&${params}`),[[south,west],[north,east]],{
-      opacity:.75,interactive:false,attribution:`MOLA 128 ppd · схили > ${validation.max_grade_deg}°`}))
+      opacity:.75,interactive:false,attribution:`MOLA 128 ppd · slopes > ${validation.max_grade_deg}°`}))
   },[props.route?.terrain_validation,extent])
   useEffect(()=>{
     const group=geologyLayers.current;if(!group)return
@@ -124,7 +123,7 @@ export default function AtlasMap(props:Props){
     props.route?.terrain_checks?.forEach(check=>{
       const [west,south,east,north]=check.bounds
       group.addLayer(L.imageOverlay(assetUrl(check.overlay_url),[[south,west],[north,east]],{
-        opacity:.7,interactive:false,attribution:`MOLA 128 ppd · схили > ${check.max_grade_deg}°`}))
+        opacity:.7,interactive:false,attribution:`MOLA 128 ppd · slopes > ${check.max_grade_deg}°`}))
     })
     props.route?.hazards?.forEach(crater=>{
       const segments:L.LatLngExpression[][]=[[]]
@@ -134,19 +133,18 @@ export default function AtlasMap(props:Props){
       })
       segments.forEach(line=>{if(line.length>1)group.addLayer(L.polyline(line,{
         color:'#ff7676',weight:1.5,dashArray:'5 4'
-      }).bindTooltip(`Кратер ${crater.name||crater.id} · ${crater.diameter_km} км · борт захищений у MOLA; дно не заборонене`))})
+      }))})
     })
     const points=[props.start,...props.stops,props.end]
     routeAnchors(props.route,points).forEach(anchor=>{
       if(anchor.offsetM<=.5)return
-      const tooltip=`Прив’язка до DEM: ${Math.round(anchor.offsetM)} м. Цей короткий перехід не перевірений і не включений у довжину.`
       splitLongitudeLine([[anchor.actual.lon,anchor.actual.lat],[anchor.snapped.lon,anchor.snapped.lat]])
         .forEach(segment=>group.addLayer(L.polyline(segment.map(p=>[p[1],p[0]] as L.LatLngTuple),{
           color:'#c1c8cf',weight:1.5,dashArray:'2 4',opacity:.85
-        }).bindTooltip(tooltip)))
+        })))
       group.addLayer(L.circleMarker([anchor.snapped.lat,anchor.snapped.lon],{
         radius:3,color:'#c1c8cf',weight:1,fillOpacity:.4
-      }).bindTooltip(tooltip))
+      }))
     })
     points.forEach((p,i)=>{
       if(!p)return
@@ -171,11 +169,7 @@ export default function AtlasMap(props:Props){
   },[props.focus])
   return <div className="atlas-map-shell">
     <div ref={host} className="atlas-map" data-testid="atlas-map" data-source={sourceId??'viking'} data-zoom={zoom} data-view-lon={centre.lon} data-view-lat={centre.lat}/>
-    {props.route?.terrain_validation?.catalogue_rim_guard&&<div className="atlas-rim-legend">
-      <strong>ВИКЛЮЧЕНІ З ПОШУКУ</strong><br/>Червоне — надмірні схили<br/>Помаранчеве — нерозрізнені борти
-    </div>}
-    {props.route?.metrics?.snap_offsets_m.some(d=>d>.5)&&<div className="atlas-snap-note">Світло-сіре — прив’язка до клітинок DEM, не перевірений проїзд.</div>}
-    <div className="atlas-map-actions"><button onClick={()=>map.current?.stop().setView([0,0],1,{animate:false})}>Уся планета</button><button onClick={()=>map.current?.stop().setView([18.4447,77.4508],10,{animate:false})}>Наблизити Jezero</button><button onClick={props.onLocal}>CTX / HiRISE · інструменти</button></div>
-    <div className="atlas-map-status" role="status">{warning||`${chosen?.title??'Viking · офлайн'} · zoom ${zoom} · ${chosen?`≈${tileSpacing(Math.min(zoom,chosen.matrices.length-1),centre.lat).toFixed(1)} м/піксель нативно; прогалини → нижчий LOD`:'оглядова текстура'}${chosen&&zoom>=chosen.matrices.length-1?' · межа деталізації джерела':''}. Фото не змінюють DEM; неконтрольовані мозаїки можуть мати зміщення.`}</div>
+    <div className="atlas-map-actions"><button onClick={()=>map.current?.stop().setView([0,0],1,{animate:false})}>Whole planet</button><button onClick={()=>map.current?.stop().setView([18.4447,77.4508],10,{animate:false})}>Jezero</button><button onClick={props.onLocal}>CTX / HiRISE tools</button></div>
+    <div className="atlas-map-status" role="status">{chosen?.title??'Viking'} · zoom {zoom}{chosen?` · ${tileSpacing(Math.min(zoom,chosen.matrices.length-1),centre.lat).toFixed(1)} m/px`:''}</div>
   </div>
 }

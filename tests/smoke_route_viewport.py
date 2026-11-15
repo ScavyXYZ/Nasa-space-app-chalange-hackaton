@@ -44,30 +44,30 @@ def run(url):
         page.route("**/api/expedition",respond)
         page.goto(url)
         page.wait_for_selector('[data-testid="mars-globe"][data-ready="true"]',timeout=60000)
-        for label,value in [("Початок: довгота","-133.8"),("Початок: широта","18.65"),
-                            ("Кінець: довгота","-112.5"),("Кінець: широта","-7.5")]:
+        for label,value in [("Start: longitude","-133.8"),("Start: latitude","18.65"),
+                            ("End: longitude","-112.5"),("End: latitude","-7.5")]:
             page.get_by_label(label,exact=True).fill(value)
         for _ in range(20):
-            page.get_by_role("button",name="Наблизити планету",exact=True).click()
+            page.get_by_role("button",name="Zoom in on Mars",exact=True).click()
 
         for globe in [True,False]:
             if not globe:
-                page.get_by_role("button",name="2D атлас",exact=True).click()
-                page.get_by_role("button",name="Наблизити Jezero",exact=True).click()
+                page.get_by_role("button",name="2D atlas",exact=True).click()
+                page.get_by_role("button",name="Jezero",exact=True).click()
                 for z in range(11,14):
                     page.get_by_role("button",name="Zoom in",exact=True).click()
                     expect(page.get_by_test_id("atlas-map")).to_have_attribute("data-zoom",str(z))
             host=page.get_by_test_id("mars-globe" if globe else "atlas-map")
             for kind,compare in [("ok",False),("no_route",False),("ok",True)]:
                 mode=kind;before=state(host,globe);previous_calls=calls
-                name="Порівняти дві стратегії" if compare else "Побудувати маршрут"
+                name="Compare strategies" if compare else "Build route"
                 with page.expect_response(lambda r:r.url.endswith("/api/expedition")):
                     page.get_by_role("button",name=name,exact=True).click()
-                expect(page.get_by_role("button",name="Побудувати маршрут",exact=True)).to_be_enabled()
+                expect(page.get_by_role("button",name="Build route",exact=True)).to_be_enabled()
                 if kind=="ok":
                     expect(page.get_by_test_id("global-route-summary")).to_be_visible()
                 else:
-                    expect(page.get_by_role("alert")).to_contain_text("Тестова непрохідна ділянка")
+                    expect(page.get_by_role("alert")).to_have_text("No route meets the selected constraints.")
                 page.wait_for_timeout(150)
                 assert host.is_visible()
                 after=state(host,globe)

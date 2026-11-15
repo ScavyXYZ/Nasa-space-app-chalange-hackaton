@@ -1,0 +1,84 @@
+{
+  "scope": "Warm-data CPU coarse-to-fine routing, includes graph preparation and metrics; excludes HTTP and browser. No GPU. Approximate routes.",
+  "python": "3.14.7",
+  "platform": "Windows-11-10.0.26300-SP0",
+  "source_sha256": "31b230f953f9f094ccb11eca9f7b6df395acc57b10128eae76bf83ec602d8740",
+  "repeats": 1,
+  "results": [
+    {
+      "name": "Tharsis",
+      "start": [
+        -133.8,
+        18.65
+      ],
+      "end": [
+        -112.5,
+        -7.5
+      ],
+      "status": "ok",
+      "median_seconds": 1.0607976999999664,
+      "expanded_cells": 41607,
+      "distance_km": 2068.6868037704444
+    },
+    {
+      "name": "Olympus to Valles",
+      "start": [
+        -133.8,
+        18.65
+      ],
+      "end": [
+        -59.2,
+        -14
+      ],
+      "status": "ok",
+      "median_seconds": 4.86329539999997,
+      "expanded_cells": 192101,
+      "distance_km": 5110.396361575425
+    },
+    {
+      "name": "Antimeridian",
+      "start": [
+        179,
+        5
+      ],
+      "end": [
+        -179,
+        5
+      ],
+      "status": "ok",
+      "median_seconds": 0.004991700000118726,
+      "expanded_cells": 34,
+      "distance_km": 118.09728924361585
+    },
+    {
+      "name": "North polar crossing",
+      "start": [
+        0,
+        89
+      ],
+      "end": [
+        180,
+        89
+      ],
+      "status": "ok",
+      "median_seconds": 0.10256300000014562,
+      "expanded_cells": 3553,
+      "distance_km": 123.27679411722401
+    },
+    {
+      "name": "Near antipodal",
+      "start": [
+        0,
+        0
+      ],
+      "end": [
+        179,
+        0
+      ],
+      "status": "ok",
+      "median_seconds": 7.263355799999999,
+      "expanded_cells": 287956,
+      "distance_km": 10643.307237922085
+    }
+  ]
+}

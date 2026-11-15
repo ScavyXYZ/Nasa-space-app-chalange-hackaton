@@ -1,0 +1,25 @@
+{
+  "status": "passed",
+  "viewports": [
+    1440,
+    1920,
+    1024,
+    768,
+    375,
+    812
+  ],
+  "contrast_ratios": {
+    ".mc-planner>.mc-subtle": 5.06,
+    ".mc-coordinate-fields input": 14.82,
+    ".mc-planner>.mc-primary": 7.82,
+    ".mc-intro p": 8.31,
+    ".mc-secondary": 14.82,
+    ".mc-system": 13.08
+  },
+  "keyboard_skip_link": true,
+  "scientific_disclosure": true,
+  "real_route_and_results": true,
+  "coordinated_jezero_theme": true,
+  "reduced_motion": true,
+  "page_errors": []
+}

@@ -2,6 +2,37 @@ import type { Feature, FeatureCollection, Geometry } from 'geojson'
 
 export type Dataset = 'ctx' | 'hirise' | 'regional'
 export type Position = { lon: number; lat: number }
+export type GlobalTerrainData = {
+  shape: [number,number]; latitudes: number[]; longitudes: number[]; elevations_m: number[]
+  title: string; source_page: string; texture_url: string; resolution_deg: number
+  equatorial_spacing_m: number
+  height_range_m: [number,number]; observed_fraction: number; radius_m: number
+}
+export type GlobalRoute = {
+  status: 'ok'|'no_route'|'search_limit'|'blocked_endpoint'|'outside_grid'; dataset?: 'mola'|'mola128'|'regional'|'hirise'; approximate?: boolean
+  route?: Feature; elapsed_ms?: number; expanded_cells: number; warnings?: string[]
+  traversability?: {status:'unverified';scope:'strategic_corridor'|'local_dem_path';dem_spacing_m:number;message:string}
+  message?:string;reason?:string
+  hazard_policy?:{enabled:boolean;mode?:string;records?:number;source?:string;rule?:string}
+  terrain_validation?:{spacing_m:number;max_grade_deg:number;entire_route:boolean;catalogue_circles_blocked:boolean;catalogue_rim_guard?:boolean;model?:string}
+  hazards?:CraterHazard[]
+  terrain_checks?:FineTerrainCheck[]
+  metrics?: {distance_m:number;direct_distance_m:number;min_elevation_m:number;max_elevation_m:number
+    ascent_m:number;descent_m:number;max_grade_deg:number;max_surface_slope_deg?:number;interpolated_cells:number;cells:number;snap_offsets_m:number[]}
+  profile?: {distance_m:number;elevation_m:number;interpolated:boolean;dataset?:string}[]
+  legs?: {index:number;distance_m:number;ascent_m:number;max_grade_deg:number;start:number[];end:number[]}[]
+  geological_units?: GeologicalUnit[]
+  data_quality?: {resolution_deg:number;equatorial_spacing_m:number;vertical_datum:string;source:string;product:string}
+}
+export type CraterHazard={id:string;name:string;lon:number;lat:number;diameter_km:number;exclusion_radius_m:number;source:string}
+export type FineTerrainCheck={id:string;bounds:[number,number,number,number];spacing_m:number;max_grade_deg:number;source:string;overlay_url:string;status?:string;interpolated_fraction:number}
+export type GeologicalUnit={id:number;unit:string;description:string;color:string;source:string}
+export type AtlasCatalog={
+  source:string;features:number;units:number;scale:string
+  tiles:{id:string;title:string;matrices:string[];note:string;source:string;bounds?:number[];nominal_m_per_pixel?:number;appearance?:string;max_useful_zoom?:number;native_tile_size?:number}[]
+  legend:GeologicalUnit[]
+  missions:{id:string;title:string;description:string;credit:string;source:string;url:string;region:string;lon:number;lat:number;location_note:string}[]
+}
 export type Region = Feature<Geometry, {
   name: string; description: string; research_interest: string; source: string
   registration_warning: string; distance_to_route_m?: number; route_intersects_region?: boolean

@@ -1,0 +1,37 @@
+{
+  "id": "a",
+  "bounds": [
+    -99.15625,
+    22.03125,
+    -95.15625,
+    26.03125
+  ],
+  "shape": [
+    512,
+    512
+  ],
+  "ppd": 128,
+  "spacing_equator_m": 463.05766716974557,
+  "vertical_datum": "MOLA GMM3 areoid, PDS MEGDR v2",
+  "source": "https://pds-geosciences.wustl.edu/missions/mgs/megdr.html",
+  "sources": [
+    {
+      "url": "https://pds-geosciences.wustl.edu/mgs/urn-nasa-pds-mgs_mola_topography_derived/meg128/megt44n180hb.img",
+      "range": [
+        52992000,
+        64788479
+      ],
+      "sha256": "7674753b1505dbcd3a38174dbe7ce713d8a84a1bfff1d1051f4cc108c5bc0a9a"
+    },
+    {
+      "url": "https://pds-geosciences.wustl.edu/mgs/urn-nasa-pds-mgs_mola_topography_derived/meg128/megc44n180hb.img",
+      "range": [
+        26496000,
+        32394239
+      ],
+      "sha256": "b092ac5a8f57929d619d801e0da9b00406f1cabe892568f547ec0a08070980d2"
+    }
+  ],
+  "runtime_sha256": "aea93175361dfa2ca62f906ae5d93f8546ef69645917c64ded76b7eda7835a36",
+  "notice": "463 m bins, not 463 m measurement accuracy. Counts=0 identifies official interpolation."
+}

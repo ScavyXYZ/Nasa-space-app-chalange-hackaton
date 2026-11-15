@@ -8,3 +8,12 @@ data/raw/globe/*.jpg filter=lfs diff=lfs merge=lfs -text
 data/processed/regional/geology.geojson filter=lfs diff=lfs merge=lfs -text
 data/processed/regional/points_of_interest.geojson filter=lfs diff=lfs merge=lfs -text
 data/raw/geology/extracted/** filter=lfs diff=lfs merge=lfs -text
+data/raw/atlas/geology/*.shp filter=lfs diff=lfs merge=lfs -text
+data/processed/mola128_global/*.img filter=lfs diff=lfs merge=lfs -text
+data/**/*.npz filter=lfs diff=lfs merge=lfs -text
+data/processed/atlas/geology_query.json.gz filter=lfs diff=lfs merge=lfs -text
+data/raw/mola128/*.bin filter=lfs diff=lfs merge=lfs -text
+# Preserve PDS label line endings and generated browser-fixture output.
+data/processed/mola128_global/*.lbl -text -whitespace
+artifacts/zoom/*-fixture.js -whitespace
+artifacts/zoom/test-globe-surface.cjs -whitespace

@@ -142,7 +142,37 @@ class RoutingTests(unittest.TestCase):
             r, c = cell
             for target in ((r, c+1), (r+1, c-1), (r+1, c), (r+1, c+1), (r+2, c+2)):
                 self.assertAlmostEqual(geometry.distance_m(cell, target),
-                                       geometry.coordinates.distance_m(cell, target), places=7)
+                                        geometry.coordinates.distance_m(cell, target), places=7)
+
+    def test_relaxed_mars_bound_is_consistent_and_preserves_optimal_cost(self):
+        rng = np.random.default_rng(2026)
+        for dataset in ("ctx", "hirise", "regional"):
+            terrain = TerrainGrid.load(dataset)
+            try:
+                geometry = MarsRasterGeometry(terrain=terrain)
+                for _ in range(100):
+                    a = tuple(int(rng.integers(1, size-1)) for size in terrain.shape)
+                    goal = tuple(int(rng.integers(size)) for size in terrain.shape)
+                    for dr, dc in ((0, 1), (1, 0), (1, 1), (-1, 1)):
+                        b = (a[0]+dr, a[1]+dc)
+                        self.assertLessEqual(geometry.lower_bound_m(a, goal),
+                                             geometry.distance_m(a, b)+geometry.lower_bound_m(b, goal)+1e-8)
+                # Synthetic terrain isolates algorithm correctness from science data.
+                for trial in range(6):
+                    z = rng.uniform(-.01, .01, (9, 13))
+                    slope = rng.uniform(0, 10, z.shape)
+                    valid = rng.random(z.shape) > .15
+                    valid[0, 0] = valid[-1, -1] = True
+                    graph = RouteGraph(z, slope, valid, geometry)
+                    expected = dijkstra(graph, (0, 0), (8, 12))
+                    for mode in ("astar", "hierarchical"):
+                        actual = graph.search((0, 0), (8, 12), mode=mode)
+                        if expected is None:
+                            self.assertEqual(actual.cells, ())
+                        else:
+                            self.assertAlmostEqual(actual.cost, expected)
+            finally:
+                terrain.close()
 
     def test_route_api_on_both_datasets(self):
         with TestClient(create_app()) as client:

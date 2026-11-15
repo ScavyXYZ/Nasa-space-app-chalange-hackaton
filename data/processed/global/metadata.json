@@ -1,0 +1,37 @@
+{
+  "title": "MGS MOLA MEGDR \u00b7 global topography",
+  "product": "MEGT90N000EB v2.0",
+  "source_page": "https://pds-geosciences.wustl.edu/missions/mgs/megdr.html",
+  "sources": [
+    {
+      "url": "https://pds-geosciences.wustl.edu/mgs/urn-nasa-pds-mgs_mola_topography_derived/meg016/megt90n000eb.img",
+      "label_url": "https://pds-geosciences.wustl.edu/mgs/urn-nasa-pds-mgs_mola_topography_derived/meg016/megt90n000eb.lbl",
+      "sha256": "d18d9b9ab8c5516d02e157dd2cde0f1d0d160c21940e953ba22391269a545e7b",
+      "bytes": 33177600
+    },
+    {
+      "url": "https://pds-geosciences.wustl.edu/mgs/urn-nasa-pds-mgs_mola_topography_derived/meg016/megc90n000eb.img",
+      "label_url": "https://pds-geosciences.wustl.edu/mgs/urn-nasa-pds-mgs_mola_topography_derived/meg016/megc90n000eb.lbl",
+      "sha256": "9a300c6cd9f5a282ae31299be228ea2e75993049e88c9f6ab69a84f4db5f01d7",
+      "bytes": 33177600
+    }
+  ],
+  "shape": [
+    2880,
+    5760
+  ],
+  "resolution_deg": 0.0625,
+  "equatorial_spacing_m": 3704.5,
+  "coordinate_system": "Mars planetocentric latitude, east-positive longitude",
+  "vertical_datum": "MOLA areoid GMM3 (mgm1025), degree/order 50",
+  "radius_m": 3396000,
+  "height_range_m": [
+    -8177,
+    21171
+  ],
+  "observed_fraction": 0.9455320457175926,
+  "texture_url": "/api/assets/mola-topography.jpg",
+  "runtime_archive": "mola_16ppd.npz",
+  "runtime_sha256": "31b230f953f9f094ccb11eca9f7b6df395acc57b10128eae76bf83ec602d8740",
+  "notice": "0.0625 degree global planning model (~3.70 km north-south). Bins without observations contain PDS-supplied interpolation. Not a local traversability or astronaut navigation model."
+}

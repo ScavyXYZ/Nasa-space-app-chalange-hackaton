@@ -1,0 +1,500 @@
+{
+  "cases": [
+    {
+      "view": [
+        150.624967,
+        9.070396,
+        3
+      ],
+      "lod": 8,
+      "checked": 126,
+      "bad": 0,
+      "examples": [],
+      "ready": 42,
+      "fallback": 0,
+      "total": 42
+    },
+    {
+      "view": [
+        -97.150761,
+        24.024217,
+        3
+      ],
+      "lod": 8,
+      "checked": 152,
+      "bad": 0,
+      "examples": [],
+      "ready": 5,
+      "fallback": 43,
+      "total": 48
+    }
+  ],
+  "errors": [],
+  "upstream_failures": [
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/93/116?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/94/117?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/94/118?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/93/118?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/93/117?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/92/117?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/93/116?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/94/118?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/93/118?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/94/117?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/93/117?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/92/117?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/94/116?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/92/118?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/95/118?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/93/119?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/95/117?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/94/116?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/94/119?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/95/118?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/93/119?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/92/118?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/95/117?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/92/116?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/95/116?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/92/119?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/93/115?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/94/119?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/95/119?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/92/116?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/94/115?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/92/119?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/95/116?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/93/115?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/95/119?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/92/115?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/94/115?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/93/120?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/96/117?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/96/118?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/94/120?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/92/115?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/95/115?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/93/120?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/96/118?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/94/120?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/96/117?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/96/116?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/95/115?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/7/48/59?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/92/120?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/7/48/58?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/96/119?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/95/120?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/96/116?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/92/120?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/93/114?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/94/114?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/96/119?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/96/115?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/95/120?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/7/48/58?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/93/114?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/94/114?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/7/48/59?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/91/120?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/92/114?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/93/121?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/96/115?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/95/114?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/94/121?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/91/120?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/96/120?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/92/114?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/93/121?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/94/121?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/95/114?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/92/121?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/95/121?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/96/120?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/91/114?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/96/114?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/91/121?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/7/48/60?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/92/121?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/95/121?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/91/114?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/96/114?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/91/121?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/7/45/57?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/96/121?v=validated-3",
+      "status": 503,
+      "body": "{\"detail\":{\"code\":\"tile_unavailable\",\"message\":\"NASA tile unavailable; local base imagery remains available\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/96/121?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/7/48/60?v=validated-3",
+      "status": 502,
+      "body": "{\"detail\":{\"code\":\"invalid_tile\",\"message\":\"Truncated, repeated placeholder or invalid upstream tile; not cached\"}}"
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+/* Match the detailed Jezero workstation without touching its map/route logic. */
+.app {
+  --panel:var(--mc-panel); --line:var(--mc-line);
+  --muted:var(--mc-muted); --accent:var(--mc-copper);
+  background:var(--mc-bg); color:var(--mc-ink); font-family:var(--mc-font);
+}
+.app .app-header { background:var(--mc-bg); border-color:var(--mc-line); height:84px; }
+.app .brand { color:var(--mc-copper); font-size:17px; }
+.app .brand-light { color:var(--mc-ink); }
+.app .brand small,.app .mission-tag { color:var(--mc-muted); font-family:var(--mc-mono); }
+.app .intro h1 { font-weight:450; letter-spacing:-1.8px; font-size:clamp(32px,3.5vw,52px); }
+.app .intro h1 em { font-family:Georgia,"Times New Roman",serif; font-style:italic; }
+.app .panel,.app .terrain3d-shell,.app .map-shell { border-radius:var(--mc-card-radius); border-color:var(--mc-line); box-shadow:none; }
+.app .workspace { gap:20px; grid-template-columns:330px minmax(0,1fr); }
+.app .workspace-map-only { grid-template-columns:minmax(0,1fr); }
+.app .planner {
+  --mc-focus:var(--orbit-rust-700);
+  padding:24px; background:var(--mc-paper); color:var(--mc-paper-ink);
+  border-color:var(--mc-paper-line); color-scheme:light;
+}
+.app .planner :focus-visible { outline-color:var(--mc-focus); }
+.app .planner h2 { color:var(--mc-paper-ink); font-size:20px; }
+.app .planner .section-heading { color:var(--orbit-rust-700); }
+.app .planner .step { background:var(--mc-input-bg); color:var(--orbit-rust-700); border-color:var(--mc-paper-line); }
+.app .planner .field-label,.app .planner .parameter-label,.app .planner .coordinate-fields label { color:var(--mc-paper-muted); font-size:12px; }
+.app .planner .field-hint,.app .planner .terrain-details,.app .planner .model-details,.app .planner .range-labels,.app .planner .plan-status { color:var(--mc-paper-muted); font-size:11px; line-height:1.8; }
+.app .planner select,.app .planner .coordinate-fields input { background:var(--mc-input-bg); color:var(--mc-paper-ink); border-color:var(--mc-input-border); min-height:44px; font-size:12px; }
+.app .planner .coordinate-fields input { font-family:var(--mc-mono); }
+.app .planner .endpoint { border-color:var(--mc-paper-line); background:var(--mc-input-bg); padding:12px; border-radius:var(--orbit-radius-md); }
+.app .planner .endpoint-active { border-color:var(--orbit-rust-700); box-shadow:inset 3px 0 var(--orbit-rust-700); }
+.app .planner .endpoint-title { color:var(--mc-paper-ink); min-height:44px; font-size:13px; }
+.app .planner .point-badge.start { background:var(--orbit-mint-800); color:var(--mc-paper); }
+.app .planner .point-badge.end { background:var(--orbit-rust-700); color:var(--mc-paper); }
+.app .planner .text-button { color:var(--orbit-rust-700); min-height:44px; font-size:12px; }
+.app .planner .plan-status.error { color:var(--orbit-rust-700); background:transparent; border-color:var(--mc-paper-line); }
+.app .planner input[type=range] { accent-color:var(--orbit-rust-700); }
+.app .planner .primary { background:var(--mc-button-bg); color:var(--mc-button-ink); border-color:var(--mc-button-bg); min-height:48px; }
+.app .view-mode,.app .workspace-toggle { background:var(--mc-panel); border-color:var(--mc-line); color:var(--mc-ink); }
+.app .view-mode button { min-height:40px; }
+.app .view-mode button[aria-pressed=true] { background:var(--mc-line); color:var(--mc-copper); }
+.app .map-interaction,.app .map-toolbar { background:var(--mc-panel); border-color:var(--mc-line); }
+.app .map-pick-target button { background:var(--mc-bg); border-color:var(--mc-line); color:var(--mc-muted); }
+.app .map-pick-target button[aria-pressed=true] { background:var(--mc-raised); border-color:var(--mc-copper); color:var(--mc-ink); }
+.app .results { padding:28px; }
+.app .science-card { background:var(--mc-panel); border-color:var(--mc-line); }
+.app .science-card h3 { font-weight:450; }
+.app .research-warning { color:var(--mc-warning); border-color:var(--mc-line); background:var(--mc-panel); }
+.app .empty-results { color:var(--mc-muted); padding:32px; }
+.app .primary:not(:disabled):hover { background:var(--mc-button-hover); }
+@media(max-width:1100px) {
+  .app .workspace { grid-template-columns:285px minmax(0,1fr); gap:16px; }
+  .app .workspace-map-only { grid-template-columns:minmax(0,1fr); }
+  .app .planner { padding:20px 16px; }
+}
+@media(max-width:760px) {
+  .app .app-header { height:76px; }
+  .app .brand { font-size:14px; }
+  .app .brand small { font-size:6px; }
+  .app .workspace { display:flex; gap:16px; }
+  .app .planner { padding:22px; }
+  .app .results { padding:20px; }
+  .app .intro h1 { font-size:34px; }
+}

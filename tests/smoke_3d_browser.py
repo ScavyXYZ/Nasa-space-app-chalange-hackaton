@@ -15,6 +15,7 @@ def run(url):
         page=browser.new_page(viewport={"width":1440,"height":1100},reduced_motion="reduce")
         page.on("pageerror",lambda e:errors.append(str(e)))
         page.goto(url,wait_until="load")
+        page.get_by_role("button",name="Jezero · детально",exact=True).click()
         expect(page.get_by_role("heading",name="План експедиції")).to_be_visible()
         page.get_by_role("button",name="2D карта",exact=True).click()
         page.get_by_role("button",name="Завантажити демонстраційні точки").click()

@@ -1,0 +1,21 @@
+{
+  "responseHeader":{
+    "status":0,
+    "QTime":0,
+    "params":{
+      "q":"item_UUID:833ace00-106b-45d2-8144-aeb1bea43105",
+      "indent":"on",
+      "version":"2.2",
+      "wt":"json"}},
+  "response":{"numFound":1,"start":0,"docs":[
+      {
+        "serviceType":"Mosaic",
+        "endPoint":"https://trek.nasa.gov/tiles/Mars/EQ/Mars_MGS_MOLA_ClrShade_merge_global_463m",
+        "protocol":"WMTS",
+        "item_UUID":"833ace00-106b-45d2-8144-aeb1bea43105",
+        "wmts_mode":"rest",
+        "layerId":"Mars_MGS_MOLA_ClrShade_merge_global_463m",
+        "item_DBID":294180,
+        "id":"42aa92cf-a588-43a4-8878-811892add76a",
+        "_version_":1670513129545531392}]
+  }}

@@ -1,0 +1,17 @@
+{
+  "title": "Robbins & Hynek Mars crater catalogue, 2014 release",
+  "source": "https://craters.sjrdesign.net/",
+  "download_url": "https://craters.sjrdesign.net/RobbinsCraterDatabase_20140829.tsv.zip",
+  "doi": "10.1029/2011JE003966",
+  "records": 384277,
+  "archive_sha256": "0b8fe6fef1c614918767b8cb509a38cea4a31443c2e52c92e6f684fd41148e26",
+  "runtime_sha256": "81a5a9f120063de9396978a74b19b8d3fc64a1a66bd052d051d0d45669185d6a",
+  "minimum_diameter_km": 1,
+  "geometry": "Published image-fitted circle centres and diameters; not exact rim polygons.",
+  "caveats": [
+    "Catalogue contains omissions and false positives; not a complete hazard map.",
+    "Ellipse tilt has published fitting issues; only circle parameters are used.",
+    "Depths of small craters are unreliable and are not used as rover slopes.",
+    "Conservative exclusion of a footprint is a planning policy, not proof every rim is impassable."
+  ]
+}

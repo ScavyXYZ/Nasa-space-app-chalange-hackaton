@@ -4,6 +4,7 @@ import { api, loadBundle } from './api'
 import { MarsMap, geologyColors } from './components/MarsMap'
 import { ElevationChart } from './components/ElevationChart'
 import type { Bundle, Dataset, Position, Region, RouteResult, Sample } from './types'
+import type { MissionSnapshot } from './components/MissionControl'
 
 type Fields = { lon:string; lat:string }
 const empty = ():Fields=>({lon:'',lat:''})
@@ -14,14 +15,15 @@ function parse(p:Fields):Position|null {
 const messages = {
   no_route:'За обраного порогу ухилу шляху немає. Оберіть інші точки або перегляньте параметри моделі.',
   blocked_endpoint:'Початок або кінець лежить у непрохідній клітинці: NoData, ухил або перепад висот. Оберіть іншу точку.',
-  outside_grid:'Одна з точок поза вибраною сіткою. HiRISE покриває лише малу частину CTX.',
+  outside_grid:'Одна з точок поза вибраною сіткою. Координати збережено; для маршруту оберіть точки в межах DEM Jezero.',
   search_limit:'Досягнуто ліміту пошуку. Скоротіть маршрут або використайте CTX замість HiRISE.',
 }
 const number=(n:number,digits=1)=>n.toLocaleString('uk-UA',{maximumFractionDigits:digits})
 const Terrain3D=lazy(()=>import('./components/Terrain3D'))
-const MarsGlobe=lazy(()=>import('./components/MarsGlobe'))
+const MissionControl=lazy(()=>import('./components/MissionControl'))
 
 export default function App() {
+  const missionSession=useRef<MissionSnapshot|null>(null)
   const [bundle,setBundle]=useState<Bundle|null>(null),[bootError,setBootError]=useState(''),[reload,setReload]=useState(0)
   const [dataset,setDataset]=useState<Dataset>('regional')
   const [a,setA]=useState<Fields>(empty),[b,setB]=useState<Fields>(empty),[target,setTarget]=useState<'start'|'end'>('start')
@@ -29,11 +31,17 @@ export default function App() {
   const [route,setRoute]=useState<RouteResult|null>(null),[busy,setBusy]=useState(false),[error,setError]=useState('')
   const [sample,setSample]=useState<Sample|null>(null),[focus,setFocus]=useState<Region|null>(null)
   const [plannerOpen,setPlannerOpen]=useState(true)
+  const [showCatalog,setShowCatalog]=useState(false)
   const [viewMode,setViewMode]=useState<'2d'|'3d'|'planet'>('planet')
   const [visible,setVisible]=useState<Record<string,boolean>>({optical:true,science:true})
   const version=useRef(0),controller=useRef<AbortController|null>(null)
   const sampleController=useRef<AbortController|null>(null)
+  const sampleVersion=useRef(0)
+  const [sampling,setSampling]=useState(false)
   const start=useMemo(()=>parse(a),[a]),end=useMemo(()=>parse(b),[b])
+  const bounds=bundle?.layers.terrain[dataset].metadata?.bounds_lon_lat_deg
+  const covered=(point:Position|null)=>!point || !!bounds && point.lon>=bounds[0] && point.lon<=bounds[2] && point.lat>=bounds[1] && point.lat<=bounds[3]
+  const outsideCoverage=!covered(start)||!covered(end)
   useEffect(()=>{
     const abort=new AbortController()
     loadBundle(abort.signal).then(data=>{
@@ -44,8 +52,13 @@ export default function App() {
   },[reload])
   useEffect(()=>()=>{controller.current?.abort();sampleController.current?.abort()},[])
   function invalidate() {
-    version.current++; controller.current?.abort(); sampleController.current?.abort()
+    version.current++; sampleVersion.current++; controller.current?.abort(); sampleController.current?.abort()
+    setSampling(false)
     setBusy(false);setRoute(null);setError('');setFocus(null)
+  }
+  function chooseTarget(which:'start'|'end') {
+    sampleVersion.current++;sampleController.current?.abort();setSampling(false)
+    setTarget(which)
   }
   function edit(which:'start'|'end',field:keyof Fields,value:string) {
     invalidate();setSample(null)
@@ -53,16 +66,18 @@ export default function App() {
     setter(prev=>({...prev,[field]:value}))
   }
   async function pick(point:Position) {
-    invalidate(); const id=version.current, which=target
+    invalidate(); const id=version.current, sampleId=sampleVersion.current, which=target
+    setSampling(true)
     sampleController.current=new AbortController()
     try {
       const p=await api<Sample>(`/api/elevation?dataset=${dataset}&lon=${point.lon}&lat=${point.lat}`,{signal:sampleController.current.signal})
-      if(id!==version.current)return
+      if(id!==version.current || sampleId!==sampleVersion.current)return
       setSample(p)
       if(!p.valid){setError('NoData: ця клітинка не має вимірювань. Точку не вибрано.');return}
       const values={lon:point.lon.toFixed(6),lat:point.lat.toFixed(6)}
       if(which==='start'){setA(values);setTarget('end')} else setB(values)
-    }catch(e){if(id===version.current && e instanceof Error && e.name!=='AbortError')setError(e.message)}
+    }catch(e){if(id===version.current && sampleId===sampleVersion.current && e instanceof Error && e.name!=='AbortError')setError(e.message)}
+    finally{if(id===version.current && sampleId===sampleVersion.current)setSampling(false)}
   }
   async function build() {
     if(!start || !end){setError('Введіть коректні координати початку й кінця.');return}
@@ -81,6 +96,7 @@ export default function App() {
   function demo() {
     invalidate();setDataset(bundle?.layers.terrain.regional?.available?'regional':'ctx');setLimit(15);setWeight(1);setSample(null)
     setA({lon:'77.450812',lat:'18.444801'});setB({lon:'77.470379',lat:'18.426243'});setTarget('end')
+    setViewMode('2d')
   }
   function download() {
     if(!route?.route)return
@@ -92,19 +108,22 @@ export default function App() {
   }
   const metrics=route?.metrics
   const science=route?.nearby_science || bundle?.science.features || []
+  if(viewMode==='planet')return <Suspense fallback={<div className="panel loading" role="status">Підготовка центру керування експедиціями…</div>}>
+    <MissionControl onLocal={()=>setViewMode('2d')} onDemo={demo} session={missionSession}/>
+  </Suspense>
   return <div className="app">
     <header className="app-header">
       <a href="/" className="brand" aria-label="Mars Explorer — головна"><GlobeHemisphereWest size={34} weight="duotone" aria-hidden />
         <span>MARS<span className="brand-light">EXPLORER</span><small>INTERPLANETARY SURVIVAL GUIDE</small></span>
       </a>
-      <nav aria-label="Навігація"><a href="#planner">Планування</a><a href="#science">Наука</a><a href="#sources">Джерела</a></nav>
+      <nav aria-label="Навігація"><a href="#planner">Експедиція</a><a href="#science">Наука</a><a href="#sources">Джерела</a></nav>
       <span className="mission-tag"><span className="live-dot" /> JEZERO / MARS</span>
     </header>
     <main>
       <div className="intro flex items-end justify-between gap-4">
         <div><p className="eyebrow">NASA SPACE APPS CHALLENGE 2026 / RESEARCH PROTOTYPE</p>
-          <h1>Прокладіть шлях.<br className="mobile-break" /> Дослідіть <em>Jezero.</em></h1>
-          <p className="intro-copy">Увесь Марс для огляду. Детальна експедиція в Jezero. Маршрути, які враховують рельєф.</p>
+          <h1>Ближче до поверхні.<br className="mobile-break" /> Глибше в <em>Jezero.</em></h1>
+          <p className="intro-copy">Від глобального огляду до деталей: CTX, HiRISE та геологія кратера Jezero.</p>
         </div>
         <div className="coverage-note"><span>ОБЛАСТЬ МАРШРУТИЗАЦІЇ</span><strong>{bundle?.layers.terrain.regional?.available?'≈ 30 × 30 км':'5 × 5 км'}</strong><small>Реальний CTX DEM 20 м · локальний HiRISE 1 м</small></div>
       </div>
@@ -116,7 +135,7 @@ export default function App() {
           <div className="workspace-topline">
             <span>MISSION MAP <span className="workspace-topline-detail">/ уся регіональна карта доступна в «CTX регіон»</span></span>
             <div className="view-mode" role="group" aria-label="Режим відображення">
-              <button aria-pressed={viewMode==='planet'} onClick={()=>setViewMode('planet')}>Планета</button>
+              <button aria-pressed={false} onClick={()=>setViewMode('planet')}>Планета</button>
               <button aria-pressed={viewMode==='2d'} onClick={()=>setViewMode('2d')}>2D карта</button>
               <button aria-pressed={viewMode==='3d'} onClick={()=>setViewMode('3d')}>3D рельєф</button>
             </div>
@@ -133,12 +152,12 @@ export default function App() {
                 <option value="ctx" disabled={!bundle.layers.terrain.ctx.available}>CTX локально / 20 м · 5 × 5 км</option>
                 <option value="hirise" disabled={!bundle.layers.terrain.hirise.available}>HiRISE / 1 м · локальний фрагмент</option>
               </select>
-              <p className="field-hint">{dataset==='regional'
+              <details className="terrain-details"><summary>Про покриття й точність DEM</summary><p className="field-hint">{dataset==='regional'
                 ?`Сітка ${bundle.layers.terrain.regional.metadata?.shape_rows_cols.join(' × ')}; висоти доступні на ${((bundle.layers.terrain.regional.metadata?.valid_fraction??0)*100).toFixed(1)}% карти. Круті схили можуть блокувати окремий шлях.`
-                :dataset==='ctx'?'Локальна сітка 250 × 250. Для довгих маршрутів оберіть CTX регіон.':'Крок по поверхні ≈ 0,949 × 1 м. Окрема детальна локальна сітка.'}</p>
+                :dataset==='ctx'?'Локальна сітка 250 × 250. Для довгих маршрутів оберіть CTX регіон.':'Крок по поверхні ≈ 0,949 × 1 м. Окрема детальна локальна сітка.'}</p></details>
               {([['start','A','Початок',a],['end','B','Кінець',b]] as const).map(([which,letter,title,fields])=>
                 <div key={which} className={`endpoint ${target===which?'endpoint-active':''}`}>
-                  <button className="endpoint-title" onClick={()=>setTarget(which)} aria-pressed={target===which}>
+                  <button className="endpoint-title" onClick={()=>chooseTarget(which)} aria-pressed={target===which}>
                     <span className={`point-badge ${which}`}>{letter}</span><strong>{title}</strong><Crosshair size={18} aria-hidden /><span className="sr-only">Вибрати {title.toLowerCase()} на карті</span>
                   </button>
                   <div className="coordinate-fields">
@@ -146,14 +165,18 @@ export default function App() {
                     <label>Широта N<input aria-label={`${title}: широта`} type="number" step="any" min="-90" max="90" placeholder="18.444801" value={fields.lat} onChange={e=>edit(which,'lat',e.target.value)} /></label>
                   </div>
                 </div>)}
+              <button className="text-button" disabled={!start && !end} onClick={()=>{
+                invalidate();setSample(null);setA(b);setB(a);setTarget('start')
+              }}>Поміняти A ↔ B</button>
               <button className="text-button demo-button" onClick={demo}>Завантажити демонстраційні точки <ArrowRight size={15} aria-hidden /></button>
               <div className="parameter-label"><label htmlFor="slope">Граничний ухил</label><output htmlFor="slope">{limit}°</output></div>
               <input id="slope" type="range" min="0" max="45" step="1" value={limit} onChange={e=>{invalidate();setLimit(Number(e.target.value))}} />
               <div className="range-labels"><span>0°</span><span>Параметр моделі, не ліміт NASA</span><span>45°</span></div>
+              <details className="model-details"><summary>Додаткові параметри</summary>
               <label className="field-label" htmlFor="weight">Штраф за схил</label>
               <select id="weight" value={weight} onChange={e=>{invalidate();setWeight(Number(e.target.value))}}>
                 <option value="0">Лише відстань</option><option value="1">Збалансований · 1</option><option value="5">Уникати схилів · 5</option>
-              </select>
+              </select></details>
               <button className="primary build-button" onClick={build} disabled={!start || !end || busy}>{busy?'Пошук маршруту…':'Build Route'}<ArrowRight size={20} aria-hidden /></button>
               <button className="text-button" onClick={()=>{invalidate();setA(empty());setB(empty());setSample(null);setTarget('start')}}>Очистити план</button>
               <div role={error?'alert':'status'} aria-live="polite" className={`plan-status ${error?'error':''}`}>
@@ -161,16 +184,25 @@ export default function App() {
               </div>
             </aside>
             <section className="map-column" aria-label="Карта й картографічні шари">
-              {viewMode==='planet'
-                ?<Suspense fallback={<div className="panel loading" role="status">Завантаження глобуса…</div>}>
-                  <MarsGlobe coverageBounds={bundle.layers.terrain.regional?.metadata?.bounds_lon_lat_deg} onJezero={()=>setViewMode('2d')} onFallback={()=>setViewMode('2d')}/>
-                </Suspense>
-                :viewMode==='2d'
+              <div className={`map-interaction panel ${error?'map-interaction-error':''}`}>
+                <div className="map-pick-target" role="group" aria-label="Точка для вибору на карті">
+                    <button aria-pressed={target==='start'} onClick={()=>chooseTarget('start')}>A · Початок</button>
+                    <button aria-pressed={target==='end'} onClick={()=>chooseTarget('end')}>B · Кінець</button>
+                  </div><span>{sampling?'Перевіряємо вимірювання DEM…':`Натисніть рельєф, щоб вибрати ${target==='start'?'початок A':'кінець B'}.`}</span>
+                {outsideCoverage && <p className="coverage-status" role="status">Точки збережено. Одна або обидві поза DEM {dataset==='regional'?'Jezero':dataset.toUpperCase()}: маршрут по рельєфу тут недоступний.</p>}
+                {error && <p role={!plannerOpen?'alert':undefined}>{error}</p>}
+                {busy && <div className="map-search-status">
+                  <span role="status">A* шукає маршрут…</span>
+                  <button className="text-button" onClick={invalidate}>Скасувати очікування</button>
+                  <small>Це припинить очікування відповіді; серверний пошук може ще тривати.</small>
+                </div>}
+              </div>
+              {viewMode==='2d'
                 ?<MarsMap bundle={bundle} dataset={dataset} start={start} end={end} route={route} visible={visible} focus={focus} onPick={pick} />
                 :<Suspense fallback={<div className="panel loading" role="status">Завантаження 3D-модуля…</div>}>
                   <Terrain3D bundle={bundle} dataset={dataset} start={start} end={end} route={route} visible={visible} onPick={pick} onFallback={()=>setViewMode('2d')} />
                 </Suspense>}
-              {viewMode!=='planet' && <><div className="map-toolbar panel">
+              <><div className="map-toolbar panel">
                 <span className="toolbar-label"><Stack size={18} aria-hidden /> Шари</span>
                 {([['optical','CTX оптика'],[`${dataset}-elevation`,'Висоти'],[`${dataset}-slope`,'Ухили'],['geology','Геологія'],['science','Наукові області']] as const).map(([key,label])=>
                   <label className={`layer-chip ${visible[key]?'selected':''}`} key={key}><input type="checkbox" disabled={viewMode==='3d' && (key==='geology'||key==='science')} checked={!!visible[key]} onChange={e=>setVisible(prev=>({...prev,[key]:e.target.checked}))} />{label}</label>)}
@@ -185,7 +217,7 @@ export default function App() {
                   </div>)}
                   <div>{bundle.layers.geology.legend.map((g,i)=><p key={g.name}><i style={{background:geologyColors[i%geologyColors.length]}} />{g.name}</p>)}</div>
                 </div><p>Межі геології можуть бути зміщені на 100–200 м. Колір ухилів насичується вище 45°. Роздільність не дорівнює точності.</p>
-              </details></>}
+              </details></>
             </section>
           </div>
           <section className="results panel" aria-labelledby="results-heading">
@@ -206,7 +238,7 @@ export default function App() {
           <section id="science" className="science-section">
             <div className="section-heading"><span className="step">03</span><h2>Наука вздовж шляху</h2><span className="count">{science.length} областей</span></div>
             <p className="section-description">{route?'Підтверджені геологічні області, які перетинає маршрут або які лежать у межах 200 проєкційних метрів від нього.':`${bundle.science.features.length} підтверджених областей USGS у розширеному каталозі. Це картовані регіони, а не точкові цілі марсохода; оригінальні назви збережені.`}</p>
-            <div className="science-grid">{science.map((region,i)=><article className="science-card panel" key={region.properties.name}>
+            <div className="science-grid" id="science-catalog">{(route||showCatalog?science:science.slice(0,4)).map((region,i)=><article className="science-card panel" key={region.properties.name}>
               <div className="science-number">SCIENCE REGION / {String(i+1).padStart(2,'0')}</div>
               <h3>{region.properties.name}</h3><p>{region.properties.description}</p><p className="interest">{region.properties.research_interest}</p>
               {route && <span className="distance-tag">{region.properties.route_intersects_region?'Маршрут перетинає область':`${number(region.properties.distance_to_route_m!)} м від маршруту`}</span>}
@@ -217,6 +249,9 @@ export default function App() {
               }}>Показати на карті <ArrowRight size={15} aria-hidden /></button>
                 <a href={region.properties.source} target="_blank" rel="noreferrer">USGS ↗</a></div>
             </article>)}</div>
+            {!route && science.length>4 && <button className="catalog-toggle" aria-expanded={showCatalog} aria-controls="science-catalog" onClick={()=>setShowCatalog(x=>!x)}>
+              {showCatalog?'Згорнути каталог':`Показати всі ${science.length} областей`}
+            </button>}
             {!science.length && <p className="panel">Поблизу цього маршруту немає областей з нашого каталогу. Це не означає відсутність наукового інтересу.</p>}
           </section>
           <footer id="sources" className="sources">

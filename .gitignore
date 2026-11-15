@@ -10,3 +10,6 @@ artifacts/mvp/*-debug.png
 *.part
 *.part.tif
 *.part.zip
+data/raw/mola/*.img
+artifacts/release/tunnel.log
+artifacts/release/public_demo.json

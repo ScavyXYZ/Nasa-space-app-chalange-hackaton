@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "checks": [
+    "Real MOLA data, topographic texture and explicit x10 relief",
+    "Real coarse-to-fine routes, strategy comparison, selectable result, keyboard elevation profile; global session retained after Jezero",
+    "Scientific GeoJSON export; explicit save/restore with stale result invalidation",
+    "Place search, endpoint selection, camera focus and real elevation sampling",
+    "Late response ignored after coordinate edit",
+    "375px mobile, landscape and tablet without horizontal overflow; reduced motion"
+  ],
+  "page_errors": []
+}

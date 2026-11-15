@@ -1,0 +1,74 @@
+{
+  "scope": "Local CPU A* only; same terrain, edge costs and parameters; no GPU.",
+  "results": [
+    {
+      "dataset": "ctx",
+      "start_cell": [
+        125,
+        125
+      ],
+      "goal_cell": [
+        180,
+        180
+      ],
+      "median_search_seconds": {
+        "geodesic": 0.010353100005886517,
+        "relaxed_grid": 0.004616199999873061
+      },
+      "speedup": 2.2427754443419294,
+      "expanded_cells": {
+        "geodesic": 476,
+        "relaxed_grid": 267
+      },
+      "baseline_cost": 1600.6956765479122,
+      "optimized_cost": 1600.6956765479122,
+      "repeats": 5
+    },
+    {
+      "dataset": "hirise",
+      "start_cell": [
+        500,
+        500
+      ],
+      "goal_cell": [
+        650,
+        650
+      ],
+      "median_search_seconds": {
+        "geodesic": 0.046433399998932146,
+        "relaxed_grid": 0.020584400001098402
+      },
+      "speedup": 2.2557567865205894,
+      "expanded_cells": {
+        "geodesic": 1957,
+        "relaxed_grid": 1027
+      },
+      "baseline_cost": 210.26782870438737,
+      "optimized_cost": 210.26782870438737,
+      "repeats": 5
+    },
+    {
+      "dataset": "regional",
+      "start_cell": [
+        300,
+        450
+      ],
+      "goal_cell": [
+        1200,
+        1200
+      ],
+      "median_search_seconds": {
+        "geodesic": 5.404389000002993,
+        "relaxed_grid": 2.456758300002548
+      },
+      "speedup": 2.199804921793645,
+      "expanded_cells": {
+        "geodesic": 224977,
+        "relaxed_grid": 130509
+      },
+      "baseline_cost": 25016.252230756792,
+      "optimized_cost": 25016.252230756792,
+      "repeats": 5
+    }
+  ]
+}

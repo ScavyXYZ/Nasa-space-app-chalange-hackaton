@@ -1,0 +1,44 @@
+[
+  {
+    "id": "perseverance",
+    "title": "Perseverance · Cheyava Falls",
+    "description": "Селфі Perseverance біля Cheyava Falls, 23 липня 2024 року. Потенційні біосигнатури потребують подальшої перевірки; це не доказ життя.",
+    "credit": "NASA/JPL-Caltech/MSSS",
+    "source": "https://science.nasa.gov/mission/mars-2020-perseverance/",
+    "image": "https://assets.science.nasa.gov/dynamicimage/assets/science/cds/general/images/2024/07/pia26344-figa-2500x.jpg?w=1200&fit=clip",
+    "region": "Jezero",
+    "lon": 77.4508,
+    "lat": 18.4447,
+    "location_note": "Оглядова координата Jezero; не точка знімання і не поточна позиція марсохода.",
+    "url": "/api/atlas/media/perseverance",
+    "sha256": "9930284eb2922fb3d5c513c823c63d90a3e028bbea592d89a1e2ca35c4c9d339"
+  },
+  {
+    "id": "jezero-delta",
+    "title": "Jezero · сліди давньої води",
+    "description": "Уступ дельти, знятий Mastcam-Z 17 квітня 2021 року. Шаруваті відклади допомагають досліджувати водне минуле Jezero.",
+    "credit": "NASA/JPL-Caltech/ASU/MSSS",
+    "source": "https://science.nasa.gov/mission/mars-2020-perseverance/",
+    "image": "https://assets.science.nasa.gov/dynamicimage/assets/science/psd/photojournal/pia/pia24/pia24813/PIA24813.jpg?w=1200&fit=clip",
+    "region": "Jezero",
+    "lon": 77.4508,
+    "lat": 18.4447,
+    "location_note": "Прив’язка до регіону, не до точного положення камери.",
+    "url": "/api/atlas/media/jezero-delta",
+    "sha256": "e9d036476ea31b463ed9caa6c80c5d739f999ba088fca019b7fa8c4edb1682f8"
+  },
+  {
+    "id": "curiosity",
+    "title": "Curiosity · Gale Crater",
+    "description": "Curiosity досліджує осадові породи кратера Gale й гори Mount Sharp: історію давнього середовища та його придатності для життя.",
+    "credit": "NASA/JPL-Caltech/MSSS",
+    "source": "https://science.nasa.gov/mission/msl-curiosity/",
+    "image": "https://assets.science.nasa.gov/dynamicimage/assets/science/cds/general/images/2024/03/pia24173-crop.jpg?w=1200&fit=clip",
+    "region": "Gale",
+    "lon": 137.4,
+    "lat": -4.6,
+    "location_note": "Оглядова координата Gale; не поточна позиція марсохода.",
+    "url": "/api/atlas/media/curiosity",
+    "sha256": "e3e178f14ff2f942c276974ae8641788be806d2ccc0e95de63a9d7e46e208834"
+  }
+]

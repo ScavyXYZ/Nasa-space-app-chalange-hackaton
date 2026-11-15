@@ -1,10 +1,27 @@
-# MARS EXPLORER — запуск MVP
+# MARS EXPLORER — Global Mission Control
 
-Робочий React + TypeScript/Vite/Tailwind інтерфейс, Leaflet-карта Jezero,
-CPU A*, FastAPI, Plotly-профіль висот та наукові області NASA/USGS.
+**Демореліз 15.11:** єдиний 2D/3D-атлас, MOLA 16 ppd (~3,7 км),
+глобальна геологія USGS, NASA-тайли, зупинки, політ, звіт і QR.
+[Актуальний обсяг та обмеження](docs/release_status.md) ·
+[Сценарій для журі та запуск із телефону](docs/jury_demo.md).
+[Глобальний CTX, двобічний пошук і модель плавних підйомів](docs/planetary_routing_v2.md).
+[Реальний каталог кратерів та перепланування за MOLA 463 м](docs/crater_aware_routing.md).
+[Поточна модель: MOLA 463 м уздовж усього маршруту, схили бортів і рух усередині кратерів](docs/native_mola_routing.md).
+
+Швидкий запуск підготовленої версії:
+`powershell -ExecutionPolicy Bypass -File scripts/start_demo.ps1`
+→ **http://127.0.0.1:8003/**.
+Для тимчасового публічного HTTPS/QR: `python scripts/share_demo.py --port 8003`.
+Залиште комп’ютер, сервер і тунель увімкненими; це не постійний хостинг.
+
+Глобальний планетарний атлас із рельєфом NASA MOLA, багаторівневими
+маршрутами на CPU та новим Mission Control інтерфейсом. Детальний Jezero:
+Leaflet, CTX/HiRISE, точний локальний A*, Plotly та геологія NASA/USGS.
 
 **Статус:** локальний production build та наскрізні перевірки пройшли.
-Публічний URL, фактичний cloud-деплой і подання на хакатон **ще не підтверджені**.
+Постійний cloud-деплой і подання на хакатон **ще не підтверджені**.
+Тимчасовий URL для демо створюється окремим скриптом; поточний запис —
+`artifacts/release/public_demo.json`.
 
 ## Швидкий запуск
 
@@ -19,12 +36,22 @@ npm --prefix frontend run build
 python scripts/prepare_runtime_data.py
 python scripts/build_context_imagery.py
 python scripts/prepare_mars_globe.py
+python scripts/prepare_global_terrain.py --ppd 16
 python -m uvicorn backend.main:app --host 127.0.0.1 --port 8001
 ```
 
 Відкрити **http://127.0.0.1:8001/**. OpenAPI — `/docs`, GIS QA — `/gis-check`.
-За замовчуванням відкривається **«Планета»** — глобус усього Марса.
-Натисніть **«Перейти до Jezero»** або **«2D карта»**, виберіть A/B або
+За замовчуванням відкривається **Mission Control / «Планета»**:
+глобус із Viking-мозаїкою, реальні глобальні висоти MOLA, топографічний
+режим і візуальне підсилення рельєфу ×1/×10.
+Позначте **A/B будь-де на глобусі** або завантажте **«Експедиція через Tharsis»**,
+натисніть **«Побудувати маршрут»** чи **«Порівняти дві стратегії»**.
+Є профіль висот, пошук місць, збереження/відновлення плану та експорт GeoJSON.
+**Глобальний маршрут приблизний:** MOLA 0,0625° ≈3,7 км, а не локальна
+оцінка прохідності. Інтерпольовані біни й зміщення прив’язки точок показані явно.
+Маркери A/B не мають фізичного масштабу.
+
+Для детального режиму натисніть **«Jezero · детально»** / **«Перейти до Jezero»**, виберіть A/B або
 **«Завантажити демонстраційні точки» → Build Route**.
 Маршрут, профіль і наукові області розраховуються за реальними даними.
 За замовчуванням у 2D вибрано **«CTX регіон / 20 м · уся карта»**:
@@ -53,14 +80,22 @@ python tests/smoke_mvp_browser.py
 python tests/smoke_3d_browser.py
 python tests/smoke_globe_browser.py
 python tests/smoke_regional_browser.py
+python tests/smoke_planner_browser.py
+python tests/smoke_mission_browser.py
+python tests/smoke_atlas_browser.py --url http://127.0.0.1:8001
+python scripts/benchmark_global.py --repeats 3
+python scripts/benchmark_routing.py --repeats 5 --output artifacts/mvp/routing_benchmark.json
 ```
 
 - [Стан MVP, перевірки й залишкові обмеження](docs/mvp_status.md)
+- [Глобальні дані MOLA, алгоритм, API та обмеження](docs/global_explorer.md)
+- [Поточний демореліз, звіти, фото, геологія та QR](docs/release_status.md)
 - [Деплой: Docker/Render та Vercel](docs/deployment.md)
 - [Презентація й сценарій демонстрації](docs/presentation.md)
 - [NASA/USGS-дані та відтворення](docs/nasa_data_report.md)
 - [GIS/Terrain API](docs/gis_engine.md)
 - [A* і модель вартості](docs/routing.md)
+- [Оптимізація CPU A* та межі GPU-прискорення](docs/routing_performance.md)
 - Локальний запис демо: `artifacts/mvp/mars-explorer-local-demo.webm`
 - Скриншоти й E2E-звіт: `artifacts/mvp/`
 
@@ -408,7 +443,7 @@ API повертає маршрут у GeoJSON та розраховані ха�
 - [x] Є три типи наукової інформації.
 - [x] Можна переглядати висоти та ухили.
 - [x] Можна вибрати старт і фініш.
-- [x] Алгоритм A\* будує маршрут.
+- [x] Алгоритм A\* будує маршрут; додано приблизний глобальний coarse-to-fine пошук MOLA.
 - [x] Маршрут відображається на карті.
 - [x] Показуються характеристики маршруту.
 - [x] Є графік висот.

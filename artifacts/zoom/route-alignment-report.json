@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "distance_m": 3369.2291929146263,
+  "snap_offsets_m": [
+    204.17588696739284,
+    215.98759591837785
+  ],
+  "checks": [
+    "Real MOLA128 path with visible unverified endpoint connectors",
+    "Building preserves high-zoom camera",
+    "GeoJSON geometry and distance unchanged; connectors excluded",
+    "2D connector and route pixels independently visible at zoom 12"
+  ],
+  "page_errors": []
+}

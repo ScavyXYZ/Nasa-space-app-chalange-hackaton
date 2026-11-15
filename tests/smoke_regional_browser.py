@@ -16,6 +16,7 @@ def run(url):
         page=browser.new_page(viewport={"width":1440,"height":1100},reduced_motion="reduce")
         page.on("pageerror",lambda e:errors.append(str(e)))
         page.goto(url,wait_until="load")
+        page.get_by_role("button",name="Jezero · детально",exact=True).click()
         page.get_by_role("button",name="2D карта",exact=True).click()
         expect(page.locator("#dataset")).to_have_value("regional")
         expect(page.locator(".leaflet-control-scale-line")).to_be_visible()

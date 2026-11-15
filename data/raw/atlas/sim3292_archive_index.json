@@ -1,0 +1,1057 @@
+[
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/Basemaps/",
+    "bytes": 0,
+    "compressed_bytes": 0
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/Basemaps/hillshade_n_128.aux",
+    "bytes": 366307,
+    "compressed_bytes": 2942
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/Basemaps/hillshade_n_128.jgw",
+    "bytes": 126,
+    "compressed_bytes": 54
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/Basemaps/hillshade_n_128.jpg",
+    "bytes": 9768753,
+    "compressed_bytes": 9704906
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/Basemaps/hillshade_n_128.jpg.aux.xml",
+    "bytes": 2187,
+    "compressed_bytes": 1129
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/Basemaps/hillshade_n_128.rrd",
+    "bytes": 35044370,
+    "compressed_bytes": 22182120
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/Basemaps/hillshade_s_128.aux",
+    "bytes": 365840,
+    "compressed_bytes": 2794
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/Basemaps/hillshade_s_128.jgw",
+    "bytes": 126,
+    "compressed_bytes": 54
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/Basemaps/hillshade_s_128.jpg",
+    "bytes": 14407308,
+    "compressed_bytes": 14403367
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/Basemaps/hillshade_s_128.rrd",
+    "bytes": 35043903,
+    "compressed_bytes": 27364417
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/Basemaps/MOLA_Hillshade_Robinson_128ppd.tfw",
+    "bytes": 96,
+    "compressed_bytes": 56
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/Basemaps/MOLA_Hillshade_Robinson_128ppd.tif",
+    "bytes": 772835624,
+    "compressed_bytes": 432767513
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/Basemaps/MOLA_Hillshade_Robinson_128ppd.tif.aux.xml",
+    "bytes": 2381,
+    "compressed_bytes": 1263
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/Basemaps/MOLA_Hillshade_Robinson_128ppd.tif.ovr",
+    "bytes": 161587870,
+    "compressed_bytes": 161493275
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/Mars_PublishedGeologicMaps_1Mscale_greater/",
+    "bytes": 0,
+    "compressed_bytes": 0
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/Mars_PublishedGeologicMaps_1Mscale_greater/Mars_PublishedGeologicMaps_1Mscale_greater.dbf",
+    "bytes": 12678,
+    "compressed_bytes": 1424
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/Mars_PublishedGeologicMaps_1Mscale_greater/Mars_PublishedGeologicMaps_1Mscale_greater.pdf",
+    "bytes": 1130476,
+    "compressed_bytes": 1032000
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/Mars_PublishedGeologicMaps_1Mscale_greater/Mars_PublishedGeologicMaps_1Mscale_greater.prj",
+    "bytes": 169,
+    "compressed_bytes": 138
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/Mars_PublishedGeologicMaps_1Mscale_greater/Mars_PublishedGeologicMaps_1Mscale_greater.shp",
+    "bytes": 583800,
+    "compressed_bytes": 227421
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/Mars_PublishedGeologicMaps_1Mscale_greater/Mars_PublishedGeologicMaps_1Mscale_greater.shp.xml",
+    "bytes": 15798,
+    "compressed_bytes": 4305
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/Mars_PublishedGeologicMaps_1Mscale_greater/Mars_PublishedGeologicMaps_1Mscale_greater.shx",
+    "bytes": 276,
+    "compressed_bytes": 200
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/Mars_PublishedGeologicMaps_1Mscale_greater/Mars_PublishedGeologicMaps_1Mscale_greater_arcMap10.1.mxd",
+    "bytes": 791552,
+    "compressed_bytes": 116177
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/",
+    "bytes": 0,
+    "compressed_bytes": 0
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000001.freelist",
+    "bytes": 12632,
+    "compressed_bytes": 155
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000001.gdbindexes",
+    "bytes": 110,
+    "compressed_bytes": 80
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000001.gdbtable",
+    "bytes": 1387,
+    "compressed_bytes": 526
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000001.gdbtablx",
+    "bytes": 5152,
+    "compressed_bytes": 127
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000001.TablesByName.atx",
+    "bytes": 12310,
+    "compressed_bytes": 477
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000002.gdbtable",
+    "bytes": 2055,
+    "compressed_bytes": 641
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000002.gdbtablx",
+    "bytes": 5152,
+    "compressed_bytes": 133
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000003.gdbindexes",
+    "bytes": 42,
+    "compressed_bytes": 33
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000003.gdbtable",
+    "bytes": 2920,
+    "compressed_bytes": 739
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000003.gdbtablx",
+    "bytes": 5152,
+    "compressed_bytes": 59
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000004.CatItemsByPhysicalName.atx",
+    "bytes": 12310,
+    "compressed_bytes": 534
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000004.CatItemsByType.atx",
+    "bytes": 4118,
+    "compressed_bytes": 264
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000004.FDO_UUID.atx",
+    "bytes": 4118,
+    "compressed_bytes": 731
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000004.freelist",
+    "bytes": 78168,
+    "compressed_bytes": 1952
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000004.gdbindexes",
+    "bytes": 310,
+    "compressed_bytes": 131
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000004.gdbtable",
+    "bytes": 2694714,
+    "compressed_bytes": 389606
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000004.gdbtablx",
+    "bytes": 5152,
+    "compressed_bytes": 183
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000004.spx",
+    "bytes": 151574,
+    "compressed_bytes": 4848
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000005.CatItemTypesByName.atx",
+    "bytes": 12310,
+    "compressed_bytes": 545
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000005.CatItemTypesByParentTypeID.atx",
+    "bytes": 4118,
+    "compressed_bytes": 282
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000005.CatItemTypesByUUID.atx",
+    "bytes": 4118,
+    "compressed_bytes": 872
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000005.gdbindexes",
+    "bytes": 296,
+    "compressed_bytes": 114
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000005.gdbtable",
+    "bytes": 1803,
+    "compressed_bytes": 1121
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000005.gdbtablx",
+    "bytes": 5152,
+    "compressed_bytes": 130
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000006.CatRelsByDestinationID.atx",
+    "bytes": 4118,
+    "compressed_bytes": 777
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000006.CatRelsByOriginID.atx",
+    "bytes": 4118,
+    "compressed_bytes": 579
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000006.CatRelsByType.atx",
+    "bytes": 4118,
+    "compressed_bytes": 257
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000006.FDO_UUID.atx",
+    "bytes": 4118,
+    "compressed_bytes": 1648
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000006.freelist",
+    "bytes": 4440,
+    "compressed_bytes": 93
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000006.gdbindexes",
+    "bytes": 318,
+    "compressed_bytes": 128
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000006.gdbtable",
+    "bytes": 5811,
+    "compressed_bytes": 2384
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000006.gdbtablx",
+    "bytes": 5152,
+    "compressed_bytes": 223
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000007.CatRelTypesByBackwardLabel.atx",
+    "bytes": 4118,
+    "compressed_bytes": 340
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000007.CatRelTypesByDestItemTypeID.atx",
+    "bytes": 4118,
+    "compressed_bytes": 306
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000007.CatRelTypesByForwardLabel.atx",
+    "bytes": 4118,
+    "compressed_bytes": 269
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000007.CatRelTypesByName.atx",
+    "bytes": 4118,
+    "compressed_bytes": 342
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000007.CatRelTypesByOriginItemTypeID.atx",
+    "bytes": 4118,
+    "compressed_bytes": 388
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000007.CatRelTypesByUUID.atx",
+    "bytes": 4118,
+    "compressed_bytes": 489
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000007.gdbindexes",
+    "bytes": 602,
+    "compressed_bytes": 173
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000007.gdbtable",
+    "bytes": 2504,
+    "compressed_bytes": 1320
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000007.gdbtablx",
+    "bytes": 5152,
+    "compressed_bytes": 93
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000009.AnnoClassID_Index_8.atx",
+    "bytes": 4118,
+    "compressed_bytes": 54
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000009.gdbindexes",
+    "bytes": 272,
+    "compressed_bytes": 129
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000009.gdbtable",
+    "bytes": 18055,
+    "compressed_bytes": 4451
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000009.gdbtablx",
+    "bytes": 5152,
+    "compressed_bytes": 248
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000009.spx",
+    "bytes": 4118,
+    "compressed_bytes": 521
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000009.Status_Index_8.atx",
+    "bytes": 4118,
+    "compressed_bytes": 146
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000000a.AnnoClassID_Index_9.atx",
+    "bytes": 4118,
+    "compressed_bytes": 298
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000000a.freelist",
+    "bytes": 29016,
+    "compressed_bytes": 211
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000000a.gdbindexes",
+    "bytes": 272,
+    "compressed_bytes": 126
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000000a.gdbtable",
+    "bytes": 122038,
+    "compressed_bytes": 53756
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000000a.gdbtablx",
+    "bytes": 5152,
+    "compressed_bytes": 525
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000000a.spx",
+    "bytes": 4118,
+    "compressed_bytes": 677
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000000a.Status_Index_9.atx",
+    "bytes": 4118,
+    "compressed_bytes": 55
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000000b.AnnoClassID_Index_10.atx",
+    "bytes": 20502,
+    "compressed_bytes": 1680
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000000b.gdbindexes",
+    "bytes": 276,
+    "compressed_bytes": 132
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000000b.gdbtable",
+    "bytes": 596716,
+    "compressed_bytes": 106324
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000000b.gdbtablx",
+    "bytes": 10272,
+    "compressed_bytes": 2939
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000000b.spx",
+    "bytes": 45078,
+    "compressed_bytes": 7934
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000000b.Status_Index_10.atx",
+    "bytes": 16406,
+    "compressed_bytes": 1655
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000000e.gdbindexes",
+    "bytes": 116,
+    "compressed_bytes": 67
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000000e.gdbtable",
+    "bytes": 36010,
+    "compressed_bytes": 20311
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000000e.gdbtablx",
+    "bytes": 10272,
+    "compressed_bytes": 2313
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000000e.spx",
+    "bytes": 20502,
+    "compressed_bytes": 4234
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000000f.gdbindexes",
+    "bytes": 116,
+    "compressed_bytes": 67
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000000f.gdbtable",
+    "bytes": 2539,
+    "compressed_bytes": 1315
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000000f.gdbtablx",
+    "bytes": 5152,
+    "compressed_bytes": 69
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000000f.spx",
+    "bytes": 4118,
+    "compressed_bytes": 35
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000019.gdbindexes",
+    "bytes": 256,
+    "compressed_bytes": 123
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000019.gdbtable",
+    "bytes": 106818,
+    "compressed_bytes": 47565
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000019.gdbtablx",
+    "bytes": 5152,
+    "compressed_bytes": 489
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000019.I27AnnotationCla.atx",
+    "bytes": 4118,
+    "compressed_bytes": 284
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000019.I27Status.atx",
+    "bytes": 4118,
+    "compressed_bytes": 55
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000019.spx",
+    "bytes": 4118,
+    "compressed_bytes": 659
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000001a.gdbindexes",
+    "bytes": 256,
+    "compressed_bytes": 123
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000001a.gdbtable",
+    "bytes": 106818,
+    "compressed_bytes": 47565
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000001a.gdbtablx",
+    "bytes": 5152,
+    "compressed_bytes": 489
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000001a.I28AnnotationCla.atx",
+    "bytes": 4118,
+    "compressed_bytes": 284
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000001a.I28Status.atx",
+    "bytes": 4118,
+    "compressed_bytes": 55
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000001a.spx",
+    "bytes": 4118,
+    "compressed_bytes": 659
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000001b.gdbindexes",
+    "bytes": 256,
+    "compressed_bytes": 123
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000001b.gdbtable",
+    "bytes": 18937,
+    "compressed_bytes": 10970
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000001b.gdbtablx",
+    "bytes": 5152,
+    "compressed_bytes": 86
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000001b.I30AnnotationCla.atx",
+    "bytes": 4118,
+    "compressed_bytes": 73
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000001b.I30Status.atx",
+    "bytes": 4118,
+    "compressed_bytes": 34
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000001b.spx",
+    "bytes": 4118,
+    "compressed_bytes": 95
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000001c.gdbindexes",
+    "bytes": 256,
+    "compressed_bytes": 123
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000001c.gdbtable",
+    "bytes": 21536,
+    "compressed_bytes": 5600
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000001c.gdbtablx",
+    "bytes": 10272,
+    "compressed_bytes": 216
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000001c.I31AnnotationCla.atx",
+    "bytes": 4118,
+    "compressed_bytes": 115
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000001c.I31Status.atx",
+    "bytes": 4118,
+    "compressed_bytes": 116
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000001c.spx",
+    "bytes": 4118,
+    "compressed_bytes": 252
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000001d.gdbindexes",
+    "bytes": 256,
+    "compressed_bytes": 122
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000001d.gdbtable",
+    "bytes": 2853,
+    "compressed_bytes": 1172
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000001d.gdbtablx",
+    "bytes": 5152,
+    "compressed_bytes": 55
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000001d.I32AnnotationCla.atx",
+    "bytes": 4118,
+    "compressed_bytes": 34
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000001d.I32Status.atx",
+    "bytes": 4118,
+    "compressed_bytes": 49
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000001d.spx",
+    "bytes": 4118,
+    "compressed_bytes": 84
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000001e.freelist",
+    "bytes": 4440,
+    "compressed_bytes": 43
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000001e.gdbindexes",
+    "bytes": 256,
+    "compressed_bytes": 122
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000001e.gdbtable",
+    "bytes": 16286,
+    "compressed_bytes": 8471
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000001e.gdbtablx",
+    "bytes": 5152,
+    "compressed_bytes": 113
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000001e.I34AnnotationCla.atx",
+    "bytes": 4118,
+    "compressed_bytes": 80
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000001e.I34Status.atx",
+    "bytes": 4118,
+    "compressed_bytes": 34
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000001e.spx",
+    "bytes": 4118,
+    "compressed_bytes": 105
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000001f.gdbindexes",
+    "bytes": 256,
+    "compressed_bytes": 120
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000001f.gdbtable",
+    "bytes": 52316,
+    "compressed_bytes": 10628
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000001f.gdbtablx",
+    "bytes": 5152,
+    "compressed_bytes": 343
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000001f.I35AnnotationCla.atx",
+    "bytes": 4118,
+    "compressed_bytes": 184
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000001f.I35Status.atx",
+    "bytes": 4118,
+    "compressed_bytes": 184
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000001f.spx",
+    "bytes": 4118,
+    "compressed_bytes": 432
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000020.gdbindexes",
+    "bytes": 256,
+    "compressed_bytes": 122
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000020.gdbtable",
+    "bytes": 3437,
+    "compressed_bytes": 1299
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000020.gdbtablx",
+    "bytes": 5152,
+    "compressed_bytes": 57
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000020.I36AnnotationCla.atx",
+    "bytes": 4118,
+    "compressed_bytes": 34
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000020.I36Status.atx",
+    "bytes": 4118,
+    "compressed_bytes": 50
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000020.spx",
+    "bytes": 4118,
+    "compressed_bytes": 110
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000025.freelist",
+    "bytes": 4440,
+    "compressed_bytes": 46
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000025.gdbindexes",
+    "bytes": 116,
+    "compressed_bytes": 67
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000025.gdbtable",
+    "bytes": 5746948,
+    "compressed_bytes": 5083469
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000025.gdbtablx",
+    "bytes": 20512,
+    "compressed_bytes": 9819
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000025.spx",
+    "bytes": 77846,
+    "compressed_bytes": 12612
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000027.gdbindexes",
+    "bytes": 116,
+    "compressed_bytes": 67
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000027.gdbtable",
+    "bytes": 3553,
+    "compressed_bytes": 1295
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000027.gdbtablx",
+    "bytes": 5152,
+    "compressed_bytes": 231
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a00000027.spx",
+    "bytes": 4118,
+    "compressed_bytes": 197
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000002c.freelist",
+    "bytes": 4440,
+    "compressed_bytes": 53
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000002c.gdbindexes",
+    "bytes": 116,
+    "compressed_bytes": 67
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000002c.gdbtable",
+    "bytes": 15263020,
+    "compressed_bytes": 13765823
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000002c.gdbtablx",
+    "bytes": 20512,
+    "compressed_bytes": 10461
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000002c.spx",
+    "bytes": 73750,
+    "compressed_bytes": 10342
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000002d.freelist",
+    "bytes": 4440,
+    "compressed_bytes": 46
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000002d.gdbindexes",
+    "bytes": 116,
+    "compressed_bytes": 67
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000002d.gdbtable",
+    "bytes": 30178788,
+    "compressed_bytes": 27204705
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000002d.gdbtablx",
+    "bytes": 10272,
+    "compressed_bytes": 3999
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000002d.spx",
+    "bytes": 24598,
+    "compressed_bytes": 3034
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000002e.freelist",
+    "bytes": 4440,
+    "compressed_bytes": 51
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000002e.gdbindexes",
+    "bytes": 104,
+    "compressed_bytes": 61
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000002e.gdbtable",
+    "bytes": 2226,
+    "compressed_bytes": 783
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000002e.gdbtablx",
+    "bytes": 5152,
+    "compressed_bytes": 150
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/a0000002e.Unit.atx",
+    "bytes": 12310,
+    "compressed_bytes": 388
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/gdb",
+    "bytes": 4,
+    "compressed_bytes": 4
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_geodatabase.gdb/timestamps",
+    "bytes": 400,
+    "compressed_bytes": 33
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_LayerSymbols/",
+    "bytes": 0,
+    "compressed_bytes": 0
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_LayerSymbols/Amazonian.lyr",
+    "bytes": 14848,
+    "compressed_bytes": 3653
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_LayerSymbols/Global_Contact.lyr",
+    "bytes": 8192,
+    "compressed_bytes": 2143
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_LayerSymbols/Global_Geology_Age.lyr",
+    "bytes": 10752,
+    "compressed_bytes": 2509
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_LayerSymbols/Global_Geology_Figures.lyr",
+    "bytes": 27648,
+    "compressed_bytes": 5088
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_LayerSymbols/Global_Geology_Units.lyr",
+    "bytes": 23040,
+    "compressed_bytes": 5002
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_LayerSymbols/Global_Landing_Sites.lyr",
+    "bytes": 10240,
+    "compressed_bytes": 2770
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_LayerSymbols/Global_Structure.lyr",
+    "bytes": 18944,
+    "compressed_bytes": 3867
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_LayerSymbols/Hesperian.lyr",
+    "bytes": 16896,
+    "compressed_bytes": 3925
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_LayerSymbols/landing_sites_oc.lyr",
+    "bytes": 10240,
+    "compressed_bytes": 2626
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_LayerSymbols/Noachian.lyr",
+    "bytes": 13824,
+    "compressed_bytes": 3475
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_MarsGlobalGeologicGIS_20M_ArcMap10.1.mxd",
+    "bytes": 1644544,
+    "compressed_bytes": 252104
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_MarsGlobalGeologicGIS_20M_ArcMap10.mxd",
+    "bytes": 940544,
+    "compressed_bytes": 133855
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_metadata.txt",
+    "bytes": 14450,
+    "compressed_bytes": 4909
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_metadata.xml",
+    "bytes": 15025,
+    "compressed_bytes": 5114
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_README.txt",
+    "bytes": 5687,
+    "compressed_bytes": 2517
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_Shapefiles/",
+    "bytes": 0,
+    "compressed_bytes": 0
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_Shapefiles/SIM3292_Global_Contacts.dbf",
+    "bytes": 216762,
+    "compressed_bytes": 60569
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_Shapefiles/SIM3292_Global_Contacts.prj",
+    "bytes": 176,
+    "compressed_bytes": 132
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_Shapefiles/SIM3292_Global_Contacts.sbn",
+    "bytes": 36852,
+    "compressed_bytes": 24109
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_Shapefiles/SIM3292_Global_Contacts.sbx",
+    "bytes": 3132,
+    "compressed_bytes": 1442
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_Shapefiles/SIM3292_Global_Contacts.shp",
+    "bytes": 32122912,
+    "compressed_bytes": 27446142
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_Shapefiles/SIM3292_Global_Contacts.shp.xml",
+    "bytes": 34508,
+    "compressed_bytes": 8148
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_Shapefiles/SIM3292_Global_Contacts.shx",
+    "bytes": 30500,
+    "compressed_bytes": 21721
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_Shapefiles/SIM3292_Global_Geology.dbf",
+    "bytes": 156235,
+    "compressed_bytes": 35465
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_Shapefiles/SIM3292_Global_Geology.prj",
+    "bytes": 176,
+    "compressed_bytes": 132
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_Shapefiles/SIM3292_Global_Geology.sbn",
+    "bytes": 14124,
+    "compressed_bytes": 9549
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_Shapefiles/SIM3292_Global_Geology.sbx",
+    "bytes": 1612,
+    "compressed_bytes": 701
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_Shapefiles/SIM3292_Global_Geology.shp",
+    "bytes": 63803656,
+    "compressed_bytes": 54478945
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_Shapefiles/SIM3292_Global_Geology.shp.xml",
+    "bytes": 53319,
+    "compressed_bytes": 9504
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_Shapefiles/SIM3292_Global_Geology.shx",
+    "bytes": 10588,
+    "compressed_bytes": 8210
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_Shapefiles/SIM3292_Global_Landing_sites.dbf",
+    "bytes": 3081,
+    "compressed_bytes": 685
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_Shapefiles/SIM3292_Global_Landing_sites.prj",
+    "bytes": 176,
+    "compressed_bytes": 132
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_Shapefiles/SIM3292_Global_Landing_sites.sbn",
+    "bytes": 220,
+    "compressed_bytes": 130
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_Shapefiles/SIM3292_Global_Landing_sites.sbx",
+    "bytes": 124,
+    "compressed_bytes": 64
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_Shapefiles/SIM3292_Global_Landing_sites.shp",
+    "bytes": 676,
+    "compressed_bytes": 268
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_Shapefiles/SIM3292_Global_Landing_sites.shp.xml",
+    "bytes": 8813,
+    "compressed_bytes": 2331
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_Shapefiles/SIM3292_Global_Landing_sites.shx",
+    "bytes": 172,
+    "compressed_bytes": 80
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_Shapefiles/SIM3292_Global_Structure.dbf",
+    "bytes": 905726,
+    "compressed_bytes": 69457
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_Shapefiles/SIM3292_Global_Structure.prj",
+    "bytes": 176,
+    "compressed_bytes": 132
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_Shapefiles/SIM3292_Global_Structure.sbn",
+    "bytes": 35908,
+    "compressed_bytes": 25550
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_Shapefiles/SIM3292_Global_Structure.sbx",
+    "bytes": 3108,
+    "compressed_bytes": 1415
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_Shapefiles/SIM3292_Global_Structure.shp",
+    "bytes": 11319800,
+    "compressed_bytes": 10016548
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_Shapefiles/SIM3292_Global_Structure.shp.xml",
+    "bytes": 51079,
+    "compressed_bytes": 8908
+  },
+  {
+    "name": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_Shapefiles/SIM3292_Global_Structure.shx",
+    "bytes": 28844,
+    "compressed_bytes": 19029
+  }
+]

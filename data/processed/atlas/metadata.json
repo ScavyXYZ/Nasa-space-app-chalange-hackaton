@@ -1,0 +1,15 @@
+{
+  "source": "https://doi.org/10.3133/sim3292",
+  "features": 1311,
+  "scale": "1:20,000,000",
+  "units": 44,
+  "display_tolerance_deg": 0.035,
+  "coordinate_system": "Mars 2000 sphere 3396190m, planetocentric/east-positive",
+  "notice": "Global geological context; not local hazards or a safety assessment.",
+  "sha256": {
+    "geology.png": "89101af6857dc485704c7ecdb0f81b2b532f348ec98424ae597ec05f6ec99a21",
+    "geology_display.geojson": "fb63e9c6e3a55c480eb58f5c9e2280f2c3591c0d9511364278b563b0ea9b8473",
+    "geology_legend.json": "237c352241246d0cf085688af52025f8a2f89d19d17c8bc8e18dd2b6a95f368b",
+    "geology_query.json.gz": "56b257a0ff1dc99ef26a8754e9daa10780a2b3686146e2e94b4657fe452d680b"
+  }
+}

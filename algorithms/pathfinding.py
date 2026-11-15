@@ -124,9 +124,10 @@ class RouteGraph:
 
         began = monotonic()
         coarse = self._coarse_lower_bounds(goal, block_size) if mode == "hierarchical" else None
+        lower_bound = getattr(self.geometry, "lower_bound_m", self.geometry.distance_m)
 
         def heuristic(cell: Cell) -> float:
-            direct = self.geometry.distance_m(cell, goal)
+            direct = lower_bound(cell, goal)
             if coarse is None:
                 return direct
             return max(direct, coarse.get((cell[0] // block_size, cell[1] // block_size), np.inf))

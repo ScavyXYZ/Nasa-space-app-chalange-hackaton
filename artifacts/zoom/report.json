@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "checks": [
+    "Initial view starts detail loading without a zoom gesture",
+    "Extreme zoom drag stays within 20% of visible surface span",
+    "Globe loads real detail tiles and increases LOD with zoom",
+    "2D automatically switches CTX to HiRISE in Jezero",
+    "Real CTX tiles at zoom 12 in Gale, outside Jezero",
+    "Optical tiles render above fallback image",
+    "Mobile no horizontal overflow"
+  ],
+  "page_errors": []
+}

@@ -13,6 +13,28 @@
 .workspace-topline-detail{font-size:9px;color:#9aa7b5}
 .workspace-toggle{display:flex;align-items:center;gap:8px;background:#232b34;color:#e9d2bb;border:1px solid #63707c;border-radius:6px;padding:10px 13px;font-size:11px;flex-shrink:0;min-height:40px}
 .workspace-map-only{grid-template-columns:minmax(0,1fr)}
+.map-interaction{display:flex;align-items:center;flex-wrap:wrap;gap:10px;padding:10px 12px;margin-bottom:10px;font-size:11px;color:#c4cdd7;line-height:1.6}
+.map-pick-target{display:flex;gap:5px;flex-shrink:0}
+.map-pick-target button{min-height:44px;padding:8px 12px;background:#252e38;border:1px solid #65707a;border-radius:5px;color:#d0d9e2;font-size:11px}
+.map-pick-target button[aria-pressed=true]{background:#443224;border-color:#f5b079;color:#ffdbbb}
+.map-interaction-error{border-color:#cc8574}
+.map-interaction>p{width:100%;margin:0;color:#ffd0c3}
+.map-search-status{display:flex;align-items:center;gap:10px;flex-wrap:wrap;width:100%;border-top:1px solid var(--line);padding-top:8px}
+.map-search-status small{width:100%;color:var(--muted)}
+.terrain-details,.model-details{margin:12px 0;color:var(--muted);font-size:12px;line-height:1.7}
+.terrain-details summary,.model-details summary{min-height:36px;display:list-item;align-content:center}
+.model-details[open]{padding-bottom:8px}
+.map-interaction>.coverage-status{color:#d9c6a7;border-top:1px solid var(--line);padding-top:8px}
+.global-distance{font:11px/1.7 ui-monospace,monospace;color:#bcc9d5;margin-left:auto}
+.intro{padding-top:28px;padding-bottom:22px}
+.eyebrow{letter-spacing:1.3px}
+.workspace-topline>span{font-family:inherit;letter-spacing:.6px}
+.panel{box-shadow:0 5px 18px #0000000c}
+.planner .section-heading{margin-bottom:20px}
+.science-card{border-color:#303943}
+.science-number{opacity:.8}
+.catalog-toggle{display:block;margin:18px auto 0;padding:11px 20px;min-height:44px;color:#c8d2dc;background:#202830;border:1px solid #4b5967;border-radius:6px;font-size:12px}
+@media(max-width:760px){.global-distance{width:100%;margin-left:0}.map-interaction{gap:8px}.terrain-details summary,.model-details summary{min-height:44px}}
 .workspace .mars-map{height:clamp(640px,76vh,980px)}
 .map-view-controls{position:absolute;left:17px;right:60px;top:61px;z-index:500;display:flex;align-items:center;gap:6px;flex-wrap:wrap;pointer-events:none}
 .map-view-controls button{display:flex;align-items:center;gap:6px;pointer-events:auto;background:#1b2026ed;color:#efc7a2;border:1px solid #65707a;border-radius:5px;padding:8px 10px;font-size:11px;min-height:36px;box-shadow:0 2px 6px #0003}
@@ -78,12 +100,12 @@
 .leaflet-control-scale:before{content:"Відстань на Марсі";display:block;font:9px system-ui,sans-serif;color:#c4d1dd;margin-bottom:4px}
 .leaflet-control-scale-line{background:transparent!important;color:#fff!important;border-color:#e6d0b5!important;text-shadow:none!important;font:11px ui-monospace,monospace!important}
 @media(max-width:760px){
-  .globe-canvas{height:740px;max-height:none}
+  .globe-canvas{height:clamp(420px,64svh,600px);max-height:none}
   .globe-title{left:12px;right:12px;top:12px;font-size:9px;letter-spacing:.5px}.globe-title small{font-size:6px}
   .globe-controls{top:60px;left:12px;right:12px}.globe-controls button{font-size:9px;min-height:38px}
-  .globe-destination{left:12px;right:12px;bottom:133px;width:auto;padding:12px}
+  .globe-destination{position:relative;left:auto;right:auto;bottom:auto;width:auto;padding:12px;margin:0 12px 12px}
   .globe-destination h3{font-size:17px}.globe-destination p{font-size:9px;margin:5px 0 9px}
   .globe-destination small{font-size:7px;margin:6px 0 0}
-  .globe-note{font-size:8px;left:12px;right:12px;bottom:12px}.globe-note strong{font-size:9px}
+  .globe-note{position:relative;font-size:9px;left:auto;right:auto;bottom:auto;margin:0 12px 12px}.globe-note strong{font-size:10px}
   .view-mode{flex-wrap:wrap}.view-mode button{font-size:9px;padding:6px 7px}
 }

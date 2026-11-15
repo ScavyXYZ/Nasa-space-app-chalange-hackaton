@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "distance_m": 85297.89801013978,
+  "direct_distance_m": 63674.95380311436,
+  "straight_steep_samples": 14,
+  "route_steep_cells": 0,
+  "native_route_cells": 167,
+  "max_surface_slope_deg": 14.875717163085938,
+  "page_errors": []
+}

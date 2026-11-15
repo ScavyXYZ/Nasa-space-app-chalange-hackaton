@@ -54,6 +54,17 @@
     "purpose": "Whole-planet visual browsing only, not global routing or DEM.",
     "color_note": "Official artistically colorized mosaic, not true-color photography."
   },
+  "global_topography": {
+    "title": "MGS MOLA MEGDR global topography and observation counts",
+    "provider": "NASA GSFC / NASA PDS Geosciences Node",
+    "source_page": "https://pds-geosciences.wustl.edu/missions/mgs/megdr.html",
+    "metadata": "data/processed/global/metadata.json",
+    "products": ["MEGT90N000EB v2.0", "MEGC90N000EB v2.0"],
+    "shape": [2880, 5760],
+    "resolution_deg": 0.0625,
+    "purpose": "Approximate global planning and relief display; detailed local routing remains separate.",
+    "note": "Includes official interpolated bins, identifiable by zero observation counts. Not local traversability."
+  },
   "regional_terrain": {
     "source": "Same original USGS Science Investigation CTX DEM; native values retained",
     "directory": "data/processed/regional",

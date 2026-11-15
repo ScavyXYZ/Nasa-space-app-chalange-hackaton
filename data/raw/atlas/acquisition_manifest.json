@@ -1,0 +1,136 @@
+{
+  "source_files": [
+    {
+      "url": "https://pubs.usgs.gov/sim/3292/downloads/sim3292_readme.txt",
+      "path": "data/raw/atlas/sim3292_readme.txt",
+      "bytes": 5580,
+      "sha256": "702c8d8dd705a7746dad2b47a36f85fd850cc44939388ccc5f8e636369731aeb"
+    },
+    {
+      "url": "https://pubs.usgs.gov/sim/3292/downloads/sim3292_metadata.xml",
+      "path": "data/raw/atlas/sim3292_metadata.xml",
+      "bytes": 14721,
+      "sha256": "38806845cae2354e4ab65c55f57819d3e001b3865aceb5a24426efd5412683f8"
+    },
+    {
+      "url": "https://pubs.usgs.gov/sim/3292/downloads/sim3292_metadata.txt",
+      "path": "data/raw/atlas/sim3292_metadata.txt",
+      "bytes": 14233,
+      "sha256": "f6124030ad026b0f0f249f9aff64b733dcfe0174c97aa8027b7af33b6f3527a6"
+    },
+    {
+      "url": "https://trek.nasa.gov/tiles/apidoc/config/config.json",
+      "path": "data/raw/atlas/trek_config.json",
+      "bytes": 10233,
+      "sha256": "0bcadd7ccfd21216d21486c0a630efaff444c8fe02bb51db58b88e44c9fd4079"
+    },
+    {
+      "url": "https://trek.nasa.gov/mars/TrekServices/ws/index/eq/searchItems?start=0&rows=2147483647&facetKeys=itemType%7CproductCat2%7CserviceTypes%7CthumbnailURLDir&facetValues=product%7C-%28DEM%20ConfidenceRaw%20Slope%29%7CMosaic%7C%5B%2A%20TO%20%2A%5D",
+      "path": "data/raw/atlas/mars_trek_layers.json",
+      "bytes": 336642,
+      "sha256": "b98d3d3db56d29bed481c7e3594deca4e81d43d4bfdda6faf66a47a6f716d324"
+    },
+    {
+      "url": "https://trek.nasa.gov/mars/TrekServices/ws/index/getLayerServices?uuid=eb179b2d-89a8-4c5a-baaa-f4670ff5a335",
+      "path": "data/raw/atlas/Mars_MOLA_blend200ppx_HRSC_ClrShade_clon0dd_200mpp_lzw_service.json",
+      "bytes": 712,
+      "sha256": "f95f27b0638c1fbf0761fc394819bca46ef805a52207630bb8ef780a11e15872"
+    },
+    {
+      "url": "https://trek.nasa.gov/tiles/Mars/EQ/Mars_MOLA_blend200ppx_HRSC_ClrShade_clon0dd_200mpp_lzw/1.0.0/WMTSCapabilities.xml",
+      "path": "data/raw/atlas/Mars_MOLA_blend200ppx_HRSC_ClrShade_clon0dd_200mpp_lzw_capabilities.xml",
+      "bytes": 7417,
+      "sha256": "cbb492177312dc5e828a0236e3598859a047de5fb45ab5e2794b4615d53a4f30"
+    },
+    {
+      "url": "https://trek.nasa.gov/mars/TrekServices/ws/index/getLayerServices?uuid=833ace00-106b-45d2-8144-aeb1bea43105",
+      "path": "data/raw/atlas/Mars_MGS_MOLA_ClrShade_merge_global_463m_service.json",
+      "bytes": 684,
+      "sha256": "473e5493ec9a287c5598b7ff67b8153a4eb70f91b34179277cd59af1e8f83b3f"
+    },
+    {
+      "url": "https://trek.nasa.gov/tiles/Mars/EQ/Mars_MGS_MOLA_ClrShade_merge_global_463m/1.0.0/WMTSCapabilities.xml",
+      "path": "data/raw/atlas/Mars_MGS_MOLA_ClrShade_merge_global_463m_capabilities.xml",
+      "bytes": 7040,
+      "sha256": "2fb4722b5af0417980052354eab806cb9bdea003617548433cec8d8813d8d125"
+    },
+    {
+      "url": "https://trek.nasa.gov/mars/TrekServices/ws/index/getLayerServices?uuid=26a567c7-79b5-4b8b-a7d6-3276b267150f",
+      "path": "data/raw/atlas/THEMIS_DayIR_ControlledMosaics_100m_v2_oct2018_service.json",
+      "bytes": 696,
+      "sha256": "c100ae1f9ae70f81d43150bc2e0e5a61b597788cfd90abf40c9244f780e1d467"
+    },
+    {
+      "url": "https://trek.nasa.gov/tiles/Mars/EQ/THEMIS_DayIR_ControlledMosaics_100m_v2_oct2018/1.0.0/WMTSCapabilities.xml",
+      "path": "data/raw/atlas/THEMIS_DayIR_ControlledMosaics_100m_v2_oct2018_capabilities.xml",
+      "bytes": 7667,
+      "sha256": "7b1b8f2fd04dc53bfa4f27ac99e05b90f3fd72963a252ef7705258d5e73a62c7"
+    },
+    {
+      "url": "https://trek.nasa.gov/mars/TrekServices/ws/index/getLayerServices?uuid=ecbd1840-2302-49c8-be40-86740c21ea98",
+      "path": "data/raw/atlas/THEMIS_NightIR_ControlledMosaics_100m_v2_oct2018_service.json",
+      "bytes": 700,
+      "sha256": "68e5178bafa93bc41683159d5703b950e29e23569299784a37d5ab7a4942af4e"
+    },
+    {
+      "url": "https://trek.nasa.gov/tiles/Mars/EQ/THEMIS_NightIR_ControlledMosaics_100m_v2_oct2018/1.0.0/WMTSCapabilities.xml",
+      "path": "data/raw/atlas/THEMIS_NightIR_ControlledMosaics_100m_v2_oct2018_capabilities.xml",
+      "bytes": 7681,
+      "sha256": "33ca1797dbd3a6b05b729ff29aaf484e14be7bcac4f8e1243f0f294eb4b6e504"
+    },
+    {
+      "url": "https://pubs.usgs.gov/sim/3292/downloads/sim3292_database.zip",
+      "archive_member": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_Shapefiles/SIM3292_Global_Geology.dbf",
+      "path": "data/raw/atlas/geology/SIM3292_Global_Geology.dbf",
+      "bytes": 156235,
+      "sha256": "06a7b40338f8f62e1d8192e07068fcb343ca7c2f02ffb353bead832ffa1d2bab"
+    },
+    {
+      "url": "https://pubs.usgs.gov/sim/3292/downloads/sim3292_database.zip",
+      "archive_member": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_Shapefiles/SIM3292_Global_Geology.prj",
+      "path": "data/raw/atlas/geology/SIM3292_Global_Geology.prj",
+      "bytes": 176,
+      "sha256": "2fb085b6ac6c8594c2e411b1c99b35093b1ff01ba125b06e1b57328a2dc8f8bc"
+    },
+    {
+      "url": "https://pubs.usgs.gov/sim/3292/downloads/sim3292_database.zip",
+      "archive_member": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_Shapefiles/SIM3292_Global_Geology.sbn",
+      "path": "data/raw/atlas/geology/SIM3292_Global_Geology.sbn",
+      "bytes": 14124,
+      "sha256": "21addaea836034ea8666a786d44a2a9d69f5ff704c3cc74d3416191ccbc5fddc"
+    },
+    {
+      "url": "https://pubs.usgs.gov/sim/3292/downloads/sim3292_database.zip",
+      "archive_member": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_Shapefiles/SIM3292_Global_Geology.sbx",
+      "path": "data/raw/atlas/geology/SIM3292_Global_Geology.sbx",
+      "bytes": 1612,
+      "sha256": "d9c5ea3d4386f1dfb72ec4ca53481fb402bd455291ad4d3d61cd70cb6a08791b"
+    },
+    {
+      "url": "https://pubs.usgs.gov/sim/3292/downloads/sim3292_database.zip",
+      "archive_member": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_Shapefiles/SIM3292_Global_Geology.shp",
+      "path": "data/raw/atlas/geology/SIM3292_Global_Geology.shp",
+      "bytes": 63803656,
+      "sha256": "9c0fbc204c1c7f108a854036d85f44c77531e85e0c03959eaea2b6cd33197f3a"
+    },
+    {
+      "url": "https://pubs.usgs.gov/sim/3292/downloads/sim3292_database.zip",
+      "archive_member": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_Shapefiles/SIM3292_Global_Geology.shp.xml",
+      "path": "data/raw/atlas/geology/SIM3292_Global_Geology.shp.xml",
+      "bytes": 53319,
+      "sha256": "b568de11e1e151e9dff06908d26365711d1e9845a5097154308af64f76969eab"
+    },
+    {
+      "url": "https://pubs.usgs.gov/sim/3292/downloads/sim3292_database.zip",
+      "archive_member": "SIM3292_MarsGlobalGeologicGIS_20M/SIM3292_Shapefiles/SIM3292_Global_Geology.shx",
+      "path": "data/raw/atlas/geology/SIM3292_Global_Geology.shx",
+      "bytes": 10588,
+      "sha256": "c6e40da9148010bf93ac1cf57b4976635574e9b1977e5eef75c3930212011935"
+    }
+  ],
+  "trek_layers": 146,
+  "verified_tile_services": 4,
+  "archive_size_bytes": 808910442,
+  "archive_bytes_downloaded": 26418,
+  "status": "staged_source_data_not_runtime_integrated"
+}

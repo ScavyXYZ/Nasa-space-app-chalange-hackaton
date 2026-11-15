@@ -44,6 +44,23 @@ class MarsRasterGeometry:
         self._vertical = [self._geodesic((r, 0), (r + 1, 0)) for r in range(rows - 1)]
         self._diagonal = ([self._geodesic((r, 0), (r + 1, 1)) for r in range(rows - 1)]
                           if cols > 1 else [])
+        self._min_horizontal = min(self._horizontal, default=0.0)
+        self._min_vertical = min(self._vertical, default=0.0)
+        self._min_diagonal = min(self._diagonal, default=self._min_horizontal + self._min_vertical)
+
+    def lower_bound_m(self, a: Cell, b: Cell) -> float:
+        """Admissible octile bound for this eight-neighbour raster.
+
+        Each edge is no cheaper than the global minimum for its direction.
+        This is a relaxed grid, not a replacement for Mars edge measurements.
+        Lowering axis costs to the diagonal cost also keeps the norm valid on
+        unusually anisotropic rasters. No terrain samples are approximated.
+        """
+        dr, dc = abs(a[0] - b[0]), abs(a[1] - b[1])
+        h = min(self._min_horizontal, self._min_diagonal)
+        v = min(self._min_vertical, self._min_diagonal)
+        diagonal = min(self._min_diagonal, h + v)
+        return h * dc + v * dr + (diagonal - h - v) * min(dr, dc)
 
     def pixel_to_lonlat(self, row: int, col: int) -> LonLat:
         return self._lons[col], self._lats[row]

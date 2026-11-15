@@ -40,8 +40,14 @@ jobs:
           python tests/smoke_regional_browser.py
           python tests/smoke_globe_browser.py
           python tests/smoke_3d_browser.py
+          python tests/smoke_planner_browser.py
+          python tests/smoke_mission_browser.py
+          python tests/smoke_atlas_browser.py --url http://127.0.0.1:8001
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: mvp-browser-results
-          path: artifacts/mvp
+          path: |
+            artifacts/mvp
+            artifacts/global
+            artifacts/release

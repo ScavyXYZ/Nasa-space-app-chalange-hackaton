@@ -6,7 +6,7 @@ export async function api<T>(path: string, options?: RequestInit): Promise<T> {
   const response = await fetch(assetUrl(path), options)
   if (!response.ok) {
     const data = await response.json().catch(() => null)
-    throw new Error(data?.detail?.message || `API недоступний (${response.status}). Перевірте сервер і дані.`)
+    throw new Error(data?.detail?.message || (response.status===422?'Перевірте координати, зупинки та параметри моделі.':`API недоступний (${response.status}). Перевірте сервер і дані.`))
   }
   return response.json()
 }
@@ -17,7 +17,8 @@ export async function loadBundle(signal: AbortSignal): Promise<Bundle> {
   ])
   const overlays: Bundle['overlays'] = {}
   await Promise.all((['ctx','hirise','regional'] as const).filter(d => layers.terrain[d]?.available).map(async d => {
-    overlays[d] = await api(`/api/overlays/${d}`, { signal })
+    try{overlays[d] = await api(`/api/overlays/${d}`, { signal })}
+    catch(e){if(e instanceof Error&&e.name==='AbortError')throw e}
   }))
   return { layers, science, geology, overlays }
 }

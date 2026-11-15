@@ -1,0 +1,70 @@
+[
+  {
+    "title": "MGS MOLA and Mars Express HRSC, Color Hillshade Blend",
+    "product": "Mars_MOLA_blend200ppx_HRSC_ClrShade_clon0dd_200mpp_lzw",
+    "uuid": "eb179b2d-89a8-4c5a-baaa-f4670ff5a335",
+    "services": null,
+    "bounding": null,
+    "endpoint": "https://trek.nasa.gov/tiles/Mars/EQ/Mars_MOLA_blend200ppx_HRSC_ClrShade_clon0dd_200mpp_lzw",
+    "capabilities_url": "https://trek.nasa.gov/tiles/Mars/EQ/Mars_MOLA_blend200ppx_HRSC_ClrShade_clon0dd_200mpp_lzw/1.0.0/WMTSCapabilities.xml",
+    "resources": [
+      {
+        "format": "image/jpeg",
+        "resourceType": "tile",
+        "template": "https://trek.nasa.gov/tiles/Mars/EQ/Mars_MOLA_blend200ppx_HRSC_ClrShade_clon0dd_200mpp_lzw/1.0.0//{Style}/{TileMatrixSet}/{TileMatrix}/{TileRow}/{TileCol}.jpg"
+      }
+    ],
+    "note": "Rendered imagery tiles; not numeric DEM measurements."
+  },
+  {
+    "title": "MGS MOLA, Global Color Hillshade",
+    "product": "Mars_MGS_MOLA_ClrShade_merge_global_463m",
+    "uuid": "833ace00-106b-45d2-8144-aeb1bea43105",
+    "services": null,
+    "bounding": null,
+    "endpoint": "https://trek.nasa.gov/tiles/Mars/EQ/Mars_MGS_MOLA_ClrShade_merge_global_463m",
+    "capabilities_url": "https://trek.nasa.gov/tiles/Mars/EQ/Mars_MGS_MOLA_ClrShade_merge_global_463m/1.0.0/WMTSCapabilities.xml",
+    "resources": [
+      {
+        "format": "image/jpeg",
+        "resourceType": "tile",
+        "template": "https://trek.nasa.gov/tiles/Mars/EQ/Mars_MGS_MOLA_ClrShade_merge_global_463m/1.0.0//{Style}/{TileMatrixSet}/{TileMatrix}/{TileRow}/{TileCol}.jpg"
+      }
+    ],
+    "note": "Rendered imagery tiles; not numeric DEM measurements."
+  },
+  {
+    "title": "MO THEMIS-IR Day, Global Mosaic",
+    "product": "THEMIS_DayIR_ControlledMosaics_100m_v2_oct2018",
+    "uuid": "26a567c7-79b5-4b8b-a7d6-3276b267150f",
+    "services": null,
+    "bounding": null,
+    "endpoint": "https://trek.nasa.gov/tiles/Mars/EQ/THEMIS_DayIR_ControlledMosaics_100m_v2_oct2018",
+    "capabilities_url": "https://trek.nasa.gov/tiles/Mars/EQ/THEMIS_DayIR_ControlledMosaics_100m_v2_oct2018/1.0.0/WMTSCapabilities.xml",
+    "resources": [
+      {
+        "format": "image/png",
+        "resourceType": "tile",
+        "template": "https://trek.nasa.gov/tiles/Mars/EQ/THEMIS_DayIR_ControlledMosaics_100m_v2_oct2018/1.0.0//{Style}/{TileMatrixSet}/{TileMatrix}/{TileRow}/{TileCol}.png"
+      }
+    ],
+    "note": "Rendered imagery tiles; not numeric DEM measurements."
+  },
+  {
+    "title": "MO THEMIS-IR Night, Global Mosaic",
+    "product": "THEMIS_NightIR_ControlledMosaics_100m_v2_oct2018",
+    "uuid": "ecbd1840-2302-49c8-be40-86740c21ea98",
+    "services": null,
+    "bounding": null,
+    "endpoint": "https://trek.nasa.gov/tiles/Mars/EQ/THEMIS_NightIR_ControlledMosaics_100m_v2_oct2018",
+    "capabilities_url": "https://trek.nasa.gov/tiles/Mars/EQ/THEMIS_NightIR_ControlledMosaics_100m_v2_oct2018/1.0.0/WMTSCapabilities.xml",
+    "resources": [
+      {
+        "format": "image/png",
+        "resourceType": "tile",
+        "template": "https://trek.nasa.gov/tiles/Mars/EQ/THEMIS_NightIR_ControlledMosaics_100m_v2_oct2018/1.0.0//{Style}/{TileMatrixSet}/{TileMatrix}/{TileRow}/{TileCol}.png"
+      }
+    ],
+    "note": "Rendered imagery tiles; not numeric DEM measurements."
+  }
+]

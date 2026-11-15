@@ -1,0 +1,126 @@
+{
+  "status": "passed",
+  "checks": [
+    {
+      "zoom": 1,
+      "vertices": 60,
+      "tested": 266,
+      "visible": 266,
+      "coverage": 1,
+      "backPixels": 0
+    },
+    {
+      "zoom": 20,
+      "vertices": 21,
+      "tested": 200,
+      "visible": 200,
+      "coverage": 1,
+      "backPixels": 0
+    },
+    {
+      "zoom": 200,
+      "vertices": 21,
+      "tested": 200,
+      "visible": 200,
+      "coverage": 1,
+      "backPixels": 0
+    },
+    {
+      "zoom": 2000,
+      "vertices": 21,
+      "tested": 200,
+      "visible": 200,
+      "coverage": 1,
+      "backPixels": 0
+    },
+    {
+      "zoom": 8192,
+      "vertices": 21,
+      "tested": 200,
+      "visible": 200,
+      "coverage": 1,
+      "backPixels": 0
+    },
+    {
+      "zoom": 1,
+      "vertices": 69,
+      "tested": 289,
+      "visible": 289,
+      "coverage": 1,
+      "backPixels": 0
+    },
+    {
+      "zoom": 20,
+      "vertices": 22,
+      "tested": 202,
+      "visible": 202,
+      "coverage": 1,
+      "backPixels": 0
+    },
+    {
+      "zoom": 200,
+      "vertices": 21,
+      "tested": 200,
+      "visible": 200,
+      "coverage": 1,
+      "backPixels": 0
+    },
+    {
+      "zoom": 2000,
+      "vertices": 21,
+      "tested": 200,
+      "visible": 200,
+      "coverage": 1,
+      "backPixels": 0
+    },
+    {
+      "zoom": 8192,
+      "vertices": 21,
+      "tested": 200,
+      "visible": 200,
+      "coverage": 1,
+      "backPixels": 0
+    },
+    {
+      "zoom": 1,
+      "vertices": 34,
+      "tested": 89,
+      "visible": 89,
+      "coverage": 1,
+      "backPixels": 0
+    },
+    {
+      "zoom": 20,
+      "vertices": 21,
+      "tested": 66,
+      "visible": 66,
+      "coverage": 1,
+      "backPixels": 0
+    },
+    {
+      "zoom": 200,
+      "vertices": 21,
+      "tested": 66,
+      "visible": 66,
+      "coverage": 1,
+      "backPixels": 0
+    },
+    {
+      "zoom": 2000,
+      "vertices": 21,
+      "tested": 66,
+      "visible": 66,
+      "coverage": 1,
+      "backPixels": 0
+    },
+    {
+      "zoom": 8192,
+      "vertices": 21,
+      "tested": 66,
+      "visible": 66,
+      "coverage": 1,
+      "backPixels": 0
+    }
+  ],
+  "page_errors": []
+}

@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "checks": [
+    "Globe retains zoom/direction on route success, terrain failure and comparison",
+    "2D retains zoom 13/centre on route success, terrain failure and comparison",
+    "Failed terrain check does not switch globe to 2D"
+  ],
+  "page_errors": []
+}

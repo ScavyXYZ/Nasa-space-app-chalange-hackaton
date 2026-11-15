@@ -1,0 +1,13 @@
+{
+  "product": "MEGC44N180HB",
+  "url": "https://pds-geosciences.wustl.edu/mgs/urn-nasa-pds-mgs_mola_topography_derived/meg128/megc44n180hb.img",
+  "label_url": "https://pds-geosciences.wustl.edu/mgs/urn-nasa-pds-mgs_mola_topography_derived/meg128/megc44n180hb.lbl",
+  "bytes": 64880640,
+  "sha256": "22d6e0817dfbe86c2fc54646cb09bce7f777dc936d06c559717614d47d0b097c",
+  "shape": [
+    5632,
+    11520
+  ],
+  "dtype": "u1",
+  "notice": "Numeric MOLA MEGDR 128 ppd; counts=0 is official interpolation."
+}

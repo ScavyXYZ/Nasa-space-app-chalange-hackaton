@@ -1,0 +1,21 @@
+{
+  "responseHeader":{
+    "status":0,
+    "QTime":0,
+    "params":{
+      "q":"item_UUID:26a567c7-79b5-4b8b-a7d6-3276b267150f",
+      "indent":"on",
+      "version":"2.2",
+      "wt":"json"}},
+  "response":{"numFound":1,"start":0,"docs":[
+      {
+        "serviceType":"Mosaic",
+        "endPoint":"https://trek.nasa.gov/tiles/Mars/EQ/THEMIS_DayIR_ControlledMosaics_100m_v2_oct2018",
+        "protocol":"WMTS",
+        "item_UUID":"26a567c7-79b5-4b8b-a7d6-3276b267150f",
+        "wmts_mode":"rest",
+        "layerId":"THEMIS_DayIR_ControlledMosaics_100m_v2_oct2018",
+        "item_DBID":294214,
+        "id":"c2443b3d-bb28-40fe-a2c3-eb11b68cabb0",
+        "_version_":1670513136992518144}]
+  }}

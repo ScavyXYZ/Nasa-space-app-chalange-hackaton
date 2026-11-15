@@ -32,8 +32,8 @@
   ],
   "coordinate_system": "Planetocentric latitude, east-positive longitude; equirectangular",
   "color_note": "Official artistically colorized Viking/MDIM mosaic; NOT true-color photography.",
-  "geometry_note": "Spherical overview with no global height displacement. Not a global DEM.",
-  "routing_note": "Global browsing only. Detailed DEM analysis and A* remain restricted to Jezero.",
+  "geometry_note": "Viking is an optical texture. Not a global DEM. Relief comes from the separate MOLA product.",
+  "routing_note": "Approximate global routing uses MOLA through /api/global/route; detailed CTX/HiRISE routing remains in Jezero.",
   "source_product_native_m_per_pixel": 231.5417872,
   "resolution_note": "Texture uses the official 1km browse resampled to 4096x2048; NOT 232m display resolution."
 }

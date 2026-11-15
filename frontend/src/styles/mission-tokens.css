@@ -1,0 +1,64 @@
+/* Orbit / Field Station. Primitive → semantic → component tokens. */
+:root {
+  --orbit-coal-950: #101312;
+  --orbit-coal-900: #181c1a;
+  --orbit-coal-850: #202522;
+  --orbit-coal-800: #2a302c;
+  --orbit-coal-600: #626b64;
+  --orbit-coal-400: #a7afa8;
+  --orbit-coal-200: #d3d9d2;
+  --orbit-paper-50: #fbfaf6;
+  --orbit-paper-100: #f0eee6;
+  --orbit-paper-200: #deddd3;
+  --orbit-paper-600: #62665c;
+  --orbit-rust-400: #f6a37b;
+  --orbit-rust-500: #ed9069;
+  --orbit-rust-700: #a64024;
+  --orbit-mint-300: #a9e5c5;
+  --orbit-mint-800: #254d3a;
+  --orbit-red-300: #ffb6a4;
+  --orbit-amber-300: #f6cf8b;
+  --orbit-space-1: 4px;
+  --orbit-space-2: 8px;
+  --orbit-space-3: 12px;
+  --orbit-space-4: 16px;
+  --orbit-space-5: 20px;
+  --orbit-space-6: 24px;
+  --orbit-space-8: 32px;
+  --orbit-space-12: 48px;
+  --orbit-radius-sm: 6px;
+  --orbit-radius-md: 10px;
+  --orbit-radius-lg: 16px;
+  --orbit-font-sans: "Segoe UI", Inter, system-ui, sans-serif;
+  --orbit-font-mono: "Cascadia Code", "SFMono-Regular", Consolas, monospace;
+  --orbit-duration: 160ms;
+}
+
+.mission-control, .app {
+  --mc-bg: var(--orbit-coal-950);
+  --mc-panel: var(--orbit-coal-900);
+  --mc-raised: var(--orbit-coal-850);
+  --mc-line: var(--orbit-coal-800);
+  --mc-muted: var(--orbit-coal-400);
+  --mc-ink: var(--orbit-paper-100);
+  --mc-copper: var(--orbit-rust-400);
+  --mc-mint: var(--orbit-mint-300);
+  --mc-danger: var(--orbit-red-300);
+  --mc-warning: var(--orbit-amber-300);
+  --mc-paper: var(--orbit-paper-100);
+  --mc-paper-ink: var(--orbit-coal-900);
+  --mc-paper-muted: var(--orbit-paper-600);
+  --mc-paper-line: var(--orbit-paper-200);
+  --mc-focus: var(--orbit-mint-300);
+  --mc-button-bg: var(--orbit-rust-500);
+  --mc-button-hover: var(--orbit-rust-400);
+  --mc-button-ink: var(--orbit-coal-950);
+  --mc-input-bg: var(--orbit-paper-50);
+  --mc-input-border: var(--orbit-coal-600);
+  --mc-card-radius: var(--orbit-radius-lg);
+  --mc-control-radius: var(--orbit-radius-sm);
+  --mc-overlay-bg: color-mix(in srgb, var(--mc-bg) 93%, transparent);
+  --mc-shadow: 0 12px 40px color-mix(in srgb, var(--mc-bg) 30%, transparent);
+  --mc-font: var(--orbit-font-sans);
+  --mc-mono: var(--orbit-font-mono);
+}

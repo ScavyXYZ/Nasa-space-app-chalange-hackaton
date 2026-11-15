@@ -1,0 +1,21 @@
+{
+  "responseHeader":{
+    "status":0,
+    "QTime":0,
+    "params":{
+      "q":"item_UUID:ecbd1840-2302-49c8-be40-86740c21ea98",
+      "indent":"on",
+      "version":"2.2",
+      "wt":"json"}},
+  "response":{"numFound":1,"start":0,"docs":[
+      {
+        "serviceType":"Mosaic",
+        "endPoint":"https://trek.nasa.gov/tiles/Mars/EQ/THEMIS_NightIR_ControlledMosaics_100m_v2_oct2018",
+        "protocol":"WMTS",
+        "item_UUID":"ecbd1840-2302-49c8-be40-86740c21ea98",
+        "wmts_mode":"rest",
+        "layerId":"THEMIS_NightIR_ControlledMosaics_100m_v2_oct2018",
+        "item_DBID":294359,
+        "id":"0432b47f-8d9e-455e-b8e8-adb468ba3483",
+        "_version_":1670512953734987776}]
+  }}

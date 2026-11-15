@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "distance_m": 4867.559398981712,
+  "direct_distance_m": 3247.71428249157,
+  "straight_guarded_samples": 104,
+  "route_guarded_cells": 0,
+  "native_route_cells": 10,
+  "max_surface_slope_deg": 9.661365509033203,
+  "mobile_no_overflow": true,
+  "exported_guard_provenance": true,
+  "real_crater_floor_route": true,
+  "unverified_exit_rejected_without_stale_route_or_export": true,
+  "page_errors": []
+}

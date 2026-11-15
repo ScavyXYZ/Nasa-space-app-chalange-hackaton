@@ -24,6 +24,7 @@ def run(url):
         page=context.new_page()
         page.on("pageerror",lambda e:errors.append(str(e)))
         page.goto(url,wait_until="load")
+        page.get_by_role("button",name="Jezero · детально",exact=True).click()
         expect(page.get_by_role("heading",name="План експедиції")).to_be_visible(timeout=60000)
         page.get_by_role("button",name="2D карта",exact=True).click()
         # Legacy 5km workflow remains explicitly selectable; regional has its

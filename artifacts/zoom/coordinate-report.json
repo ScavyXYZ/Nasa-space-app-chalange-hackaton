@@ -1,0 +1,791 @@
+{
+  "cases": [
+    {
+      "view": [
+        150.624967,
+        9.070396,
+        3
+      ],
+      "lod": 8,
+      "checked": 129,
+      "bad": 0,
+      "examples": [],
+      "ready": 42,
+      "fallback": 0,
+      "total": 42
+    },
+    {
+      "view": [
+        150.624967,
+        9.070396,
+        6
+      ],
+      "lod": 9,
+      "checked": 140,
+      "bad": 0,
+      "examples": [],
+      "ready": 39,
+      "fallback": 3,
+      "total": 42
+    },
+    {
+      "view": [
+        150.804967,
+        9.070396,
+        6
+      ],
+      "lod": 9,
+      "checked": 153,
+      "bad": 0,
+      "examples": [],
+      "ready": 39,
+      "fallback": 3,
+      "total": 42
+    },
+    {
+      "view": [
+        150.984967,
+        9.070396,
+        6
+      ],
+      "lod": 9,
+      "checked": 146,
+      "bad": 0,
+      "examples": [],
+      "ready": 39,
+      "fallback": 3,
+      "total": 42
+    },
+    {
+      "view": [
+        151.164967,
+        9.070396,
+        6
+      ],
+      "lod": 9,
+      "checked": 155,
+      "bad": 0,
+      "examples": [],
+      "ready": 43,
+      "fallback": 5,
+      "total": 48
+    },
+    {
+      "view": [
+        151.344967,
+        9.070396,
+        6
+      ],
+      "lod": 9,
+      "checked": 145,
+      "bad": 0,
+      "examples": [],
+      "ready": 43,
+      "fallback": 5,
+      "total": 48
+    },
+    {
+      "view": [
+        151.524967,
+        9.070396,
+        6
+      ],
+      "lod": 9,
+      "checked": 143,
+      "bad": 0,
+      "examples": [],
+      "ready": 43,
+      "fallback": 5,
+      "total": 48
+    },
+    {
+      "view": [
+        151.704967,
+        9.070396,
+        6
+      ],
+      "lod": 9,
+      "checked": 152,
+      "bad": 0,
+      "examples": [],
+      "ready": 43,
+      "fallback": 5,
+      "total": 48
+    },
+    {
+      "view": [
+        151.884967,
+        9.070396,
+        6
+      ],
+      "lod": 9,
+      "checked": 148,
+      "bad": 0,
+      "examples": [],
+      "ready": 42,
+      "fallback": 6,
+      "total": 48
+    },
+    {
+      "view": [
+        152.064967,
+        9.070396,
+        6
+      ],
+      "lod": 9,
+      "checked": 153,
+      "bad": 0,
+      "examples": [],
+      "ready": 42,
+      "fallback": 6,
+      "total": 48
+    },
+    {
+      "view": [
+        152.244967,
+        9.070396,
+        6
+      ],
+      "lod": 9,
+      "checked": 148,
+      "bad": 0,
+      "examples": [],
+      "ready": 42,
+      "fallback": 6,
+      "total": 48
+    },
+    {
+      "view": [
+        152.424967,
+        9.070396,
+        6
+      ],
+      "lod": 9,
+      "checked": 140,
+      "bad": 0,
+      "examples": [],
+      "ready": 42,
+      "fallback": 6,
+      "total": 48
+    },
+    {
+      "view": [
+        152.604967,
+        9.070396,
+        6
+      ],
+      "lod": 9,
+      "checked": 143,
+      "bad": 0,
+      "examples": [],
+      "ready": 43,
+      "fallback": 5,
+      "total": 48
+    },
+    {
+      "view": [
+        152.784967,
+        9.070396,
+        6
+      ],
+      "lod": 9,
+      "checked": 142,
+      "bad": 0,
+      "examples": [],
+      "ready": 43,
+      "fallback": 5,
+      "total": 48
+    },
+    {
+      "view": [
+        150.624967,
+        9.070396,
+        6
+      ],
+      "lod": 9,
+      "checked": 140,
+      "bad": 0,
+      "examples": [],
+      "ready": 39,
+      "fallback": 3,
+      "total": 42
+    },
+    {
+      "view": [
+        150.624967,
+        9.070396,
+        20
+      ],
+      "lod": 11,
+      "checked": 154,
+      "bad": 0,
+      "examples": [],
+      "ready": 56,
+      "fallback": 0,
+      "total": 56
+    },
+    {
+      "view": [
+        150.624967,
+        9.070396,
+        3
+      ],
+      "lod": 8,
+      "checked": 129,
+      "bad": 0,
+      "examples": [],
+      "ready": 42,
+      "fallback": 0,
+      "total": 42
+    },
+    {
+      "view": [
+        -97.150761,
+        24.024217,
+        6
+      ],
+      "lod": 9,
+      "checked": 160,
+      "bad": 0,
+      "examples": [],
+      "ready": 38,
+      "fallback": 4,
+      "total": 42
+    },
+    {
+      "view": [
+        77.45,
+        18.44,
+        20
+      ],
+      "lod": 11,
+      "checked": 157,
+      "bad": 0,
+      "examples": [],
+      "ready": 56,
+      "fallback": 0,
+      "total": 56
+    },
+    {
+      "view": [
+        179.98,
+        10,
+        20
+      ],
+      "lod": 11,
+      "checked": 152,
+      "bad": 0,
+      "examples": [],
+      "ready": 56,
+      "fallback": 0,
+      "total": 56
+    },
+    {
+      "view": [
+        -179.98,
+        10,
+        20
+      ],
+      "lod": 11,
+      "checked": 146,
+      "bad": 0,
+      "examples": [],
+      "ready": 56,
+      "fallback": 0,
+      "total": 56
+    }
+  ],
+  "errors": [],
+  "upstream_failures": [
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/115/470?v=validated-3",
+      "status": 503,
+      "body": "Transient tile error"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/114/471?v=validated-3",
+      "status": 503,
+      "body": "Transient tile error"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/116/469?v=validated-3",
+      "status": 503,
+      "body": "Transient tile error"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/113/472?v=validated-3",
+      "status": 503,
+      "body": "Transient tile error"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/117/468?v=validated-3",
+      "status": 503,
+      "body": "Transient tile error"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/112/473?v=validated-3",
+      "status": 503,
+      "body": "Transient tile error"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/9/229/941?v=validated-3",
+      "status": 503,
+      "body": "Transient tile error"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/9/230/940?v=validated-3",
+      "status": 503,
+      "body": "Transient tile error"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/9/231/939?v=validated-3",
+      "status": 503,
+      "body": "Transient tile error"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/9/231/942?v=validated-3",
+      "status": 502,
+      "body": "Permanently truncated source tile"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/9/232/941?v=validated-3",
+      "status": 502,
+      "body": "Permanently truncated source tile"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/9/228/942?v=validated-3",
+      "status": 503,
+      "body": "Transient tile error"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/9/231/942?v=validated-3",
+      "status": 502,
+      "body": "Permanently truncated source tile"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/9/232/938?v=validated-3",
+      "status": 503,
+      "body": "Transient tile error"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/9/232/941?v=validated-3",
+      "status": 502,
+      "body": "Permanently truncated source tile"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/9/230/943?v=validated-3",
+      "status": 502,
+      "body": "Permanently truncated source tile"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/9/230/943?v=validated-3",
+      "status": 502,
+      "body": "Permanently truncated source tile"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/9/227/943?v=validated-3",
+      "status": 503,
+      "body": "Transient tile error"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/10/459/1881?v=validated-3",
+      "status": 503,
+      "body": "Transient tile error"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/10/460/1880?v=validated-3",
+      "status": 503,
+      "body": "Transient tile error"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/10/461/1879?v=validated-3",
+      "status": 503,
+      "body": "Transient tile error"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/9/231/942?v=validated-3",
+      "status": 502,
+      "body": "Permanently truncated source tile"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/9/230/943?v=validated-3",
+      "status": 502,
+      "body": "Permanently truncated source tile"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/9/232/941?v=validated-3",
+      "status": 502,
+      "body": "Permanently truncated source tile"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/9/229/944?v=validated-3",
+      "status": 502,
+      "body": "Permanently truncated source tile"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/9/231/942?v=validated-3",
+      "status": 502,
+      "body": "Permanently truncated source tile"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/9/230/943?v=validated-3",
+      "status": 502,
+      "body": "Permanently truncated source tile"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/9/232/941?v=validated-3",
+      "status": 502,
+      "body": "Permanently truncated source tile"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/9/229/944?v=validated-3",
+      "status": 502,
+      "body": "Permanently truncated source tile"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/9/228/945?v=validated-3",
+      "status": 502,
+      "body": "Permanently truncated source tile"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/9/228/945?v=validated-3",
+      "status": 502,
+      "body": "Permanently truncated source tile"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/9/230/943?v=validated-3",
+      "status": 502,
+      "body": "Permanently truncated source tile"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/9/229/944?v=validated-3",
+      "status": 502,
+      "body": "Permanently truncated source tile"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/9/231/942?v=validated-3",
+      "status": 502,
+      "body": "Permanently truncated source tile"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/9/228/945?v=validated-3",
+      "status": 502,
+      "body": "Permanently truncated source tile"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/9/230/943?v=validated-3",
+      "status": 502,
+      "body": "Permanently truncated source tile"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/9/229/944?v=validated-3",
+      "status": 502,
+      "body": "Permanently truncated source tile"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/9/231/942?v=validated-3",
+      "status": 502,
+      "body": "Permanently truncated source tile"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/9/228/945?v=validated-3",
+      "status": 502,
+      "body": "Permanently truncated source tile"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/9/232/941?v=validated-3",
+      "status": 502,
+      "body": "Permanently truncated source tile"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/9/227/946?v=validated-3",
+      "status": 502,
+      "body": "Permanently truncated source tile"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/9/232/941?v=validated-3",
+      "status": 502,
+      "body": "Permanently truncated source tile"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/9/227/946?v=validated-3",
+      "status": 502,
+      "body": "Permanently truncated source tile"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/9/229/944?v=validated-3",
+      "status": 502,
+      "body": "Permanently truncated source tile"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/9/228/945?v=validated-3",
+      "status": 502,
+      "body": "Permanently truncated source tile"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/9/230/943?v=validated-3",
+      "status": 502,
+      "body": "Permanently truncated source tile"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/9/227/946?v=validated-3",
+      "status": 502,
+      "body": "Permanently truncated source tile"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/9/229/944?v=validated-3",
+      "status": 502,
+      "body": "Permanently truncated source tile"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/9/228/945?v=validated-3",
+      "status": 502,
+      "body": "Permanently truncated source tile"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/9/230/943?v=validated-3",
+      "status": 502,
+      "body": "Permanently truncated source tile"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/9/227/946?v=validated-3",
+      "status": 502,
+      "body": "Permanently truncated source tile"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/9/231/942?v=validated-3",
+      "status": 502,
+      "body": "Permanently truncated source tile"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/9/231/942?v=validated-3",
+      "status": 502,
+      "body": "Permanently truncated source tile"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/10/460/1893?v=validated-3",
+      "status": 503,
+      "body": "Transient tile error"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/10/461/1892?v=validated-3",
+      "status": 503,
+      "body": "Transient tile error"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/9/231/942?v=validated-3",
+      "status": 502,
+      "body": "Permanently truncated source tile"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/9/232/941?v=validated-3",
+      "status": 502,
+      "body": "Permanently truncated source tile"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/9/230/943?v=validated-3",
+      "status": 502,
+      "body": "Permanently truncated source tile"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/9/231/942?v=validated-3",
+      "status": 502,
+      "body": "Permanently truncated source tile"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/9/232/941?v=validated-3",
+      "status": 502,
+      "body": "Permanently truncated source tile"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/9/230/943?v=validated-3",
+      "status": 502,
+      "body": "Permanently truncated source tile"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/11/920/3760?v=validated-3",
+      "status": 503,
+      "body": "Transient tile error"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/11/919/3761?v=validated-3",
+      "status": 503,
+      "body": "Transient tile error"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/11/921/3759?v=validated-3",
+      "status": 503,
+      "body": "Transient tile error"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/11/918/3762?v=validated-3",
+      "status": 503,
+      "body": "Transient tile error"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/11/922/3758?v=validated-3",
+      "status": 503,
+      "body": "Transient tile error"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/11/917/3763?v=validated-3",
+      "status": 503,
+      "body": "Transient tile error"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/6/23/29?v=validated-3",
+      "status": 503,
+      "body": "Transient tile error"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/9/189/236?v=validated-3",
+      "status": 502,
+      "body": "Permanently truncated source tile"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/9/188/237?v=validated-3",
+      "status": 502,
+      "body": "Permanently truncated source tile"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/9/189/236?v=validated-3",
+      "status": 502,
+      "body": "Permanently truncated source tile"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/9/188/237?v=validated-3",
+      "status": 502,
+      "body": "Permanently truncated source tile"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/9/190/235?v=validated-3",
+      "status": 502,
+      "body": "Permanently truncated source tile"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/9/187/238?v=validated-3",
+      "status": 502,
+      "body": "Permanently truncated source tile"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/9/190/235?v=validated-3",
+      "status": 502,
+      "body": "Permanently truncated source tile"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/9/187/238?v=validated-3",
+      "status": 502,
+      "body": "Permanently truncated source tile"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/10/374/471?v=validated-3",
+      "status": 503,
+      "body": "Transient tile error"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/10/375/470?v=validated-3",
+      "status": 503,
+      "body": "Transient tile error"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/11/814/2930?v=validated-3",
+      "status": 503,
+      "body": "Transient tile error"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/11/815/2929?v=validated-3",
+      "status": 503,
+      "body": "Transient tile error"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/102/366?v=validated-3",
+      "status": 503,
+      "body": "Transient tile error"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/11/813/2931?v=validated-3",
+      "status": 503,
+      "body": "Transient tile error"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/11/816/2928?v=validated-3",
+      "status": 503,
+      "body": "Transient tile error"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/11/812/2932?v=validated-3",
+      "status": 503,
+      "body": "Transient tile error"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/11/817/2927?v=validated-3",
+      "status": 503,
+      "body": "Transient tile error"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/12/1629/5859?v=validated-3",
+      "status": 503,
+      "body": "Transient tile error"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/8/113/511?v=validated-3",
+      "status": 503,
+      "body": "Transient tile error"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/11/910/4095?v=validated-3",
+      "status": 503,
+      "body": "Transient tile error"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/11/910/0?v=validated-3",
+      "status": 503,
+      "body": "Transient tile error"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/11/911/4094?v=validated-3",
+      "status": 503,
+      "body": "Transient tile error"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/11/909/1?v=validated-3",
+      "status": 503,
+      "body": "Transient tile error"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/11/912/4093?v=validated-3",
+      "status": 503,
+      "body": "Transient tile error"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/11/908/2?v=validated-3",
+      "status": 503,
+      "body": "Transient tile error"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/11/907/3?v=validated-3",
+      "status": 503,
+      "body": "Transient tile error"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/11/913/4092?v=validated-3",
+      "status": 503,
+      "body": "Transient tile error"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/12/1819/8191?v=validated-3",
+      "status": 503,
+      "body": "Transient tile error"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/12/1820/8190?v=validated-3",
+      "status": 503,
+      "body": "Transient tile error"
+    },
+    {
+      "url": "http://127.0.0.1:8003/api/atlas/tiles/ctx-global/12/1820/0?v=validated-3",
+      "status": 503,
+      "body": "Transient tile error"
+    }
+  ]
+}

@@ -112,6 +112,7 @@ def run(url):
         expect(page.get_by_label("Route link",exact=True)).to_be_visible()
         expect(page.get_by_alt_text("Route QR code")).to_be_visible()
         clean_ui(page)
+        page.locator(".mc-results").screenshot(path=str(OUT/"english-route-results.png"))
 
         mode="no_route"
         page.get_by_role("button",name="Build route",exact=True).click()

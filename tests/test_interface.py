@@ -31,6 +31,21 @@ class InterfaceTests(unittest.TestCase):
         self.assertNotIn("route.warnings",report)
         self.assertNotIn('class="notice"',report)
 
+    def test_workspaces_have_no_editorial_chrome(self):
+        for relative in ["frontend/src/App.tsx","frontend/src/components/MissionControl.tsx"]:
+            source=(ROOT/relative).read_text(encoding="utf-8")
+            with self.subTest(path=relative):
+                self.assertNotIn("<em>",source)
+                self.assertNotIn('className="eyebrow"',source)
+                self.assertNotIn('className="mc-kicker"',source)
+                self.assertNotIn('className="step"',source)
+                self.assertNotIn("mc-planet-facts",source)
+        for relative in ["frontend/src/components/mission.css","frontend/src/styles/local-mission.css"]:
+            source=(ROOT/relative).read_text(encoding="utf-8")
+            with self.subTest(path=relative):
+                self.assertNotIn("Georgia",source)
+                self.assertNotIn("color-scheme:light",source)
+
 
 if __name__=="__main__":
     unittest.main()

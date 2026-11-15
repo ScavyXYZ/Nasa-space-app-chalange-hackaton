@@ -1,0 +1,33 @@
+{
+  "status": "passed",
+  "responsive_sizes": [
+    [
+      375,
+      812
+    ],
+    [
+      768,
+      1024
+    ],
+    [
+      812,
+      375
+    ],
+    [
+      1440,
+      1000
+    ],
+    [
+      1920,
+      1080
+    ]
+  ],
+  "flat_dark_planner": true,
+  "compact_title_and_map_first": true,
+  "control_checks": 195,
+  "control_text_contrast_minimum": 4.5,
+  "control_height_minimum": 44,
+  "mobile_keyboard_focus_visible": true,
+  "local_map_instance_and_endpoints_retained": true,
+  "page_errors": []
+}

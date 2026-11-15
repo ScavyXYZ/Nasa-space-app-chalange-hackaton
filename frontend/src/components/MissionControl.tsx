@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import type { RefObject } from 'react'
-import { ArrowRight, ArrowsLeftRight, BookmarkSimple, CircleNotch, DownloadSimple, GlobeHemisphereWest, Mountains, NavigationArrow, Path, Planet, X, Play, Pause, MapTrifold, Plus, FileText, ShareNetwork } from '@phosphor-icons/react'
+import { ArrowRight, ArrowsLeftRight, BookmarkSimple, CircleNotch, DownloadSimple, GlobeHemisphereWest, Mountains, NavigationArrow, Path, X, Play, Pause, MapTrifold, Plus, FileText, ShareNetwork } from '@phosphor-icons/react'
 import MarsGlobe from './MarsGlobe'
 import AtlasMap from './AtlasMap'
 import { downloadReport } from './expeditionReport'
@@ -28,7 +28,7 @@ function Profile({result,index,onIndex}:{result:GlobalRoute;index:number;onIndex
   const x=(d:number)=>20+d/total*760,y=(h:number)=>110-(h-low)/Math.max(1,high-low)*85
   const line=profile.map(p=>`${x(p.distance_m)},${y(p.elevation_m)}`).join(' ')
   return <div className="mc-profile">
-    <div className="mc-section-title"><span>ELEVATION PROFILE</span><span>{km(point.distance_m)} · <b>{format(point.elevation_m)} m</b></span></div>
+    <div className="mc-section-title"><span>Elevation profile</span><span>{km(point.distance_m)} · <b>{format(point.elevation_m)} m</b></span></div>
     <svg viewBox="0 0 800 135" role="img" aria-label={`Route elevation: ${low} to ${high} metres`}>
       <defs><linearGradient id="profile-fill" x1="0" y1="0" x2="0" y2="1"><stop stopColor="var(--mc-copper)" stopOpacity=".28"/><stop offset="1" stopColor="var(--mc-copper)" stopOpacity="0"/></linearGradient></defs>
       {[25,65,110].map(v=><line key={v} x1="20" x2="780" y1={v} y2={v} stroke="var(--mc-line)" strokeDasharray="3 6"/>)}
@@ -172,15 +172,15 @@ export default function MissionControl({onLocal,session}:{onLocal:()=>void;sessi
   return <div className="mission-control">
     <a className="mc-skip" href="#mission-plan">Skip to route planner</a>
     <header className="mc-header">
-      <a className="mc-brand" href="/"><span className="mc-brand-symbol"><Planet size={30} aria-hidden/></span><span>MARS<span>EXPLORER</span><small>MISSION CONTROL</small></span></a>
+      <a className="mc-brand" href="/"><GlobeHemisphereWest size={23} aria-hidden/><span>Mars Explorer</span></a>
       <nav aria-label="Workspace"><button className="active" aria-current="page"><GlobeHemisphereWest size={17} aria-hidden/>Planet</button><button onClick={onLocal}><Mountains size={17} aria-hidden/>Jezero map</button></nav>
-      <div className="mc-system" role="status" data-state={dataError?'error':terrain?'ready':'loading'}><i aria-hidden/>{terrain?'MOLA / READY':dataError?'MOLA / UNAVAILABLE':'MOLA / LOADING'}</div>
+      <div className="mc-system" role="status" data-state={dataError?'error':terrain?'ready':'loading'}><i aria-hidden/>{terrain?'MOLA ready':dataError?'MOLA unavailable':'Loading MOLA…'}</div>
     </header>
     <main className="mc-main">
-      <section className="mc-intro"><div><div className="mc-kicker"><span><i className="mc-live"/> PLANETARY ATLAS</span><span>NASA / USGS</span></div><h1>Mars <em>Atlas.</em></h1></div><div className="mc-planet-facts"><div><strong>144.8<span> million km²</span></strong><small>SURFACE AREA</small></div><div><strong>463<span> m</span></strong><small>PLANETARY DEM SPACING</small></div></div></section>
+      <section className="mc-intro"><h1>Mars atlas</h1><span>NASA / USGS</span></section>
       <div className="mc-workspace">
         <aside className="mc-planner" id="mission-plan">
-          <div className="mc-panel-heading"><NavigationArrow size={20} aria-hidden/><h2>Route planner</h2><span>01 / PLAN</span></div>
+          <div className="mc-panel-heading"><h2>Route planner</h2></div>
           <div className="mc-endpoints">
             {([['a','A','Start',a],['b','B','End',b]] as const).map(([key,letter,label,value])=><div key={key} className={`mc-endpoint ${target===key?'selected':''}`}>
               <button onClick={()=>setTarget(key)} aria-pressed={target===key}><span className={`mc-pin ${key}`}>{letter}</span><strong>{label}</strong></button>
@@ -192,9 +192,9 @@ export default function MissionControl({onLocal,session}:{onLocal:()=>void;sessi
             {stops.map((stop,i)=><div key={i}><span>{i+1}</span><div className="mc-stop-fields">{(['lon','lat'] as const).map(field=><label key={field}>{field==='lon'?'E':'N'}<input aria-label={`Stop ${i+1}: ${field==='lon'?'longitude':'latitude'}`} type="number" step="any" min={field==='lon'?-180:-90} max={field==='lon'?180:90} value={stop[field]} onChange={e=>{const value=e.target.valueAsNumber;if(!Number.isFinite(value))return;invalidate();setStops(prev=>prev.map((s,j)=>j===i?{...s,[field]:value}:s))}}/></label>)}</div><button aria-label={`Move stop ${i+1} up`} disabled={i===0} onClick={()=>{invalidate();setStops(prev=>{const next=[...prev];[next[i-1],next[i]]=[next[i],next[i-1]];return next})}}>↑</button><button aria-label={`Remove stop ${i+1}`} onClick={()=>{invalidate();setStops(prev=>prev.filter((_,j)=>j!==i))}}><X size={13}/></button></div>)}
             <button className="mc-secondary" disabled={stops.length>=4} aria-pressed={target==='stop'} onClick={()=>setTarget(target==='stop'?'b':'stop')}><Plus size={15} aria-hidden/>{target==='stop'?'Stop selection':'Add stop'}</button>
           </div>
-          <label className="mc-label" htmlFor="global-resolution">ROUTING DATA</label>
+          <label className="mc-label" htmlFor="global-resolution">Routing data</label>
           <select id="global-resolution" value={resolution} onChange={e=>{invalidate();setResolution(e.target.value)}}><option value="auto">Auto · best available DEM</option><option value="mola">MOLA · planetary</option><option value="regional">CTX 20 m · Jezero</option><option value="hirise">HiRISE 1 m · local</option></select>
-          <label className="mc-label" htmlFor="global-strategy">ROUTE STRATEGY</label>
+          <label className="mc-label" htmlFor="global-strategy">Route strategy</label>
           <select id="global-strategy" value={weight} onChange={e=>{invalidate();setWeight(Number(e.target.value))}}><option value="0">Shortest distance</option><option value="5">Balanced</option><option value="20">Lower elevation changes</option></select>
           <details className="mc-parameters"><summary>Parameters <span>{grade}°</span></summary><label htmlFor="global-grade">Maximum slope</label><input id="global-grade" type="range" min="0" max="45" value={grade} onChange={e=>{invalidate();setGrade(Number(e.target.value))}}/></details>
           <button className="mc-primary" onClick={()=>void build()} disabled={!start||!end||!terrain||busy} aria-busy={busy}>{busy?<><CircleNotch className="mc-spinner" size={19} aria-hidden/>Calculating…</>:<>Build route<ArrowRight size={19} aria-hidden/></>}</button>
@@ -203,31 +203,31 @@ export default function MissionControl({onLocal,session}:{onLocal:()=>void;sessi
           <div className="mc-save"><button onClick={save} disabled={!start||!end}><BookmarkSimple size={15} aria-hidden/>Save</button><button onClick={restore}>Restore plan</button></div>
         </aside>
         <section className="mc-observatory" aria-label="Planetary atlas">
-          <div className="mc-map-topline"><div><span className="mc-live"/><span>MARS ATLAS</span></div><div className="mc-layer-switch" role="group" aria-label="Atlas view"><button aria-pressed={view==='globe'} onClick={()=>setView('globe')}><GlobeHemisphereWest size={16} aria-hidden/>Globe</button><button aria-pressed={view==='map'} onClick={()=>{setPlaying(false);setView('map')}}><MapTrifold size={16} aria-hidden/>2D atlas</button></div></div>
+          <div className="mc-map-topline"><span>View</span><div className="mc-layer-switch" role="group" aria-label="Atlas view"><button aria-pressed={view==='globe'} onClick={()=>setView('globe')}><GlobeHemisphereWest size={16} aria-hidden/>Globe</button><button aria-pressed={view==='map'} onClick={()=>{setPlaying(false);setView('map')}}><MapTrifold size={16} aria-hidden/>2D atlas</button></div></div>
           <div className="mc-atlas-toolbar">
             {view==='map'&&<label>Imagery<select aria-label="Imagery layer" value={layer} onChange={e=>setLayer(e.target.value)}><option value="auto">Auto · Viking → CTX → HiRISE</option><option value="viking">Viking · local mosaic</option>{catalog?.tiles.map(t=><option key={t.id} value={t.id}>{t.title}</option>)}</select></label>}
             <label className="mc-geology-toggle"><input type="checkbox" checked={geology} onChange={e=>setGeology(e.target.checked)} disabled={!catalog}/>USGS geology</label>
             <button className="mc-text" onClick={()=>{setView('map');setFocus({lon:77.4508,lat:18.4447})}}>Jezero →</button>
           </div>
           {view==='globe'?<MarsGlobe start={start} end={end} onPick={pick} onFallback={()=>setView('map')} route={result} focus={focus} geology={geology} flightProgress={flight} catalog={catalog}/>:<AtlasMap catalog={catalog} layer={layer} geology={geology} start={start} end={end} stops={stops} route={result} focus={focus} onPick={pick} onLocal={onLocal}/>}
-          <div className="mc-telemetry"><div><span>ELEVATION · {sample?.dataset?.toUpperCase()??'DEM'}</span><strong>{sample?`${format(sample.elevation_m)} m`:'—'}</strong>{sample&&<small>{format(sample.spacing_m)} m / cell</small>}</div></div>
+          <div className="mc-telemetry"><span>Elevation · {sample?.dataset?.toUpperCase()??'DEM'}</span><strong>{sample?`${format(sample.elevation_m)} m`:'—'}</strong>{sample&&<small>{format(sample.spacing_m)} m / cell</small>}</div>
           {geology&&<div className="mc-geology-info"><span className="mc-chip">USGS SIM 3292 / 1:20M</span><strong>{units.map(u=>u.unit).join(' · ')||'—'}</strong>{units.map(u=><p key={u.id}><i style={{background:u.color}}/>{u.description}</p>)}<details><summary>Legend ({catalog?.legend.length??0} units)</summary><div className="mc-geology-legend">{catalog?.legend.map(u=><span key={u.unit}><i style={{background:u.color}}/><b>{u.unit}</b> {u.description}</span>)}</div></details></div>}
           {dataError&&<div className="mc-feedback" role="alert">{dataError}<button className="mc-secondary" onClick={()=>setRetry(x=>x+1)}>Retry MOLA</button></div>}
           {atlasError&&<div className="mc-feedback" role="alert">{atlasError}</div>}
           <div className="mc-metrics" data-testid={metrics?'global-route-summary':undefined}>
-            <div><span>DISTANCE</span><strong>{metrics?km(metrics.distance_m):'—'}<small> A → B</small></strong></div>
-            <div><span>ASCENT</span><strong>{metrics?`${format(metrics.ascent_m)} m`:'—'}</strong></div>
-            <div><span>MAXIMUM SLOPE</span><strong>{metrics?`${format(metrics.max_surface_slope_deg??metrics.max_grade_deg,2)}°`:'—'}</strong></div>
-            <div><span>COMPUTATION / CPU</span><strong>{busy?'SEARCHING':result?.elapsed_ms!==undefined?`${format(result.elapsed_ms/1000,2)} s`:'IDLE'}</strong></div>
+            <div><span>Distance</span><strong>{metrics?km(metrics.distance_m):'—'}<small> A → B</small></strong></div>
+            <div><span>Ascent</span><strong>{metrics?`${format(metrics.ascent_m)} m`:'—'}</strong></div>
+            <div><span>Maximum slope</span><strong>{metrics?`${format(metrics.max_surface_slope_deg??metrics.max_grade_deg,2)}°`:'—'}</strong></div>
+            <div><span>Computation</span><strong>{busy?'Searching…':result?.elapsed_ms!==undefined?`${format(result.elapsed_ms/1000,2)} s`:'Idle'}</strong></div>
           </div>
         </section>
       </div>
       {result?.metrics&&<section className="mc-results">
-        <div className="mc-result-heading"><div><span className="mc-kicker">02 / ANALYSIS</span><h2>Route results</h2></div><div className="mc-result-actions"><button className="mc-secondary" onClick={download}><DownloadSimple size={18} aria-hidden/>Export GeoJSON</button><button className="mc-secondary" onClick={()=>{downloadReport(result);setNotice('Report saved.')}}><FileText size={18} aria-hidden/>Report / PDF</button><button className="mc-secondary" onClick={sharePlan}><ShareNetwork size={18} aria-hidden/>Share / QR</button></div></div>
+        <div className="mc-result-heading"><h2>Route results</h2><div className="mc-result-actions"><button className="mc-secondary" onClick={download}><DownloadSimple size={18} aria-hidden/>Export GeoJSON</button><button className="mc-secondary" onClick={()=>{downloadReport(result);setNotice('Report saved.')}}><FileText size={18} aria-hidden/>Report / PDF</button><button className="mc-secondary" onClick={sharePlan}><ShareNetwork size={18} aria-hidden/>Share / QR</button></div></div>
         <div className="mc-flight-controls"><button className="mc-secondary" disabled={result.route?.geometry.type!=='LineString'} aria-pressed={playing} onClick={()=>{setView('globe');if((flight??0)>=1)setFlight(0);setPlaying(!playing)}}>{playing?<Pause size={17} aria-hidden/>:<Play size={17} aria-hidden/>}{playing?'Pause':'Route flyover'}</button><button className="mc-text" onClick={()=>{setPlaying(false);setFlight(null);setFocus(start)}}>Reset view</button><span>{Math.round((flight??0)*100)}%</span></div>
         {!!result.profile?.length&&<Profile result={result} index={flightIndex} onIndex={i=>{setPlaying(false);setView('globe');const p=result.profile![i];const total=result.profile![result.profile!.length-1].distance_m;setFlight(total?p.distance_m/total:0)}}/>}
         <div className="mc-route-notes"><span>{format(metrics!.cells)} cells · {result.data_quality?.product||result.dataset}</span><span>Endpoint offsets: {metrics!.snap_offsets_m.map(km).join(' / ')}</span></div>
-        {!!result.legs?.length&&<div className="mc-leg-list">{result.legs.map(l=><div key={l.index}><span>LEG {l.index+1}</span><strong>{km(l.distance_m)}</strong><small>Ascent {format(l.ascent_m)} m</small></div>)}</div>}
+        {!!result.legs?.length&&<div className="mc-leg-list">{result.legs.map(l=><div key={l.index}><span>Leg {l.index+1}</span><strong>{km(l.distance_m)}</strong><small>Ascent {format(l.ascent_m)} m</small></div>)}</div>}
         {!!result.geological_units?.length&&<details className="mc-route-geology"><summary>Route geology · {result.geological_units.length} units</summary>{result.geological_units.map(u=><p key={u.unit}><i style={{background:u.color}}/><b>{u.unit}</b> — {u.description}</p>)}<a href="https://doi.org/10.3133/sim3292" target="_blank" rel="noreferrer">USGS SIM 3292 ↗</a></details>}
         {share&&<section className="mc-share" aria-label="Share route"><div><h3>Share route</h3><input aria-label="Route link" readOnly value={share}/><button className="mc-secondary" onClick={()=>{navigator.clipboard?.writeText(share).then(()=>setCopied(true)).catch(()=>setNotice('Clipboard unavailable.'))}}>{copied?'Copied':'Copy link'}</button></div><img src={assetUrl(`/api/share/qr?url=${encodeURIComponent(share)}`)} alt="Route QR code"/></section>}
         {alternative?.metrics&&<div className="mc-comparison"><h3>Strategy comparison</h3><div>{[[result,'Current strategy'],[alternative,'Alternative strategy']].map(([r,title],i)=>{const route=r as GlobalRoute;return <button key={i} onClick={()=>{if(i===1){setPlaying(false);setFlight(null);setResult(alternative);setAlternative(result);setShare('');const selectedWeight=alternative.route?.properties?.slope_weight;if([0,5,20].includes(selectedWeight))setWeight(selectedWeight)}}} aria-pressed={i===0}><span>{String(title)}</span><strong>{km(route.metrics!.distance_m)}</strong><small>Ascent {format(route.metrics!.ascent_m)} m · slope {format(route.metrics!.max_grade_deg,2)}°</small><b>{i===0?'Selected':'Show route →'}</b></button>})}</div></div>}

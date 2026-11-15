@@ -1,5 +1,9 @@
 # Mars Explorer — Orbit / Field Station
 
+> Historical direction. The current cartographic workstation overrides below
+> live in [pages/workspace.md](pages/workspace.md), including the neutral dark
+> planner, compact type and removal of editorial decoration and terrain views.
+
 ## Direction
 
 An editorial scientific workstation, not a sci-fi game or generic SaaS page.

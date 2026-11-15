@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react'
-import { ArrowRight, Crosshair, DownloadSimple, GlobeHemisphereWest, Path, Stack, SidebarSimple } from '@phosphor-icons/react'
+import { ArrowRight, Crosshair, DownloadSimple, GlobeHemisphereWest, Stack, SidebarSimple } from '@phosphor-icons/react'
 import { api, loadBundle } from './api'
 import { MarsMap, geologyColors } from './components/MarsMap'
 import { ElevationChart } from './components/ElevationChart'
@@ -99,19 +99,19 @@ export default function App(){
   </Suspense>
   return <div className="app">
     <header className="app-header">
-      <a href="/" className="brand" aria-label="Mars Explorer home"><GlobeHemisphereWest size={34} weight="duotone" aria-hidden/><span>MARS<span className="brand-light">EXPLORER</span><small>MISSION CONTROL</small></span></a>
+      <a href="/" className="brand" aria-label="Mars Explorer home"><GlobeHemisphereWest size={23} aria-hidden/><span>Mars Explorer</span></a>
       <nav aria-label="Workspace"><button className="text-button" onClick={()=>setViewMode('planet')}>Planet</button><a href="#planner" aria-current="page">Jezero map</a></nav>
-      <span className="mission-tag"><span className="live-dot"/> JEZERO / MARS</span>
+      <span className="mission-tag">Jezero / Mars</span>
     </header>
     <main>
-      <div className="intro flex items-end justify-between gap-4"><div><p className="eyebrow">LOCAL ATLAS / NASA / USGS</p><h1>Jezero <em>Atlas.</em></h1></div><div className="coverage-note"><span>ROUTING AREA</span><strong>{bundle?.layers.terrain.regional?.available?'≈ 30 × 30 km':'5 × 5 km'}</strong><small>CTX 20 m · HiRISE 1 m</small></div></div>
+      <div className="intro"><h1>Jezero atlas</h1><span>NASA / USGS</span></div>
       {bootError?<section className="panel boot-error" role="alert"><h2>Data unavailable</h2><p>{bootError}</p><button className="primary" onClick={()=>{setBootError('');setReload(x=>x+1)}}>Retry</button></section>
         :!bundle?<section className="panel loading" role="status">Loading Jezero layers…</section>
         :<>
-          <div className="workspace-topline"><span>JEZERO MAP</span><button className="workspace-toggle" onClick={()=>setPlannerOpen(x=>!x)} aria-expanded={plannerOpen} aria-controls="planner-panel"><SidebarSimple size={17} aria-hidden/>{plannerOpen?'Expand map':'Show planner'}</button></div>
+          <div className="workspace-topline"><span>CTX / HiRISE</span><button className="workspace-toggle" onClick={()=>setPlannerOpen(x=>!x)} aria-expanded={plannerOpen} aria-controls="planner-panel"><SidebarSimple size={17} aria-hidden/>{plannerOpen?'Expand map':'Show planner'}</button></div>
           <div className={`workspace ${plannerOpen?'':'workspace-map-only'}`} id="planner">
             <aside className="planner panel" id="planner-panel" hidden={!plannerOpen}>
-              <div className="section-heading"><span className="step">01</span><h2>Route planner</h2><Path size={22} aria-hidden/></div>
+              <div className="section-heading"><h2>Route planner</h2></div>
               <label className="field-label" htmlFor="dataset">Routing data</label>
               <select id="dataset" value={dataset} onChange={e=>{invalidate();setDataset(e.target.value as Dataset);setA(empty());setB(empty());setSample(null);setTarget('start')}}>
                 <option value="regional" disabled={!bundle.layers.terrain.regional?.available}>CTX regional / 20 m</option>
@@ -147,7 +147,7 @@ export default function App(){
             </section>
           </div>
           {route&&metrics&&<section className="results panel" aria-labelledby="results-heading">
-            <div className="section-heading"><span className="step">02</span><h2 id="results-heading">Route results</h2><Path size={22} aria-hidden/><button className="text-button export-button" onClick={download}><DownloadSimple size={17} aria-hidden/>Export GeoJSON</button></div>
+            <div className="section-heading"><h2 id="results-heading">Route results</h2><button className="text-button export-button" onClick={download}><DownloadSimple size={17} aria-hidden/>Export GeoJSON</button></div>
             <div className="stats-grid" data-testid="route-summary">{[['Distance',`${number(metrics.distance_m)} m`],['Ascent / descent',`+${number(metrics.ascent_m)} / −${number(metrics.descent_m)} m`],['Elevation',`${number(metrics.min_elevation_m)} … ${number(metrics.max_elevation_m)} m`],['Maximum slope',`${number(metrics.max_slope_deg)}°`]].map(([label,value])=><div key={label}><span>{label}</span><strong>{value}</strong></div>)}</div>
             <div className="profile-heading"><h3>Elevation profile</h3></div><ElevationChart result={route}/>
           </section>}

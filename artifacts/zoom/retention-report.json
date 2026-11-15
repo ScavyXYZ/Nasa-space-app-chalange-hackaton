@@ -8,10 +8,10 @@
     1.0,
     1.0,
     1.0,
-    0.9989049846013459,
+    1.0,
     1.0
   ],
   "return_coverage": 1.0,
-  "requests": 431,
+  "requests": 376,
   "page_errors": []
 }

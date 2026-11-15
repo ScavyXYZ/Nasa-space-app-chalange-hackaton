@@ -1,20 +1,20 @@
-/* Orbit / Field Station. Primitive → semantic → component tokens. */
+/* Cartographic workstation. Primitive → semantic → component tokens. */
 :root {
-  --orbit-coal-950: #101312;
-  --orbit-coal-900: #181c1a;
-  --orbit-coal-850: #202522;
-  --orbit-coal-800: #2a302c;
-  --orbit-coal-600: #626b64;
-  --orbit-coal-400: #a7afa8;
+  --orbit-coal-950: #17191b;
+  --orbit-coal-900: #202326;
+  --orbit-coal-850: #2b2f33;
+  --orbit-coal-800: #3c4146;
+  --orbit-coal-600: #737b82;
+  --orbit-coal-400: #b1b7bc;
   --orbit-coal-200: #d3d9d2;
   --orbit-paper-50: #fbfaf6;
   --orbit-paper-100: #f0eee6;
   --orbit-paper-200: #deddd3;
   --orbit-paper-600: #62665c;
-  --orbit-rust-400: #f6a37b;
-  --orbit-rust-500: #ed9069;
+  --orbit-rust-400: #e2b18d;
+  --orbit-rust-500: #d09a72;
   --orbit-rust-700: #a64024;
-  --orbit-mint-300: #a9e5c5;
+  --orbit-mint-300: #add1bd;
   --orbit-mint-800: #254d3a;
   --orbit-red-300: #ffb6a4;
   --orbit-amber-300: #f6cf8b;
@@ -26,10 +26,10 @@
   --orbit-space-6: 24px;
   --orbit-space-8: 32px;
   --orbit-space-12: 48px;
-  --orbit-radius-sm: 6px;
-  --orbit-radius-md: 10px;
-  --orbit-radius-lg: 16px;
-  --orbit-font-sans: "Segoe UI", Inter, system-ui, sans-serif;
+  --orbit-radius-sm: 3px;
+  --orbit-radius-md: 3px;
+  --orbit-radius-lg: 0px;
+  --orbit-font-sans: "Segoe UI", system-ui, sans-serif;
   --orbit-font-mono: "Cascadia Code", "SFMono-Regular", Consolas, monospace;
   --orbit-duration: 160ms;
 }
@@ -40,25 +40,26 @@
   --mc-raised: var(--orbit-coal-850);
   --mc-line: var(--orbit-coal-800);
   --mc-muted: var(--orbit-coal-400);
-  --mc-ink: var(--orbit-paper-100);
+  --mc-ink: #edf0f2;
   --mc-copper: var(--orbit-rust-400);
   --mc-mint: var(--orbit-mint-300);
   --mc-danger: var(--orbit-red-300);
   --mc-warning: var(--orbit-amber-300);
-  --mc-paper: var(--orbit-paper-100);
-  --mc-paper-ink: var(--orbit-coal-900);
-  --mc-paper-muted: var(--orbit-paper-600);
-  --mc-paper-line: var(--orbit-paper-200);
-  --mc-focus: var(--orbit-mint-300);
+  /* Legacy planner aliases share the same neutral dark surfaces. */
+  --mc-paper: var(--mc-panel);
+  --mc-paper-ink: var(--mc-ink);
+  --mc-paper-muted: var(--mc-muted);
+  --mc-paper-line: var(--mc-line);
+  --mc-focus: var(--orbit-rust-400);
   --mc-button-bg: var(--orbit-rust-500);
   --mc-button-hover: var(--orbit-rust-400);
   --mc-button-ink: var(--orbit-coal-950);
-  --mc-input-bg: var(--orbit-paper-50);
+  --mc-input-bg: var(--mc-bg);
   --mc-input-border: var(--orbit-coal-600);
   --mc-card-radius: var(--orbit-radius-lg);
   --mc-control-radius: var(--orbit-radius-sm);
   --mc-overlay-bg: color-mix(in srgb, var(--mc-bg) 93%, transparent);
-  --mc-shadow: 0 12px 40px color-mix(in srgb, var(--mc-bg) 30%, transparent);
+  --mc-shadow: none;
   --mc-font: var(--orbit-font-sans);
   --mc-mono: var(--orbit-font-mono);
 }

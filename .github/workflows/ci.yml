@@ -37,6 +37,7 @@ jobs:
               raise SystemExit("Backend did not become ready")
           PY
           python tests/smoke_english_workspace.py --url http://127.0.0.1:8001
+          python tests/smoke_workstation_design.py --url http://127.0.0.1:8001
           python tests/smoke_photo_globe_browser.py --url http://127.0.0.1:8001
           python tests/smoke_point_viewport.py --url http://127.0.0.1:8001
           python tests/smoke_route_viewport.py --url http://127.0.0.1:8001
